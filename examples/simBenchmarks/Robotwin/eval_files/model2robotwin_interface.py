@@ -1,5 +1,5 @@
 from collections import deque
-from typing import Dict, Optional
+from typing import Optional, Sequence
 
 import cv2 as cv
 import numpy as np
@@ -21,7 +21,7 @@ class ModelClient:
         horizon: int = 0,
         action_ensemble=False,
         action_ensemble_horizon: Optional[int] = 3,
-        image_size: list[int] = [224, 224],
+        image_size: Sequence[int] = (224, 224),
         use_ddim: bool = True,
         num_ddim_steps: int = 10,
         adaptive_ensemble_alpha=0.1,
@@ -68,6 +68,9 @@ class ModelClient:
 
         server_meta = self.client.get_server_metadata()
         self.action_chunk_size = server_meta["action_chunk_size"]
+        self.action_layout = server_meta.get("action_layout", "legacy_starvla")
+        self.framework_preprocesses_images = bool(server_meta.get("framework_preprocesses_images", False))
+        self.state_required = bool(server_meta.get("state_required", False))
         print(
             f"*** policy_setup: {policy_setup}, unnorm_key: {unnorm_key}, "
             f"action_mode: {action_mode}, normalization_mode: {normalization_mode}, "
@@ -112,10 +115,12 @@ class ModelClient:
                 if self.action_mode in ["delta", "rel"] and state is not None:
                     self.initial_state = np.array(state).copy()
 
-        images = [self._resize_image(image) for image in images]
+        if not self.framework_preprocesses_images:
+            images = [self._resize_image(image) for image in images]
         example["image"] = images
         example_copy = example.copy()
-        example_copy.pop("state")
+        if not self.state_required:
+            example_copy.pop("state", None)
         vla_input = {
             "examples": [example_copy],
             "do_sample": False,
@@ -159,7 +164,8 @@ class ModelClient:
         if self.action_mode == "delta":
             self.prev_action = current_action.copy()
 
-        current_action = current_action[[0, 1, 2, 3, 4, 5, 12, 6, 7, 8, 9, 10, 11, 13]]
+        if self.action_layout != "native_qpos":
+            current_action = current_action[[0, 1, 2, 3, 4, 5, 12, 6, 7, 8, 9, 10, 11, 13]]
         return current_action
 
     def _delta_to_absolute(self, delta_actions: np.ndarray, current_state: np.ndarray) -> np.ndarray:
@@ -208,7 +214,7 @@ def reset_model(model):
     model.reset(task_description="")
 
 
-def eval(TASK_ENV, model, observation):
+def eval(TASK_ENV, model, observation):  # noqa: A001
     # Get instruction
     instruction = TASK_ENV.get_instruction()
 

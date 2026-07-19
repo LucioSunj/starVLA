@@ -45,6 +45,8 @@ class ModelClient:
         meta = self.client.get_server_metadata()
         self.action_chunk_size = int(meta["action_chunk_size"])
         self._server_metadata = meta
+        self._framework_preprocesses_images = bool(meta.get("framework_preprocesses_images", False))
+        self._state_required = bool(meta.get("state_required", False))
 
         self.image_size: tuple = tuple(image_size)
         self.policy_setup = policy_setup
@@ -72,9 +74,7 @@ class ModelClient:
         self.task_description = None
         self.image_history = deque(maxlen=self.horizon)
         if self.action_ensemble:
-            self.action_ensembler = AdaptiveEnsembler(
-                self.action_ensemble_horizon, self.adaptive_ensemble_alpha
-            )
+            self.action_ensembler = AdaptiveEnsembler(self.action_ensemble_horizon, self.adaptive_ensemble_alpha)
         else:
             self.action_ensembler = None
         self.num_image_history = 0
@@ -113,19 +113,18 @@ class ModelClient:
             self.reset(task_description)
 
         # Resize images to self.image_size if needed.
-        if self.image_size and example.get("image"):
+        if not self._framework_preprocesses_images and self.image_size and example.get("image"):
             resized = []
             target_hw = self.image_size  # (H, W)
             for img in example["image"]:
                 arr = np.asarray(img)
                 if arr.shape[:2] != target_hw:
-                    arr = np.asarray(
-                        Image.fromarray(arr).resize(
-                            (target_hw[1], target_hw[0]), Image.BILINEAR
-                        )
-                    )
+                    arr = np.asarray(Image.fromarray(arr).resize((target_hw[1], target_hw[0]), Image.BILINEAR))
                 resized.append(arr)
             example = {**example, "image": resized}
+
+        if not self._state_required and "state" in example:
+            example = {key: value for key, value in example.items() if key != "state"}
 
         # Refresh chunk if needed.
         if step % self.action_chunk_size == 0 or self.raw_actions is None:
@@ -153,7 +152,7 @@ class ModelClient:
                 raise KeyError(
                     f"Key 'actions' not found in response data: keys={list(response.get('data', {}).keys())}, "
                     f"full response={response}"
-                )
+                ) from None
             self.raw_actions = np.asarray(actions_batch)[0]  # (T, D)
 
         raw_actions = self.raw_actions[step % self.action_chunk_size][None]

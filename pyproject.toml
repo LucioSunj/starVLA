@@ -37,6 +37,13 @@ dev = [
     "pre-commit",
     "ruff>=0.2.2",
 ]
+wam = [
+    "starwam[train] @ git+https://github.com/LucioSunj/StarWAM.git@a7b05c8da8f8c88bf4888aa737b938af3b67ab48",
+    "diffusers",
+    "pyarrow>=14.0.0",
+    "safetensors",
+    "transformers>=4.57.0",
+]
 sagemaker = [
     "boto3",
     "sagemaker"

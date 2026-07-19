@@ -3,18 +3,21 @@
 # Implemented by [Jinhui YE / HKUST University] in [2025].
 
 """
-StarVLA’s trainer is built directly on native PyTorch + Accelerate + DeepSpeed, keeping the loop explicit and easy to hack.
+StarVLA's trainer uses native PyTorch, Accelerate, and DeepSpeed while keeping
+the loop explicit and easy to modify.
 Conventions:
 1. Store runtime state in dicts where possible (simplifies data info, procesing info, config, etc).
 2. Use multiple dataloaders to adapt heterogeneous data types / task mixtures.
-3. Put each training strategy in its own `trainer_*.py` file (avoid large if‑else chains).
+3. Put each training strategy in its own `trainer_*.py` file (avoid large if-else chains).
 """
 
 # Standard Library
 import argparse
 import json
+import logging
 import os
 import time
+from math import ceil
 from pathlib import Path
 from typing import Tuple
 
@@ -26,14 +29,13 @@ import torch.distributed as dist
 # NPU support: import torch_npu and enable automatic CUDA→NPU mapping.
 # On GPU-only environments this is a no-op (ImportError is silently ignored).
 try:
-    import torch_npu
-    from torch_npu.contrib import transfer_to_npu
+    import torch_npu  # noqa: F401
+    from torch_npu.contrib import transfer_to_npu  # noqa: F401
 except ImportError:
     pass
 
 import wandb
 from accelerate import Accelerator, DeepSpeedPlugin
-from accelerate.logging import get_logger
 from accelerate.utils import set_seed
 from omegaconf import OmegaConf
 from torch.utils.data import DataLoader
@@ -42,20 +44,48 @@ from transformers import AutoProcessor, get_scheduler
 
 # Local Modules
 from starVLA.dataloader import build_dataloader
+from starVLA.dataloader.starwam_datasets import prepare_starwam_data_artifacts
 from starVLA.model.framework.base_framework import build_framework
 from starVLA.model.framework.share_tools import apply_config_compat
+from starVLA.model.framework.WAM.config import is_starwam_config, prepare_starwam_host_config
+from starVLA.training.loss_utils import resolve_model_loss
 from starVLA.training.trainer_utils.config_tracker import AccessTrackedConfig, wrap_config
-from starVLA.training.trainer_utils.trainer_tools import TrainerUtils, build_param_lr_groups, setup_optimizer_and_scheduler, normalize_dotlist_args
-
-deepspeed_plugin = DeepSpeedPlugin()
-accelerator = Accelerator(deepspeed_plugin=deepspeed_plugin)
-accelerator.print(accelerator.state)
+from starVLA.training.trainer_utils.trainer_tools import (
+    TrainerUtils,
+    build_param_lr_groups,
+    normalize_dotlist_args,
+)
 
 # Sane Defaults
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # Initialize logger
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
+
+
+def create_accelerator(cfg) -> Accelerator:
+    """Create Accelerate after config resolution so accumulation/precision are honored."""
+    mixed_precision = str(cfg.trainer.get("mixed_precision", "no")).lower()
+    gradient_accumulation_steps = int(cfg.trainer.get("gradient_accumulation_steps", 1))
+    is_starwam = is_starwam_config(cfg)
+    plugin_kwargs = {}
+    if is_starwam:
+        plugin_kwargs = {
+            "zero_stage": 2,
+            "gradient_accumulation_steps": gradient_accumulation_steps,
+            "gradient_clipping": cfg.trainer.get("gradient_clipping", None),
+        }
+    accelerator = Accelerator(
+        deepspeed_plugin=DeepSpeedPlugin(**plugin_kwargs),
+        gradient_accumulation_steps=gradient_accumulation_steps,
+        mixed_precision=mixed_precision,
+        # WAM schedules are expressed in global optimizer steps. We gate
+        # scheduler.step() ourselves, so Accelerate must not multiply it by
+        # world size when wrapping the scheduler.
+        step_scheduler_with_optimizer=not is_starwam,
+    )
+    accelerator.print(accelerator.state)
+    return accelerator
 
 
 def load_fast_tokenizer():
@@ -74,10 +104,14 @@ def setup_directories(cfg) -> Path:
     return output_dir
 
 
-def prepare_data(cfg, accelerator, output_dir) -> DataLoader:
+def prepare_data(cfg, accelerator, output_dir, model=None) -> DataLoader:
     """Prepare VLA training data."""
     logger.info(f"Creating VLA Dataset with Mixture `{cfg.datasets.vla_data.data_mix}`")
-    vla_train_dataloader = build_dataloader(cfg=cfg, dataset_py=cfg.datasets.vla_data.dataset_py)
+    vla_train_dataloader = build_dataloader(
+        cfg=cfg,
+        dataset_py=cfg.datasets.vla_data.dataset_py,
+        model=model,
+    )
 
     accelerator.dataloader_config.dispatch_batches = False
     if dist.is_initialized():
@@ -87,31 +121,106 @@ def prepare_data(cfg, accelerator, output_dir) -> DataLoader:
 
 def setup_optimizer_and_scheduler(model, cfg) -> Tuple[torch.optim.Optimizer, torch.optim.lr_scheduler._LRScheduler]:
     """Set optimizer and scheduler."""
-    param_groups = build_param_lr_groups(model=model, cfg=cfg)
+    if is_starwam_config(cfg):
+        optimizer_name = str(cfg.trainer.optimizer.get("name", "AdamW")).lower()
+        if optimizer_name not in {"adamw", "torch_adamw"}:
+            raise NotImplementedError(f"StarWAM integration currently supports AdamW only, got {optimizer_name!r}.")
+        trainable = [parameter for parameter in model.parameters() if parameter.requires_grad]
+        if not trainable:
+            raise RuntimeError("StarWAM freeze strategy produced zero trainable parameters.")
+        param_groups = [
+            {
+                "params": trainable,
+                "lr": cfg.trainer.learning_rate.base,
+                "name": "starwam_trainable",
+            }
+        ]
+    else:
+        param_groups = build_param_lr_groups(model=model, cfg=cfg)
     optimizer = torch.optim.AdamW(
         param_groups,
         lr=cfg.trainer.learning_rate.base,
         betas=tuple(cfg.trainer.optimizer.betas),
         weight_decay=cfg.trainer.optimizer.weight_decay,
         eps=cfg.trainer.optimizer.eps,
-        fused=True,
+        fused=bool(cfg.trainer.optimizer.get("fused", True)),
     )
 
     if dist.is_initialized() and dist.get_rank() == 0:
         for group in optimizer.param_groups:
             logger.info(f"LR Group {group['name']}: lr={group['lr']}, num_params={len(group['params'])}")
 
-    # Strip keys unknown to transformers' get_scheduler before passing kwargs.
-    sched_kwargs = {k: v for k, v in cfg.trainer.scheduler_specific_kwargs.items()}
-    lr_scheduler = get_scheduler(
-        name=cfg.trainer.lr_scheduler_type,
-        optimizer=optimizer,
-        num_warmup_steps=cfg.trainer.num_warmup_steps,
-        num_training_steps=cfg.trainer.max_train_steps,
-        scheduler_specific_kwargs=sched_kwargs,
-    )
+    if is_starwam_config(cfg):
+        lr_scheduler = _build_starwam_scheduler(optimizer, cfg)
+    else:
+        sched_kwargs = {key: value for key, value in cfg.trainer.scheduler_specific_kwargs.items()}
+        lr_scheduler = get_scheduler(
+            name=cfg.trainer.lr_scheduler_type,
+            optimizer=optimizer,
+            num_warmup_steps=cfg.trainer.num_warmup_steps,
+            num_training_steps=cfg.trainer.max_train_steps,
+            scheduler_specific_kwargs=sched_kwargs,
+        )
 
     return optimizer, lr_scheduler
+
+
+def _build_starwam_scheduler(optimizer, cfg):
+    """Mirror StarWAM's warmup + cosine scheduler exactly."""
+    max_steps = max(int(cfg.trainer.max_train_steps), 1)
+    warmup_steps = max(int(cfg.trainer.num_warmup_steps), 0)
+    scheduler_type = str(cfg.trainer.lr_scheduler_type).strip().lower()
+    if scheduler_type in {"cosine", "cosine_with_min_lr"}:
+        warmup_steps = min(warmup_steps, max_steps - 1)
+        cfg.trainer.num_warmup_steps = warmup_steps
+        min_lr = float(cfg.trainer.scheduler_specific_kwargs.get("min_lr", 0.0))
+        cosine = torch.optim.lr_scheduler.CosineAnnealingLR(
+            optimizer,
+            T_max=max(max_steps - warmup_steps, 1),
+            eta_min=min_lr,
+        )
+        if warmup_steps == 0:
+            return cosine
+        warmup = torch.optim.lr_scheduler.LinearLR(
+            optimizer,
+            start_factor=1.0 / warmup_steps,
+            end_factor=1.0,
+            total_iters=warmup_steps,
+        )
+        return torch.optim.lr_scheduler.SequentialLR(
+            optimizer,
+            schedulers=[warmup, cosine],
+            milestones=[warmup_steps],
+        )
+    if scheduler_type == "constant":
+        return torch.optim.lr_scheduler.ConstantLR(optimizer, factor=1.0)
+    return get_scheduler(
+        name=scheduler_type,
+        optimizer=optimizer,
+        num_warmup_steps=warmup_steps,
+        num_training_steps=max_steps,
+        scheduler_specific_kwargs={key: value for key, value in cfg.trainer.scheduler_specific_kwargs.items()},
+    )
+
+
+def resolve_training_schedule(cfg, dataloader: DataLoader, accelerator: Accelerator) -> None:
+    """Materialize epoch-based StarWAM schedules before optimizer creation."""
+    if not is_starwam_config(cfg):
+        return
+    if cfg.trainer.max_train_steps is None:
+        dataset_size = len(dataloader.dataset)
+        per_device_batch = int(cfg.datasets.vla_data.per_device_batch_size)
+        world_size = max(int(accelerator.num_processes), 1)
+        grad_accum = max(int(accelerator.gradient_accumulation_steps), 1)
+        micro_steps_per_epoch = max(ceil(dataset_size / (per_device_batch * world_size)), 1)
+        cfg.trainer.max_train_steps = max(
+            ceil(micro_steps_per_epoch / grad_accum) * int(cfg.trainer.num_epochs),
+            1,
+        )
+    if cfg.trainer.num_warmup_steps is None:
+        cfg.trainer.num_warmup_steps = int(
+            int(cfg.trainer.max_train_steps) * float(cfg.trainer.get("warmup_ratio", 0.0))
+        )
 
 
 class VLATrainer(TrainerUtils):
@@ -147,12 +256,26 @@ class VLATrainer(TrainerUtils):
         self.model = self.freeze_backbones(self.model, freeze_modules=freeze_modules)
         self.print_trainable_parameters(self.model)
 
-        self.model, self.optimizer, self.vla_train_dataloader = self.setup_distributed_training(
-            self.accelerator,
-            self.model,
-            self.optimizer,
-            self.vla_train_dataloader,
-        )
+        if is_starwam_config(self.config):
+            (
+                self.model,
+                self.optimizer,
+                self.vla_train_dataloader,
+                self.lr_scheduler,
+            ) = self.setup_distributed_training(
+                self.accelerator,
+                self.model,
+                self.optimizer,
+                self.vla_train_dataloader,
+                self.lr_scheduler,
+            )
+        else:
+            self.model, self.optimizer, self.vla_train_dataloader = self.setup_distributed_training(
+                self.accelerator,
+                self.model,
+                self.optimizer,
+                self.vla_train_dataloader,
+            )
 
         self._init_wandb()
 
@@ -167,11 +290,12 @@ class VLATrainer(TrainerUtils):
     def _init_wandb(self):
         """Initialize Weights & Biases (best-effort; must not block training)."""
         self._wandb_enabled = False
-        if os.environ.get("WANDB_MODE") == "disabled" or os.environ.get("WANDB_DISABLED", "").lower() in {
+        wandb_disabled = os.environ.get("WANDB_MODE") == "disabled" or os.environ.get("WANDB_DISABLED", "").lower() in {
             "1",
             "true",
             "yes",
-        }:
+        }
+        if not bool(self.config.trainer.get("wandb_enabled", True)) or wandb_disabled:
             self.accelerator.wait_for_everyone()
             return
         if self.accelerator.is_main_process:
@@ -208,8 +332,12 @@ class VLATrainer(TrainerUtils):
         OmegaConf.save(full_cfg, full_yaml_path, resolve=True)
         logger.info(f"📝 Full config saved at {full_yaml_path}")
 
-        # 2. Save config.yaml — accessed-only snapshot (will be updated at checkpoints)
-        if isinstance(self.config, AccessTrackedConfig):
+        # WAM checkpoints need the entire embedded recipe to be self-contained.
+        if is_starwam_config(self.config):
+            OmegaConf.save(full_cfg, output_dir / "config.yaml", resolve=True)
+            logger.info(f"📝 Self-contained config saved at {output_dir / 'config.yaml'}")
+        # Other frameworks preserve the compact accessed-only snapshot.
+        elif isinstance(self.config, AccessTrackedConfig):
             self.config.save_accessed_config(output_dir / "config.yaml", use_original_values=False)
             logger.info(f"📊 Accessed config snapshot saved at {output_dir / 'config.yaml'}")
 
@@ -262,11 +390,11 @@ class VLATrainer(TrainerUtils):
 
     def _save_checkpoint(self):
         """Save current training state."""
+        state_dict = self.accelerator.get_state_dict(self.model)
         if self.accelerator.is_main_process:
             save_format = getattr(self.config.trainer, "save_format", "pt")
             checkpoint_path = os.path.join(self.checkpoint_dir, f"steps_{self.completed_steps}")
 
-            state_dict = self.accelerator.get_state_dict(self.model)
             if save_format == "safetensors":
                 from safetensors.torch import save_file
 
@@ -281,7 +409,7 @@ class VLATrainer(TrainerUtils):
                 f.write(json.dumps(summary_data) + "\n")
             self.accelerator.print(f"✅ Checkpoint saved at {checkpoint_path}")
 
-            if isinstance(self.config, AccessTrackedConfig):
+            if isinstance(self.config, AccessTrackedConfig) and not is_starwam_config(self.config):
                 logger.info("📊 Saving accessed configuration...")
                 output_dir = Path(self.config.output_dir)
                 self.config.save_accessed_config(output_dir / "config.yaml", use_original_values=False)
@@ -355,14 +483,26 @@ class VLATrainer(TrainerUtils):
                     }
                 )
 
-            if self.completed_steps % self.config.trainer.eval_interval == 0:
-                step_metrics = self.eval_action_model(step_metrics)
+            optimizer_stepped = step_metrics.pop("_optimizer_step")
+            if (
+                optimizer_stepped
+                and self.config.trainer.eval_interval > 0
+                and self.completed_steps % self.config.trainer.eval_interval == 0
+            ):
+                eval_batch = batch_vla if is_starwam_config(self.config) else None
+                step_metrics = self.eval_action_model(step_metrics, examples=eval_batch)
 
             step_metrics["timing/data"] = t_end_data - t_start_data
             step_metrics["timing/model"] = t_end_model - t_start_model
-            self._log_metrics(step_metrics)
+            if optimizer_stepped:
+                self._log_metrics(step_metrics)
 
-            if self.completed_steps % self.config.trainer.save_interval == 0 and self.completed_steps > 0:
+            if (
+                optimizer_stepped
+                and self.config.trainer.save_interval > 0
+                and self.completed_steps % self.config.trainer.save_interval == 0
+                and self.completed_steps > 0
+            ):
                 self._save_checkpoint()
 
             if self.completed_steps >= self.config.trainer.max_train_steps:
@@ -370,13 +510,27 @@ class VLATrainer(TrainerUtils):
 
         self._finalize_training()
 
-    def eval_action_model(self, step_metrics: dict = None) -> float:
+    def eval_action_model(self, step_metrics: dict | None = None, examples=None) -> dict:
         """Run simple action-eval on current batch and attach score to metrics."""
-        examples = self._get_next_batch()
-        actions = [example["action"] for example in examples]
-        output_dict = self.accelerator.unwrap_model(self.model).predict_action(
-            examples=examples, use_ddim=True, num_ddim_steps=20
+        if examples is None:
+            examples = self._get_next_batch()
+        unwrapped = self.accelerator.unwrap_model(self.model)
+        framework_metrics = unwrapped.evaluate_batch(
+            examples,
+            num_inference_steps=int(self.config.trainer.get("eval_num_inference_steps", 4)),
+            action_num_inference_steps=int(self.config.trainer.get("eval_action_num_inference_steps", 4)),
+            compute_video=bool(self.config.trainer.get("eval_compute_video_psnr", False)),
+            max_samples=int(self.config.trainer.get("eval_max_samples", 4)),
+            seed=int(getattr(self.config, "seed", 42)),
         )
+        if framework_metrics is not None:
+            if self.accelerator.is_main_process:
+                step_metrics.update(framework_metrics)
+            del examples
+            return step_metrics
+
+        actions = [example["action"] for example in examples]
+        output_dict = unwrapped.predict_action(examples=examples, use_ddim=True, num_ddim_steps=20)
 
         if self.accelerator.is_main_process:
             normalized_actions = output_dict["normalized_actions"]
@@ -398,20 +552,31 @@ class VLATrainer(TrainerUtils):
             logger.info(f"  Per device batch size = {self.config.datasets.vla_data.per_device_batch_size}")
             logger.info(f"  Gradient accumulation steps = {self.accelerator.gradient_accumulation_steps}")
             logger.info(f"  Total batch size = {self.total_batch_size}")
+            if is_starwam_config(self.config):
+                trainer = self.config.trainer
+                self.accelerator.print(
+                    "StarWAM effective values: "
+                    f"batch={self.config.datasets.vla_data.per_device_batch_size} "
+                    f"accumulation={self.accelerator.gradient_accumulation_steps} "
+                    f"lr={trainer.learning_rate.base} "
+                    f"weight_decay={trainer.optimizer.weight_decay} "
+                    f"epochs={trainer.num_epochs} max_steps={trainer.max_train_steps} "
+                    f"warmup={trainer.num_warmup_steps} precision={trainer.mixed_precision} "
+                    f"save_interval={trainer.save_interval} scheduler={trainer.lr_scheduler_type} "
+                    f"min_lr={trainer.scheduler_specific_kwargs.get('min_lr', None)} "
+                    f"fused_adamw={trainer.optimizer.fused}"
+                )
 
     def _train_step(self, batch_vla, batch_vlm=None):
         """Execute single training step."""
         with self.accelerator.accumulate(self.model):
-            self.optimizer.zero_grad()
-
-            with torch.autocast("cuda", dtype=torch.bfloat16):
-                output_dict = self.model.forward(batch_vla)
-                action_loss = output_dict["action_loss"]
-                total_loss = action_loss
+            with self.accelerator.autocast():
+                output_dict = self.model(batch_vla)
+                total_loss, loss_metrics = resolve_model_loss(output_dict)
 
             self.accelerator.backward(total_loss)
 
-            if self.config.trainer.gradient_clipping is not None:
+            if self.accelerator.sync_gradients and self.config.trainer.gradient_clipping is not None:
                 self.accelerator.clip_grad_norm_(self.model.parameters(), self.config.trainer.gradient_clipping)
 
             self.optimizer.step()
@@ -422,18 +587,23 @@ class VLATrainer(TrainerUtils):
             # at min_lr well before max_train_steps is reached.
             if self.accelerator.sync_gradients:
                 self.lr_scheduler.step()
+            # AcceleratedOptimizer only clears on a real optimizer boundary.
+            # Keeping this after step preserves earlier micro-batch gradients.
+            self.optimizer.zero_grad(set_to_none=True)
 
-        return {
-            "action_dit_loss": action_loss.item(),
-        }
+        metrics = {f"loss/{key}": value for key, value in loss_metrics.items()}
+        if "action_loss" in loss_metrics:
+            metrics["action_dit_loss"] = loss_metrics["action_loss"]
+        metrics["_optimizer_step"] = bool(self.accelerator.sync_gradients)
+        return metrics
 
     def _finalize_training(self):
         """Training end processing."""
+        state_dict = self.accelerator.get_state_dict(self.model)
         if self.accelerator.is_main_process:
             save_format = getattr(self.config.trainer, "save_format", "pt")
             final_checkpoint = os.path.join(self.config.output_dir, "final_model")
             os.makedirs(final_checkpoint, exist_ok=True)
-            state_dict = self.accelerator.get_state_dict(self.model)
             if save_format == "safetensors":
                 from safetensors.torch import save_file
 
@@ -456,12 +626,27 @@ class VLATrainer(TrainerUtils):
 def main(cfg) -> None:
     logger.info("VLA Training :: Warming Up")
 
+    cfg = prepare_starwam_host_config(cfg, config_path=cfg.get("config_yaml", None))
+    accelerator = create_accelerator(cfg)
     cfg = wrap_config(cfg)
     logger.info("✅ Configuration wrapped for access tracking")
 
     output_dir = setup_directories(cfg=cfg)
-    vla = build_framework(cfg)
-    vla_train_dataloader = prepare_data(cfg=cfg, accelerator=accelerator, output_dir=output_dir)
+    if is_starwam_config(cfg):
+        prepare_starwam_data_artifacts(cfg)
+        mixed_precision = str(cfg.trainer.get("mixed_precision", "bf16")).lower()
+        dtype = {"bf16": torch.bfloat16, "fp16": torch.float16}.get(mixed_precision, torch.float32)
+        vla = build_framework(cfg, device=accelerator.device, dtype=dtype)
+    else:
+        vla = build_framework(cfg)
+    vla.configure_training(cfg)
+    vla_train_dataloader = prepare_data(
+        cfg=cfg,
+        accelerator=accelerator,
+        output_dir=output_dir,
+        model=vla,
+    )
+    resolve_training_schedule(cfg, vla_train_dataloader, accelerator)
     optimizer, lr_scheduler = setup_optimizer_and_scheduler(model=vla, cfg=cfg)
 
     trainer = VLATrainer(

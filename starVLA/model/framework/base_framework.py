@@ -16,7 +16,7 @@ import torch
 from transformers import PretrainedConfig, PreTrainedModel
 
 from starVLA.model.framework.share_tools import dict_to_namespace, read_mode_config
-from starVLA.model.tools import FRAMEWORK_REGISTRY, FrameworkTools, auto_get_trainable_modules
+from starVLA.model.tools import FRAMEWORK_REGISTRY
 from starVLA.training.trainer_utils import initialize_overwatch
 
 logger = initialize_overwatch(__name__)
@@ -48,7 +48,7 @@ def _auto_import_framework_modules() -> None:
     _FRAMEWORKS_IMPORTED = True
 
 
-def build_framework(cfg): # The single entry point for building different model frameworks
+def build_framework(cfg, **kwargs): # The single entry point for building different model frameworks
     """
     Build a framework model from config.
     Args:
@@ -69,7 +69,7 @@ def build_framework(cfg): # The single entry point for building different model 
         )
 
     model_class = FRAMEWORK_REGISTRY[framework_id]
-    return model_class(cfg)
+    return model_class(cfg, **kwargs)
 
 
 # PreTrainedModel, AutoModel, PretrainedConfig,  are so good, find sometime to study them
@@ -85,11 +85,13 @@ class baseframework(PreTrainedModel):
       - Use provided helpers for action normalization handling
     """
 
-    def __init__(self, hf_config=PretrainedConfig()) -> None:
+    def __init__(self, hf_config=None) -> None:
         """
         Initialize base nn.Module. Subclasses add components.
         """
 
+        if hf_config is None:
+            hf_config = PretrainedConfig()
         super().__init__(hf_config)
 
     # ------------------------------------------------------------------
@@ -109,11 +111,13 @@ class baseframework(PreTrainedModel):
                 - action: np.ndarray shaped [T, action_dim]
 
         Returns:
-            dict: Must contain ``"action_loss"`` (torch.Tensor scalar).
-                  May contain extra keys for logging (e.g. ``"kl_loss"``).
+            dict: Must contain either ``"action_loss"`` (legacy single-objective
+                  frameworks) or ``"total_loss"`` (multi-objective frameworks).
+                  The latter may include a ``"loss_metrics"`` mapping for
+                  detached primary/auxiliary loss logging.
         """
         raise NotImplementedError(
-            f"{type(self).__name__} must implement forward(examples) -> dict with 'action_loss' key."
+            f"{type(self).__name__} must return a dict with Tensor 'action_loss' or 'total_loss'."
         )
 
     def predict_action(self, examples: List[dict], **kwargs) -> dict:
@@ -130,6 +134,24 @@ class baseframework(PreTrainedModel):
             f"{type(self).__name__} must implement predict_action(examples) -> dict with 'normalized_actions' key."
         )
 
+    def configure_training(self, cfg) -> None:
+        """Optional pre-optimizer hook for framework-specific freezing."""
+
+    def evaluate_batch(self, batch, **kwargs) -> Dict[str, float] | None:
+        """Optional framework-specific evaluation for non-standard batches."""
+        return None
+
+    def uses_framework_action_unnormalization(self) -> bool:
+        """Whether deployment should delegate action un-normalization here."""
+        return False
+
+    def unnormalize_actions(self, actions: np.ndarray, **kwargs) -> np.ndarray:
+        raise NotImplementedError
+
+    def get_policy_metadata(self) -> Dict[str, Any]:
+        """Additional deployment metadata exposed during policy handshake."""
+        return {}
+
     # ------------------------------------------------------------------
     # Unified loss interface for Trainer
     # ------------------------------------------------------------------
@@ -142,7 +164,7 @@ class baseframework(PreTrainedModel):
             return hasattr(self, "qwen_vl_interface") or type(self).forward_vlm is not baseframework.forward_vlm
         return False
 
-    def compute_loss(self, tag: str, batch, loss_scale: dict = None) -> Dict[str, torch.Tensor] | None:
+    def compute_loss(self, tag: str, batch, loss_scale: dict | None = None) -> Dict[str, torch.Tensor] | None:
         """Unified forward entry-point: route to the right forward by *tag*.
 
         The trainer calls ``model.compute_loss(tag, batch)`` for every
@@ -207,7 +229,7 @@ class baseframework(PreTrainedModel):
         cls,
         pretrained_checkpoint: str,
         **kwargs,
-    ) -> None:
+    ) -> "baseframework":
         """
         Restore a model instance from a saved checkpoint.
 
@@ -223,7 +245,8 @@ class baseframework(PreTrainedModel):
             **kwargs: Extra constructor overrides passed to subclass.
 
         Returns:
-            baseframework: Instantiated model (left on CPU; caller decides device).
+            baseframework: Instantiated model. Constructor kwargs may select its
+                initial device and dtype for frameworks that support direct loading.
 
         Raises:
             RuntimeError: If state_dict key mismatch occurs under strict=True.
@@ -235,8 +258,8 @@ class baseframework(PreTrainedModel):
         config = dict_to_namespace(model_config)
         model_config = config
         model_config.trainer.pretrained_checkpoint = None
-        
-        FrameworkModel = build_framework(cfg=model_config)
+
+        FrameworkModel = build_framework(cfg=model_config, **kwargs)
         # set for action un-norm
         FrameworkModel.norm_stats = norm_stats
         # Load from Checkpoint (Custom --> should load both *projector* and *llm* weights)
@@ -245,7 +268,12 @@ class baseframework(PreTrainedModel):
 
             model_state_dict = load_file(str(pretrained_checkpoint))
         else:
-            model_state_dict = torch.load(pretrained_checkpoint, map_location="cpu")
+            model_state_dict = torch.load(pretrained_checkpoint, map_location="cpu", weights_only=False)
+        if isinstance(model_state_dict, dict):
+            for key in ("model_state_dict", "module", "state_dict"):
+                if isinstance(model_state_dict.get(key), dict):
+                    model_state_dict = model_state_dict[key]
+                    break
         # logger.info(f"Loading model weights from `{pretrained_checkpoint}`")
         model_keys = set(FrameworkModel.state_dict().keys())
         checkpoint_keys = set(model_state_dict.keys())
@@ -266,4 +294,3 @@ class baseframework(PreTrainedModel):
         # **ensure model is on GPU**
         FrameworkModel = FrameworkModel
         return FrameworkModel
-

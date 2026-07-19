@@ -139,7 +139,11 @@ class WebsocketClientPolicy:
         if not isinstance(examples, list) or not examples:
             return
 
-        expected_hw = _expected_image_hw(self._server_metadata)
+        expected_hw = (
+            None
+            if self._server_metadata.get("framework_preprocesses_images", False)
+            else _expected_image_hw(self._server_metadata)
+        )
         image_counts: List[int] = []
         image_shapes: List[List[Optional[Tuple[int, int]]]] = []
 

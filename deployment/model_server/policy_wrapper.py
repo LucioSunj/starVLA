@@ -22,7 +22,7 @@ Exposed API:
 from __future__ import annotations
 
 import logging
-from typing import Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 import numpy as np
 import torch
@@ -30,7 +30,8 @@ import torch
 from starVLA.model.framework.base_framework import baseframework
 from starVLA.model.framework.share_tools import read_mode_config
 
-from deployment.model_server.policy_norm_processor import PolicyNormProcessor
+if TYPE_CHECKING:
+    from deployment.model_server.policy_norm_processor import PolicyNormProcessor
 
 
 def _training_obs_image_size(model_cfg: Dict[str, Any]) -> Optional[List[int]]:
@@ -62,40 +63,57 @@ class PolicyServerWrapper:
     ) -> None:
         self._ckpt_path = str(ckpt_path)
 
-        logging.info("PolicyServerWrapper: loading framework from %s", self._ckpt_path)
-        framework = baseframework.from_pretrained(self._ckpt_path)
-        if use_bf16:
-            framework = framework.to(torch.bfloat16)
-        framework = framework.to(device).eval()
-        self._framework = framework
-
-        # Co-located metadata.
-        model_cfg, _ = read_mode_config(self._ckpt_path)
+        model_cfg, _ns = read_mode_config(self._ckpt_path)
         self._model_cfg = model_cfg
+        logging.info("PolicyServerWrapper: loading framework from %s", self._ckpt_path)
+        if model_cfg.get("framework", {}).get("name") == "StarWAM":
+            dtype = torch.bfloat16 if use_bf16 else None
+            framework = baseframework.from_pretrained(self._ckpt_path, device=device, dtype=dtype)
+        else:
+            framework = baseframework.from_pretrained(self._ckpt_path)
+            if use_bf16:
+                framework = framework.to(torch.bfloat16)
+            framework = framework.to(device)
+        framework = framework.eval()
+        self._framework = framework
+        self._framework_metadata = framework.get_policy_metadata()
+        self._framework_unnormalizes = framework.uses_framework_action_unnormalization()
 
         # action_chunk_size = future_action_window_size + 1 (matches old client).
-        action_model_cfg = model_cfg["framework"]["action_model"]
-        
-        if "action_horizon" in action_model_cfg:
-            self._action_chunk_size = int(action_model_cfg["action_horizon"])
-        elif "future_action_window_size" in action_model_cfg:
-            self._action_chunk_size = int(action_model_cfg["future_action_window_size"]) + 1
+        if "action_chunk_size" in self._framework_metadata:
+            self._action_chunk_size = int(self._framework_metadata["action_chunk_size"])
         else:
-            raise ValueError(
-                f"PolicyServerWrapper: no action_horizon or future_action_window_size found in model config for {self._ckpt_path}"
-            )
+            action_model_cfg = model_cfg["framework"]["action_model"]
+            if "action_horizon" in action_model_cfg:
+                self._action_chunk_size = int(action_model_cfg["action_horizon"])
+            elif "future_action_window_size" in action_model_cfg:
+                self._action_chunk_size = int(action_model_cfg["future_action_window_size"]) + 1
+            else:
+                raise ValueError(
+                    "PolicyServerWrapper: no action horizon found in framework metadata "
+                    f"or model config for {self._ckpt_path}"
+                )
         # Cache of PolicyNormProcessor instances per unnorm_key.
         # For single-dataset ckpts unnorm_key is auto-selected; for multi-dataset
         # ckpts clients must pass unnorm_key per request.
         self._default_unnorm_key = unnorm_key
-        self._norm_processors: Dict[str, PolicyNormProcessor] = {}
+        self._norm_processors: Dict[str, "PolicyNormProcessor"] = {}
 
         # Peek at available keys without building a full processor.
-        _, _ns = read_mode_config(self._ckpt_path)
-        self._available_unnorm_keys: List[str] = list(_ns.keys())
+        self._available_unnorm_keys: List[str] = list(
+            self._framework_metadata.get("available_unnorm_keys", _ns.keys())
+        )
+        if self._default_unnorm_key is None:
+            self._default_unnorm_key = self._framework_metadata.get("default_unnorm_key")
 
         # Eagerly build when unambiguous; defer for multi-key / no explicit key.
-        if unnorm_key is not None or len(self._available_unnorm_keys) == 1:
+        if self._framework_unnormalizes:
+            logging.info(
+                "PolicyServerWrapper ready with framework normalization: action_chunk_size=%d, key=%s",
+                self._action_chunk_size,
+                self._default_unnorm_key,
+            )
+        elif unnorm_key is not None or len(self._available_unnorm_keys) == 1:
             default_proc = self._get_processor(unnorm_key)
             self._default_unnorm_key = default_proc.unnorm_key
             logging.info(
@@ -115,7 +133,9 @@ class PolicyServerWrapper:
                 self._available_unnorm_keys,
             )
 
-    def _get_processor(self, unnorm_key: Optional[str]) -> PolicyNormProcessor:
+    def _get_processor(self, unnorm_key: Optional[str]) -> "PolicyNormProcessor":
+        from deployment.model_server.policy_norm_processor import PolicyNormProcessor
+
         cache_key = unnorm_key if unnorm_key is not None else "__default__"
         if cache_key not in self._norm_processors:
             self._norm_processors[cache_key] = PolicyNormProcessor(
@@ -139,8 +159,9 @@ class PolicyServerWrapper:
                 "The server does not infer or reorder camera views from training config."
             ),
         }
+        base.update(self._framework_metadata)
         # Enrich with per-embodiment keys when a default processor already exists.
-        if self._default_unnorm_key is not None:
+        if self._default_unnorm_key is not None and not self._framework_unnormalizes:
             proc = self._get_processor(self._default_unnorm_key)
             base["action_keys"] = proc.action_keys
             base["state_keys"] = proc.state_keys
@@ -173,13 +194,17 @@ class PolicyServerWrapper:
                     f"predict_action: unnorm_key not specified and no default set. "
                     f"Pass one of {self._available_unnorm_keys}."
                 )
-        proc = self._get_processor(effective_key)
-
         out = self._framework.predict_action(examples=examples, **kwargs)
         normalized = np.asarray(out["normalized_actions"])  # (B, T, D)
 
-        unnorm = np.stack(
-            [proc.unapply_actions(normalized[b]) for b in range(normalized.shape[0])],
-            axis=0,
-        )
+        if self._framework_unnormalizes:
+            if effective_key not in self._available_unnorm_keys:
+                raise KeyError(f"unnorm_key={effective_key!r} not in {self._available_unnorm_keys}")
+            unnorm = self._framework.unnormalize_actions(normalized, unnorm_key=effective_key)
+        else:
+            proc = self._get_processor(effective_key)
+            unnorm = np.stack(
+                [proc.unapply_actions(normalized[b]) for b in range(normalized.shape[0])],
+                axis=0,
+            )
         return {"actions": unnorm}
