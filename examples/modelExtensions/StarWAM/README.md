@@ -23,7 +23,7 @@ For this workspace, use the sibling checkout while developing:
 
 ```bash
 pip install -e '.[wam]'
-pip install --no-deps -e '../../WorldActionModels/StarWAM[train]'
+pip install --no-deps -e '../StarWAM[train]'
 ```
 
 Install the backbone-specific packages documented by StarWAM as well. In
@@ -107,7 +107,7 @@ environment and the full StarVLA training dependencies (including DeepSpeed)
 installed:
 
 ```bash
-PYTHONPATH=.:../../WorldActionModels/StarWAM pytest -q \
+PYTHONPATH=.:../StarWAM pytest -q \
   tests/test_starwam_integration.py \
   tests/test_single_process_dist_safety.py \
   tests/test_robocasa_tabletop_interface.py

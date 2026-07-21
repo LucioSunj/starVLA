@@ -6,7 +6,7 @@ is_debug: false
 framework:
   name: StarWAM
   starwam:
-    recipe: ../../../../../../WorldActionModels/StarWAM/examples/libero/configs/recipes/starwam_libero_mot_wan22_5b.yaml
+    recipe: ../../../../../StarWAM/examples/libero/configs/recipes/starwam_libero_mot_wan22_5b.yaml
     overrides: []
     init_checkpoint: null
     strict_init: false

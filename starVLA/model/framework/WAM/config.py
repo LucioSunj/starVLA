@@ -22,7 +22,7 @@ def require_starwam() -> None:
         raise RuntimeError(
             "framework.name='StarWAM' requires the optional StarWAM dependency. "
             "Install it with `pip install -e '.[wam]'` or, for this workspace, "
-            "`pip install -e '../../WorldActionModels/StarWAM[train]'`."
+            "`pip install --no-deps -e '../StarWAM[train]'`."
         )
 
 

@@ -33,7 +33,7 @@ from starVLA.model.framework.WAM.runtime import (
 from starVLA.training.loss_utils import resolve_model_loss
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-STARWAM_ROOT = REPO_ROOT.parents[1] / "WorldActionModels" / "StarWAM"
+STARWAM_ROOT = REPO_ROOT.parent / "StarWAM"
 _FRAMEWORK_DEPS_AVAILABLE = importlib.util.find_spec("transformers") is not None
 _TRAINER_DEPS_AVAILABLE = all(
     importlib.util.find_spec(name) is not None for name in ("accelerate", "transformers", "torchvision", "wandb")
