@@ -7,8 +7,8 @@ its action stream into a regular StarVLA action head.
 
 Pinned source revisions:
 
-- StarVLA integration base: `a060fd9` (the current `starVLA_dev` when this
-  branch was created; the earlier planning baseline was `e10acef`).
+- StarVLA integration base: `a060fd9`; the feature branch is synchronized with
+  `starVLA_dev` through `c00b8e1`.
 - StarWAM: `a7b05c8da8f8c88bf4888aa737b938af3b67ab48`.
 
 ## Installation
@@ -120,3 +120,7 @@ parity uses the same checkpoint, input, and seed and requires action chunks at
 `atol=1e-4, rtol=1e-3`. Full 50-trial rollouts are release validation rather
 than a code-review gate; record the recipe snapshot, commit revisions, GPU
 model/count, CUDA stack, and per-task results.
+
+Enable `trainer.gradient_probe_enabled=true` during GPU smoke runs. The first
+optimizer boundary writes `gradient_probe.json` before clipping, grouped by
+StarWAM functional module with finite/nonzero ratios and gradient norms.

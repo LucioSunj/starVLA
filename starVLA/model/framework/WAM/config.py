@@ -272,6 +272,9 @@ def prepare_starwam_host_config(
     )
     _setdefault(cfg, "trainer.eval_max_samples", training.eval_max_samples)
     _setdefault(cfg, "trainer.eval_compute_video_psnr", training.eval_compute_video_psnr)
+    _setdefault(cfg, "trainer.gradient_probe_enabled", False)
+    _setdefault(cfg, "trainer.gradient_probe_step", 1)
+    _setdefault(cfg, "trainer.gradient_probe_chunk_size", 1_048_576)
 
     OmegaConf.update(
         cfg,

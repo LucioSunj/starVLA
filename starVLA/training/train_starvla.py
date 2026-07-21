@@ -48,6 +48,7 @@ from starVLA.dataloader.starwam_datasets import prepare_starwam_data_artifacts
 from starVLA.model.framework.base_framework import build_framework
 from starVLA.model.framework.share_tools import apply_config_compat
 from starVLA.model.framework.WAM.config import is_starwam_config, prepare_starwam_host_config
+from starVLA.training.gradient_probe import write_gradient_probe
 from starVLA.training.loss_utils import resolve_model_loss
 from starVLA.training.trainer_utils.config_tracker import AccessTrackedConfig, wrap_config
 from starVLA.training.trainer_utils.trainer_tools import (
@@ -223,6 +224,18 @@ def resolve_training_schedule(cfg, dataloader: DataLoader, accelerator: Accelera
         )
 
 
+def _infinite_dataloader(dataloader):
+    """Repeat complete dataloader epochs without bypassing shard finalization.
+
+    ``yield from`` lets Accelerate's ``DataLoaderShard`` finish its end-of-epoch
+    synchronization before a fresh iterator is created. Catching
+    ``StopIteration`` outside the shard can skip that synchronization and hang
+    a distributed StarWAM job at the epoch boundary.
+    """
+    while True:
+        yield from dataloader
+
+
 class VLATrainer(TrainerUtils):
     def __init__(self, cfg, model, vla_train_dataloader, optimizer, lr_scheduler, accelerator):
         self.config = cfg
@@ -234,6 +247,7 @@ class VLATrainer(TrainerUtils):
 
         self.completed_steps = 0
         self.total_batch_size = self._calculate_total_batch_size()
+        self._gradient_probe_written = False
 
     def prepare_training(self):
         rank = dist.get_rank() if dist.is_initialized() else 0
@@ -436,7 +450,10 @@ class VLATrainer(TrainerUtils):
 
     def _create_data_iterators(self):
         """Create data iterators."""
-        self.vla_iter = iter(self.vla_train_dataloader)
+        if is_starwam_config(self.config):
+            self.vla_iter = _infinite_dataloader(self.vla_train_dataloader)
+        else:
+            self.vla_iter = iter(self.vla_train_dataloader)
 
     def _get_next_batch(self):
         """Get next batch (automatically handle data loop)."""
@@ -470,8 +487,9 @@ class VLATrainer(TrainerUtils):
             t_start_model = time.perf_counter()
             step_metrics = self._train_step(batch_vla)
             t_end_model = time.perf_counter()
+            optimizer_stepped = step_metrics.pop("_optimizer_step")
 
-            if self.accelerator.sync_gradients:
+            if optimizer_stepped:
                 progress_bar.update(1)
                 self.completed_steps += 1
 
@@ -483,7 +501,6 @@ class VLATrainer(TrainerUtils):
                     }
                 )
 
-            optimizer_stepped = step_metrics.pop("_optimizer_step")
             if (
                 optimizer_stepped
                 and self.config.trainer.eval_interval > 0
@@ -567,8 +584,35 @@ class VLATrainer(TrainerUtils):
                     f"fused_adamw={trainer.optimizer.fused}"
                 )
 
+    def _maybe_write_starwam_gradient_probe(self) -> None:
+        if self._gradient_probe_written or not is_starwam_config(self.config):
+            return
+        trainer_cfg = self.config.trainer
+        if not bool(trainer_cfg.get("gradient_probe_enabled", False)):
+            return
+        target_step = int(trainer_cfg.get("gradient_probe_step", 1))
+        if target_step <= 0:
+            raise ValueError("trainer.gradient_probe_step must be positive")
+        if self.completed_steps + 1 != target_step:
+            return
+
+        self._gradient_probe_written = True
+        if not self.accelerator.is_main_process:
+            return
+        unwrapped = self.accelerator.unwrap_model(self.model)
+        output_path = Path(self.config.output_dir) / "gradient_probe.json"
+        write_gradient_probe(
+            unwrapped,
+            output_path,
+            model_family=str(getattr(unwrapped, "model_family", "unknown")),
+            optimizer_step=target_step,
+            chunk_size=int(trainer_cfg.get("gradient_probe_chunk_size", 1_048_576)),
+        )
+        logger.info("StarWAM gradient probe saved at %s", output_path)
+
     def _train_step(self, batch_vla, batch_vlm=None):
         """Execute single training step."""
+        optimizer_stepped = False
         with self.accelerator.accumulate(self.model):
             with self.accelerator.autocast():
                 output_dict = self.model(batch_vla)
@@ -576,25 +620,23 @@ class VLATrainer(TrainerUtils):
 
             self.accelerator.backward(total_loss)
 
-            if self.accelerator.sync_gradients and self.config.trainer.gradient_clipping is not None:
-                self.accelerator.clip_grad_norm_(self.model.parameters(), self.config.trainer.gradient_clipping)
+            optimizer_stepped = bool(self.accelerator.sync_gradients)
+            if optimizer_stepped:
+                self._maybe_write_starwam_gradient_probe()
+                if self.config.trainer.gradient_clipping is not None:
+                    self.accelerator.clip_grad_norm_(self.model.parameters(), self.config.trainer.gradient_clipping)
 
-            self.optimizer.step()
-            # Only step the LR scheduler when gradients are actually synced
-            # (i.e., not mid-accumulation). Without this guard the scheduler
-            # runs gradient_accumulation_steps times faster than intended,
-            # causing warmup to end too early and cosine decay to bottom out
-            # at min_lr well before max_train_steps is reached.
-            if self.accelerator.sync_gradients:
+                # Step, schedule, and clear gradients only at a real optimizer
+                # boundary. This is explicit rather than relying on an
+                # AcceleratedOptimizer to silently no-op on micro-batches.
+                self.optimizer.step()
                 self.lr_scheduler.step()
-            # AcceleratedOptimizer only clears on a real optimizer boundary.
-            # Keeping this after step preserves earlier micro-batch gradients.
-            self.optimizer.zero_grad(set_to_none=True)
+                self.optimizer.zero_grad(set_to_none=True)
 
         metrics = {f"loss/{key}": value for key, value in loss_metrics.items()}
         if "action_loss" in loss_metrics:
             metrics["action_dit_loss"] = loss_metrics["action_loss"]
-        metrics["_optimizer_step"] = bool(self.accelerator.sync_gradients)
+        metrics["_optimizer_step"] = optimizer_stepped
         return metrics
 
     def _finalize_training(self):

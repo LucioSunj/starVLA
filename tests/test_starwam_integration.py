@@ -199,6 +199,9 @@ def test_recipe_projection_precedence_and_self_contained_snapshot(tmp_path: Path
     assert cfg.framework.starwam.resolved.training.output_dir == str(tmp_path / "runs" / "host-run")
     assert cfg.framework.starwam.source_revision == STARWAM_REVISION
     assert cfg.framework.starwam.resolved_recipe == str(recipe)
+    assert cfg.trainer.gradient_probe_enabled is False
+    assert cfg.trainer.gradient_probe_step == 1
+    assert cfg.trainer.gradient_probe_chunk_size == 1_048_576
 
     snapshot = tmp_path / "config.yaml"
     OmegaConf.save(cfg, snapshot, resolve=True)
@@ -376,6 +379,54 @@ def test_action_and_state_normalization_roundtrip(mode: str) -> None:
 def test_normalization_clipping() -> None:
     stats = {"mean": torch.tensor([0.0]), "std": torch.tensor([1.0])}
     assert normalize_vector(torch.tensor([[100.0]]), "zscore", stats).item() == 5.0
+
+
+def test_gradient_probe_reports_functional_trainable_and_frozen_groups(tmp_path: Path) -> None:
+    import json
+
+    from starVLA.training.gradient_probe import collect_gradient_probe, write_gradient_probe
+
+    class TinyBackbone(torch.nn.Module):
+        def __init__(self) -> None:
+            super().__init__()
+            self.dit = torch.nn.Linear(2, 2, bias=False)
+            self.vae = torch.nn.Linear(2, 2, bias=False)
+            self.vae.requires_grad_(False)
+
+    class TinyWAM(torch.nn.Module):
+        def __init__(self) -> None:
+            super().__init__()
+            self.backbone = TinyBackbone()
+            self.action_expert = torch.nn.Linear(2, 2, bias=False)
+
+    class TinyWrapper(torch.nn.Module):
+        def __init__(self) -> None:
+            super().__init__()
+            self.wam = TinyWAM()
+
+    model = TinyWrapper()
+    with torch.no_grad():
+        model.wam.backbone.dit.weight.fill_(1.0)
+        model.wam.action_expert.weight.fill_(2.0)
+    loss = model.wam.backbone.dit.weight.square().sum() + model.wam.action_expert.weight.square().sum()
+    loss.backward()
+
+    groups = collect_gradient_probe(model, chunk_size=2)
+    assert groups["backbone.dit"]["finite_gradient_ratio"] == 1.0
+    assert groups["backbone.dit"]["nonzero_gradient_ratio"] == 1.0
+    assert groups["action_expert"]["gradient_l2_norm"] > 0
+    assert groups["backbone.vae"]["trainable_parameter_elements"] == 0
+    assert groups["backbone.vae"]["gradient_elements"] == 0
+
+    output = tmp_path / "gradient_probe.json"
+    payload = write_gradient_probe(
+        model,
+        output,
+        model_family="mot_wam",
+        optimizer_step=1,
+        chunk_size=2,
+    )
+    assert json.loads(output.read_text(encoding="utf-8")) == payload
 
 
 def test_checkpoint_prefix_adaptation(tmp_path: Path) -> None:
@@ -645,6 +696,92 @@ def test_legacy_action_only_framework_completes_one_training_step() -> None:
     assert metrics["loss/total_loss"] == pytest.approx(1.0)
     assert metrics["_optimizer_step"] is True
     assert model.weight.grad is None
+
+
+@pytest.mark.skipif(not _TRAINER_DEPS_AVAILABLE, reason="full StarVLA trainer dependencies are not installed")
+def test_optimizer_lifecycle_waits_for_accumulation_boundary() -> None:
+    from starVLA.training.train_starvla import VLATrainer
+
+    class LegacyActionFramework(torch.nn.Module):
+        def __init__(self) -> None:
+            super().__init__()
+            self.weight = torch.nn.Parameter(torch.tensor(1.0))
+
+        def forward(self, target):
+            return {"action_loss": (self.weight - target).square()}
+
+    class ToggleAccelerator:
+        num_processes = 1
+        gradient_accumulation_steps = 2
+
+        def __init__(self) -> None:
+            self.sync_gradients = False
+            self.clip_calls = 0
+
+        @staticmethod
+        def accumulate(model):
+            return nullcontext()
+
+        @staticmethod
+        def autocast():
+            return nullcontext()
+
+        @staticmethod
+        def backward(loss):
+            loss.backward()
+
+        def clip_grad_norm_(self, parameters, max_norm):
+            self.clip_calls += 1
+            return torch.nn.utils.clip_grad_norm_(parameters, max_norm)
+
+    model = LegacyActionFramework()
+    optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+    scheduler = torch.optim.lr_scheduler.ConstantLR(optimizer, factor=1.0)
+    scheduler_step = mock.patch.object(scheduler, "step", wraps=scheduler.step)
+    cfg = OmegaConf.create(
+        {
+            "framework": {"name": "Legacy"},
+            "datasets": {"vla_data": {"per_device_batch_size": 1}},
+            "trainer": {"gradient_clipping": 1.0},
+        }
+    )
+    accelerator = ToggleAccelerator()
+    trainer = VLATrainer(cfg, model, [torch.tensor(0.0)], optimizer, scheduler, accelerator)
+
+    with scheduler_step as step:
+        before = model.weight.detach().clone()
+        micro_metrics = trainer._train_step(torch.tensor(0.0))
+        assert torch.equal(model.weight.detach(), before)
+        assert model.weight.grad is not None
+        assert step.call_count == 0
+        assert accelerator.clip_calls == 0
+        assert micro_metrics["_optimizer_step"] is False
+
+        accelerator.sync_gradients = True
+        boundary_metrics = trainer._train_step(torch.tensor(0.0))
+        assert model.weight.item() < before.item()
+        assert model.weight.grad is None
+        assert step.call_count == 1
+        assert accelerator.clip_calls == 1
+        assert boundary_metrics["_optimizer_step"] is True
+
+
+@pytest.mark.skipif(not _TRAINER_DEPS_AVAILABLE, reason="full StarVLA trainer dependencies are not installed")
+def test_starwam_dataloader_completes_epochs_without_legacy_reset() -> None:
+    from starVLA.training import train_starvla
+
+    trainer = object.__new__(train_starvla.VLATrainer)
+    trainer.config = OmegaConf.create({"framework": {"name": "StarWAM"}})
+    trainer.vla_train_dataloader = [1, 2]
+    trainer._create_data_iterators()
+
+    with mock.patch.object(
+        train_starvla.TrainerUtils,
+        "_reset_dataloader",
+        side_effect=AssertionError("StarWAM must not bypass DataLoaderShard epoch finalization"),
+    ) as reset:
+        assert [trainer._get_next_batch() for _ in range(5)] == [1, 2, 1, 2, 1]
+    reset.assert_not_called()
 
 
 @pytest.mark.skipif(not _TRAINER_DEPS_AVAILABLE, reason="full StarVLA trainer dependencies are not installed")

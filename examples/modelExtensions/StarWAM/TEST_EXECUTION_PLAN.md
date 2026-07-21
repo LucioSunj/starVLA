@@ -92,7 +92,7 @@ export STARWAM_ROOT=/absolute/path/to/StarWAM
 cd "${STARVLA_ROOT}"
 
 test "$(git branch --show-current)" = "codex/starwam-integration"
-git merge-base --is-ancestor a060fd97ddb7e4163d4e4fb17271e4bde74ea3c7 HEAD
+git merge-base --is-ancestor c00b8e18c1b5ba6228fd68a8f38acca8df4e938a HEAD
 test "$(git -C "${STARWAM_ROOT}" rev-parse HEAD)" = \
   a7b05c8da8f8c88bf4888aa737b938af3b67ab48
 test -z "$(git -C "${STARWAM_ROOT}" status --porcelain)"
@@ -353,6 +353,8 @@ accelerate launch \
   --trainer.eval_action_num_inference_steps 2 \
   --trainer.eval_compute_video_psnr false \
   --trainer.logging_frequency 1 \
+  --trainer.gradient_probe_enabled true \
+  --trainer.gradient_probe_step 1 \
   --trainer.wandb_enabled false \
   2>&1 | tee "${TEST_RUN_ROOT}/logs/${CASE_ID}_train.log"
 ```
@@ -385,6 +387,7 @@ accumulation 以维持 recipe 的 global batch，并把原值、最终值和原�
 <run>/config.full.yaml
 <run>/config.yaml
 <run>/dataset_statistics.json
+<run>/gradient_probe.json
 <run>/summary.jsonl
 <run>/checkpoints/steps_1_pytorch_model.pt
 <run>/checkpoints/steps_2_pytorch_model.pt
@@ -410,8 +413,9 @@ accumulation 以维持 recipe 的 global batch，并把原值、最终值和原�
 探针应按参数名前缀聚合，避免保存完整 gradient。某一参数恰好为零不构成失败，但每个“必须
 有梯度”的功能组都至少要有一个参数得到有限非零梯度。冻结组出现 gradient 直接失败。
 
-如果当前 runner 没有自动输出该证据，应在测试 harness 中加入临时 hook；不能用“loss 在变”
-替代梯度组验证。
+上述 smoke 命令通过 `trainer.gradient_probe_enabled=true` 在第一个 optimizer boundary、梯度裁剪
+之前自动写出 `gradient_probe.json`。探针按功能模块聚合参数量、梯度元素量、L2 norm、有限元素
+比例和非零元素比例，并分块扫描大张量以限制额外显存；不能用“loss 在变”替代梯度组验证。
 
 ### C5. 可选 video PSNR
 
