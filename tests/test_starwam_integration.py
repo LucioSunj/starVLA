@@ -767,6 +767,113 @@ def test_optimizer_lifecycle_waits_for_accumulation_boundary() -> None:
 
 
 @pytest.mark.skipif(not _TRAINER_DEPS_AVAILABLE, reason="full StarVLA trainer dependencies are not installed")
+def test_zero2_engine_updates_and_probes_only_at_accumulation_boundary(tmp_path: Path) -> None:
+    from starVLA.training import train_starvla
+
+    class FakeDeepSpeedEngine(torch.nn.Module):
+        model_family = "mot_wam"
+
+        def __init__(self) -> None:
+            super().__init__()
+            self.weight = torch.nn.Parameter(torch.tensor(1.0))
+            self.micro_steps = 0
+            self.events: list[str] = []
+
+        def forward(self, target):
+            return {"action_loss": (self.weight - target).square()}
+
+        def backward(self, loss):
+            self.events.append("backward")
+            (loss / 2).backward()
+
+        def is_gradient_accumulation_boundary(self) -> bool:
+            return (self.micro_steps + 1) % 2 == 0
+
+        def step(self) -> None:
+            self.events.append("engine_step")
+            if self.is_gradient_accumulation_boundary():
+                self.events.append("clip")
+                torch.nn.utils.clip_grad_norm_(self.parameters(), 1.0)
+                self.events.append("optimizer_step")
+                with torch.no_grad():
+                    self.weight.add_(self.weight.grad, alpha=-0.1)
+                self.events.append("zero_grad")
+                self.weight.grad = None
+            self.micro_steps += 1
+
+    class FakeAccelerator:
+        num_processes = 2
+        gradient_accumulation_steps = 2
+        is_main_process = True
+
+        @staticmethod
+        def autocast():
+            return nullcontext()
+
+        @staticmethod
+        def accumulate(model):
+            raise AssertionError("ZeRO-2 must not enter Accelerate accumulate/no_sync")
+
+        @staticmethod
+        def backward(loss):
+            raise AssertionError("ZeRO-2 must use engine.backward to preserve the pre-clip probe")
+
+        @staticmethod
+        def clip_grad_norm_(parameters, max_norm):
+            raise AssertionError("DeepSpeed must own clipping at the optimizer boundary")
+
+        @staticmethod
+        def unwrap_model(model):
+            return model
+
+    model = FakeDeepSpeedEngine()
+    optimizer = mock.Mock()
+    scheduler = mock.Mock()
+    cfg = OmegaConf.create(
+        {
+            "framework": {"name": "StarWAM"},
+            "datasets": {"vla_data": {"per_device_batch_size": 1}},
+            "output_dir": str(tmp_path),
+            "trainer": {
+                "gradient_clipping": 1.0,
+                "gradient_probe_enabled": True,
+                "gradient_probe_step": 1,
+                "gradient_probe_chunk_size": 2,
+            },
+        }
+    )
+    trainer = train_starvla.VLATrainer(cfg, model, [torch.tensor(0.0)], optimizer, scheduler, FakeAccelerator())
+
+    def record_probe(*args, **kwargs):
+        model.events.append("gradient_probe")
+        return {}
+
+    with mock.patch.object(train_starvla, "write_gradient_probe", side_effect=record_probe) as probe:
+        before = model.weight.detach().clone()
+        micro_metrics = trainer._train_step(torch.tensor(0.0))
+        assert torch.equal(model.weight.detach(), before)
+        assert model.weight.grad is not None
+        assert micro_metrics["_optimizer_step"] is False
+        assert "optimizer_step" not in model.events
+        assert "clip" not in model.events
+        assert "zero_grad" not in model.events
+        scheduler.step.assert_not_called()
+
+        boundary_metrics = trainer._train_step(torch.tensor(0.0))
+
+    assert boundary_metrics["_optimizer_step"] is True
+    assert model.weight.item() < before.item()
+    assert model.weight.grad is None
+    assert model.events.index("gradient_probe") < model.events.index("clip")
+    assert model.events.index("gradient_probe") < model.events.index("optimizer_step")
+    assert model.events.index("gradient_probe") < model.events.index("zero_grad")
+    probe.assert_called_once()
+    scheduler.step.assert_called_once_with()
+    optimizer.step.assert_not_called()
+    optimizer.zero_grad.assert_not_called()
+
+
+@pytest.mark.skipif(not _TRAINER_DEPS_AVAILABLE, reason="full StarVLA trainer dependencies are not installed")
 def test_starwam_dataloader_completes_epochs_without_legacy_reset() -> None:
     from starVLA.training import train_starvla
 

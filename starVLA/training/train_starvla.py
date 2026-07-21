@@ -613,25 +613,45 @@ class VLATrainer(TrainerUtils):
     def _train_step(self, batch_vla, batch_vlm=None):
         """Execute single training step."""
         optimizer_stepped = False
-        with self.accelerator.accumulate(self.model):
+        is_deepspeed_engine = all(
+            hasattr(self.model, attribute)
+            for attribute in ("backward", "step", "is_gradient_accumulation_boundary")
+        )
+        if is_deepspeed_engine:
             with self.accelerator.autocast():
                 output_dict = self.model(batch_vla)
                 total_loss, loss_metrics = resolve_model_loss(output_dict)
 
-            self.accelerator.backward(total_loss)
-
-            optimizer_stepped = bool(self.accelerator.sync_gradients)
+            # Accelerate's DeepSpeed backward wrapper calls engine.step()
+            # immediately. Drive the engine directly so the gradient probe is
+            # captured before DeepSpeed clips, updates, and clears gradients.
+            self.model.backward(total_loss)
+            optimizer_stepped = bool(self.model.is_gradient_accumulation_boundary())
             if optimizer_stepped:
                 self._maybe_write_starwam_gradient_probe()
-                if self.config.trainer.gradient_clipping is not None:
-                    self.accelerator.clip_grad_norm_(self.model.parameters(), self.config.trainer.gradient_clipping)
-
-                # Step, schedule, and clear gradients only at a real optimizer
-                # boundary. This is explicit rather than relying on an
-                # AcceleratedOptimizer to silently no-op on micro-batches.
-                self.optimizer.step()
+            self.model.step()
+            if optimizer_stepped:
                 self.lr_scheduler.step()
-                self.optimizer.zero_grad(set_to_none=True)
+        else:
+            with self.accelerator.accumulate(self.model):
+                with self.accelerator.autocast():
+                    output_dict = self.model(batch_vla)
+                    total_loss, loss_metrics = resolve_model_loss(output_dict)
+
+                self.accelerator.backward(total_loss)
+
+                optimizer_stepped = bool(self.accelerator.sync_gradients)
+                if optimizer_stepped:
+                    self._maybe_write_starwam_gradient_probe()
+                    if self.config.trainer.gradient_clipping is not None:
+                        self.accelerator.clip_grad_norm_(self.model.parameters(), self.config.trainer.gradient_clipping)
+
+                    # Step, schedule, and clear gradients only at a real optimizer
+                    # boundary. This is explicit rather than relying on an
+                    # AcceleratedOptimizer to silently no-op on micro-batches.
+                    self.optimizer.step()
+                    self.lr_scheduler.step()
+                    self.optimizer.zero_grad(set_to_none=True)
 
         metrics = {f"loss/{key}": value for key, value in loss_metrics.items()}
         if "action_loss" in loss_metrics:
