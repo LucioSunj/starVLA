@@ -4,7 +4,6 @@ import logging
 import math
 import os
 import pathlib
-import time
 
 import imageio
 import numpy as np
@@ -125,19 +124,16 @@ def eval_libero(args: Args) -> None:
             # Setup
             t = 0
             replay_images = []
-            full_actions = []
 
             logging.info(f"Starting episode {task_episodes + 1}...")
             step = 0
-
-            # full_actions = np.load("./debug/action.npy")
 
             while t < max_steps + args.num_steps_wait:
                 # try:
                 # IMPORTANT: Do nothing for the first few timesteps because the simulator drops objects
                 # and we need to wait for them to fall
                 if t < args.num_steps_wait:
-                    obs, reward, done, info = env.step(LIBERO_DUMMY_ACTION)
+                    obs, _reward, done, _info = env.step(LIBERO_DUMMY_ACTION)
                     t += 1
                     continue
 
@@ -170,12 +166,7 @@ def eval_libero(args: Args) -> None:
                     "state": observation["observation.state"][0],
                 }
 
-                start_time = time.time()
-
                 response = client_model.step(example=example_dict, step=step)
-
-                end_time = time.time()
-                # print(f"time: {end_time - start_time}")
 
                 # #
                 raw_action = response["raw_action"]
@@ -198,11 +189,9 @@ def eval_libero(args: Args) -> None:
                 else:
                     delta_action = np.concatenate([world_vector_delta, rotation_delta, gripper], axis=0)
 
-                full_actions.append(delta_action)
-
                 # __import__("ipdb").set_trace()
                 # see ../robosuite/controllers/controller_factory.py
-                obs, reward, done, info = env.step(delta_action.tolist())
+                obs, _reward, done, _info = env.step(delta_action.tolist())
                 if done:
                     task_successes += 1
                     total_successes += 1
@@ -212,7 +201,6 @@ def eval_libero(args: Args) -> None:
 
             task_episodes += 1
             total_episodes += 1
-
             # Save a replay video of the episode
             suffix = "success" if done else "failure"
             task_segment = task_description.replace(" ", "_")
@@ -221,9 +209,6 @@ def eval_libero(args: Args) -> None:
                 [np.asarray(x) for x in replay_images],
                 fps=10,
             )
-
-            full_actions = np.stack(full_actions)
-            # np.save(pathlib.Path(args.video_out_path) / f"rollout_{task_segment}_episode{episode_idx}_{suffix}.npy", full_actions)
 
             # print(pathlib.Path(args.video_out_path) / f"rollout_{task_segment}_episode{episode_idx}_{suffix}.mp4")
             # Log current results
