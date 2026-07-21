@@ -22,12 +22,12 @@ Exposed API:
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Sequence
 
 import numpy as np
 import torch
 
-from starVLA.model.framework.base_framework import baseframework
+from starVLA.model.framework.base_framework import baseframework, merge_config_overrides
 from starVLA.model.framework.share_tools import read_mode_config
 
 if TYPE_CHECKING:
@@ -60,24 +60,45 @@ class PolicyServerWrapper:
         device: str = "cuda",
         use_bf16: bool = False,
         unnorm_key: Optional[str] = None,
+        config_overrides: Sequence[str] | None = None,
     ) -> None:
         self._ckpt_path = str(ckpt_path)
 
-        model_cfg, _ns = read_mode_config(self._ckpt_path)
+        model_cfg, norm_stats = read_mode_config(self._ckpt_path)
+        model_cfg = merge_config_overrides(model_cfg, config_overrides)
         self._model_cfg = model_cfg
         logging.info("PolicyServerWrapper: loading framework from %s", self._ckpt_path)
+        load_kwargs: Dict[str, Any] = {}
+        if config_overrides is not None:
+            load_kwargs["config_overrides"] = config_overrides
         if model_cfg.get("framework", {}).get("name") == "StarWAM":
             dtype = torch.bfloat16 if use_bf16 else None
-            framework = baseframework.from_pretrained(self._ckpt_path, device=device, dtype=dtype)
+            framework = baseframework.from_pretrained(
+                self._ckpt_path,
+                device=device,
+                dtype=dtype,
+                **load_kwargs,
+            )
         else:
-            framework = baseframework.from_pretrained(self._ckpt_path)
+            framework = baseframework.from_pretrained(
+                self._ckpt_path,
+                **load_kwargs,
+            )
             if use_bf16:
                 framework = framework.to(torch.bfloat16)
             framework = framework.to(device)
         framework = framework.eval()
         self._framework = framework
-        self._framework_metadata = framework.get_policy_metadata()
-        self._framework_unnormalizes = framework.uses_framework_action_unnormalization()
+        get_metadata = getattr(framework, "get_policy_metadata", None)
+        self._framework_metadata = get_metadata() if callable(get_metadata) else {}
+        uses_framework_unnormalization = getattr(
+            framework, "uses_framework_action_unnormalization", None
+        )
+        self._framework_unnormalizes = (
+            bool(uses_framework_unnormalization())
+            if callable(uses_framework_unnormalization)
+            else False
+        )
 
         # action_chunk_size = future_action_window_size + 1 (matches old client).
         if "action_chunk_size" in self._framework_metadata:
@@ -101,7 +122,7 @@ class PolicyServerWrapper:
 
         # Peek at available keys without building a full processor.
         self._available_unnorm_keys: List[str] = list(
-            self._framework_metadata.get("available_unnorm_keys", _ns.keys())
+            self._framework_metadata.get("available_unnorm_keys", norm_stats.keys())
         )
         if self._default_unnorm_key is None:
             self._default_unnorm_key = self._framework_metadata.get("default_unnorm_key")
@@ -142,6 +163,17 @@ class PolicyServerWrapper:
                 self._ckpt_path, unnorm_key=unnorm_key
             )
         return self._norm_processors[cache_key]
+
+    def get_norm_processor(self, unnorm_key: Optional[str] = None) -> PolicyNormProcessor:
+        """Public accessor for the per-unnorm_key normalization processor.
+
+        Protocol adapters (e.g. the GR00T ZMQ compat server) use this to read
+        the training-time ``action_keys`` / ``state_keys`` and their per-key
+        dims so they can split the flat action chunk into named groups.
+        """
+        return self._get_processor(
+            unnorm_key if unnorm_key is not None else self._default_unnorm_key
+        )
 
     @property
     def metadata(self) -> Dict[str, Any]:
