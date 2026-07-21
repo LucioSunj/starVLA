@@ -428,6 +428,32 @@ def test_gradient_probe_reports_functional_trainable_and_frozen_groups(tmp_path:
     )
     assert json.loads(output.read_text(encoding="utf-8")) == payload
 
+    partitioned_gradients = {
+        id(parameter): parameter.grad.detach().clone()
+        for parameter in model.parameters()
+        if parameter.grad is not None
+    }
+    model.zero_grad(set_to_none=True)
+    partitioned_groups = collect_gradient_probe(
+        model,
+        chunk_size=2,
+        gradient_getter=lambda parameter: partitioned_gradients.get(id(parameter)),
+    )
+    assert partitioned_groups == groups
+
+    no_output = tmp_path / "non_main_rank.json"
+    payload = write_gradient_probe(
+        model,
+        no_output,
+        model_family="mot_wam",
+        optimizer_step=1,
+        chunk_size=2,
+        gradient_getter=lambda parameter: partitioned_gradients.get(id(parameter)),
+        write_output=False,
+    )
+    assert payload["groups"] == groups
+    assert not no_output.exists()
+
 
 def test_checkpoint_prefix_adaptation(tmp_path: Path) -> None:
     weight = torch.arange(4, dtype=torch.float32)

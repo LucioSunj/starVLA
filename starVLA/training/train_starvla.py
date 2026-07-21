@@ -597,9 +597,19 @@ class VLATrainer(TrainerUtils):
             return
 
         self._gradient_probe_written = True
-        if not self.accelerator.is_main_process:
-            return
         unwrapped = self.accelerator.unwrap_model(self.model)
+        zero_partitioned = any(
+            hasattr(parameter, "_hp_mapping") or hasattr(parameter, "ds_id")
+            for parameter in unwrapped.parameters()
+        )
+        gradient_getter = None
+        if zero_partitioned:
+            # ZeRO partitions gradients during backward and clears ``param.grad``.
+            # Its public helper reconstructs one parameter at a time and requires
+            # every data-parallel rank to participate in the collective.
+            from deepspeed.utils import safe_get_full_grad
+
+            gradient_getter = safe_get_full_grad
         output_path = Path(self.config.output_dir) / "gradient_probe.json"
         write_gradient_probe(
             unwrapped,
@@ -607,8 +617,11 @@ class VLATrainer(TrainerUtils):
             model_family=str(getattr(unwrapped, "model_family", "unknown")),
             optimizer_step=target_step,
             chunk_size=int(trainer_cfg.get("gradient_probe_chunk_size", 1_048_576)),
+            gradient_getter=gradient_getter,
+            write_output=self.accelerator.is_main_process,
         )
-        logger.info("StarWAM gradient probe saved at %s", output_path)
+        if self.accelerator.is_main_process:
+            logger.info("StarWAM gradient probe saved at %s", output_path)
 
     def _train_step(self, batch_vla, batch_vlm=None):
         """Execute single training step."""

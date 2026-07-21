@@ -5,10 +5,10 @@ from __future__ import annotations
 import json
 import math
 import os
+from collections.abc import Callable
 from pathlib import Path
 
 import torch
-
 
 _FUNCTIONAL_PREFIXES = (
     "backbone.dit",
@@ -48,6 +48,7 @@ def collect_gradient_probe(
     model: torch.nn.Module,
     *,
     chunk_size: int = 1_048_576,
+    gradient_getter: Callable[[torch.nn.Parameter], torch.Tensor | None] | None = None,
 ) -> dict[str, dict[str, float | int | None]]:
     """Aggregate finite/nonzero gradient evidence by functional module.
 
@@ -82,7 +83,7 @@ def collect_gradient_probe(
             group["trainable_parameter_tensors"] += 1
             group["trainable_parameter_elements"] += parameter.numel()
 
-        gradient = parameter.grad
+        gradient = parameter.grad if gradient_getter is None else gradient_getter(parameter)
         if gradient is None:
             continue
         if gradient.is_sparse:
@@ -101,6 +102,7 @@ def collect_gradient_probe(
                 group["nonzero_gradient_elements"] += int(torch.count_nonzero(finite_values).item())
                 squared_norm += float(finite_values.square().sum().item())
         group["gradient_l2_norm"] += squared_norm
+        del gradient, flat
 
     for group in groups.values():
         gradient_elements = int(group["gradient_elements"])
@@ -120,13 +122,21 @@ def write_gradient_probe(
     model_family: str,
     optimizer_step: int,
     chunk_size: int = 1_048_576,
+    gradient_getter: Callable[[torch.nn.Parameter], torch.Tensor | None] | None = None,
+    write_output: bool = True,
 ) -> dict:
     """Write one atomic JSON gradient-probe artifact and return its payload."""
     payload = {
         "model_family": str(model_family),
         "optimizer_step": int(optimizer_step),
-        "groups": collect_gradient_probe(model, chunk_size=chunk_size),
+        "groups": collect_gradient_probe(
+            model,
+            chunk_size=chunk_size,
+            gradient_getter=gradient_getter,
+        ),
     }
+    if not write_output:
+        return payload
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     temporary_path = output_path.with_suffix(f"{output_path.suffix}.tmp.{os.getpid()}")
