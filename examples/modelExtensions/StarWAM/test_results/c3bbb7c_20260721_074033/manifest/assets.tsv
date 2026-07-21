@@ -1,0 +1,11 @@
+variable	status	path_or_reason
+WAN22_ROOT	BLOCKED	Only discovered candidate is incomplete: three shard files, no index/single file, VAE, T5, or tokenizer
+COSMOS_ROOT	BLOCKED	No exact directory or Hugging Face cache found
+WAN_ACTION_DIT_INIT	BLOCKED	Required exact payload absent; only unapproved *_untrained.pt variant found
+COSMOS_ACTION_DIT_INIT	BLOCKED	No matching payload found
+LIBERO_SPATIAL_DATA	VERIFIED	/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_spatial_no_noops_lerobot
+LIBERO_OBJECT_DATA	VERIFIED	/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_object_no_noops_lerobot
+LIBERO_GOAL_DATA	VERIFIED	/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_goal_no_noops_lerobot
+LIBERO_10_DATA	VERIFIED	/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_10_no_noops_lerobot
+ROBOTWIN_DATA	VERIFIED	/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/repo-runs-performance-assets/robotwin2.0-fastwam/robotwin2.0
+NATIVE_STARWAM_CHECKPOINT	BLOCKED	No native StarWAM checkpoint found; discovered DeepSpeed files belong to unrelated StarVLA geometry runs

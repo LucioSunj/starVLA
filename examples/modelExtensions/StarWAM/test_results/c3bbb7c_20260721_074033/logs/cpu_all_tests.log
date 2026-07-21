@@ -1,0 +1,15 @@
+
+==================================== ERRORS ====================================
+____________ ERROR collecting tests/test_gr00t_zmq_compat_server.py ____________
+ImportError while importing test module '/home/amax/SJ/projects/Embodied-World/starVLA/tests/test_gr00t_zmq_compat_server.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/home/amax/CWJ/vla_3d_geometry_project/envs/starvla/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_gr00t_zmq_compat_server.py:25: in <module>
+    import zmq
+E   ModuleNotFoundError: No module named 'zmq'
+=========================== short test summary info ============================
+ERROR tests/test_gr00t_zmq_compat_server.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 3.81s

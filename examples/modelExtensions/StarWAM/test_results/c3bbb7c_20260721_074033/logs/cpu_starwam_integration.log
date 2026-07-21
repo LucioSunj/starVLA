@@ -1,0 +1,73 @@
+......................F............                                      [100%]
+=================================== FAILURES ===================================
+_____________________ test_thin_config_matrix_is_complete ______________________
+
+    def test_thin_config_matrix_is_complete() -> None:
+        from starVLA.model.framework.share_tools import apply_config_compat
+
+        config_dir = REPO_ROOT / "examples" / "modelExtensions" / "StarWAM" / "train_files"
+        expected = {
+            "libero_mot_wan22.yaml": ("starwam_libero_mot_wan22_5b.yaml", "mot_wam"),
+            "libero_mot_cosmos.yaml": ("starwam_libero_mot_cosmos_predict2.yaml", "mot_wam"),
+            "libero_shared_dit_wan22.yaml": (
+                "starwam_libero_shared_dit_wan22_5b.yaml",
+                "shared_dit_wam",
+            ),
+            "libero_shared_dit_cosmos.yaml": (
+                "starwam_libero_shared_dit_cosmos_predict2.yaml",
+                "shared_dit_wam",
+            ),
+            "libero_feature_conditioned_wan22.yaml": (
+                "starwam_libero_feature_conditioned_wan22_5b.yaml",
+                "feature_conditioned_action_model",
+            ),
+            "robotwin_mot_wan22.yaml": ("starwam_robotwin_mot_wan22_5b.yaml", "mot_wam"),
+        }
+        assert {path.name for path in config_dir.glob("*.yaml")} == set(expected)
+        for filename, (recipe_name, family) in expected.items():
+            config_path = config_dir / filename
+            config = apply_config_compat(OmegaConf.load(config_path))
+            assert Path(config.framework.starwam.recipe).name == recipe_name
+            if STARWAM_ROOT.is_dir():
+                resolved = (config_dir / config.framework.starwam.recipe).resolve()
+                assert resolved.is_file()
+            if _starwam_available():
+>               resolved_config = prepare_starwam_host_config(config, config_path=config_path)
+
+tests/test_starwam_integration.py:538:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+starVLA/model/framework/WAM/config.py:178: in prepare_starwam_host_config
+    starwam_cfg = load_config(recipe_path)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/home/amax/SJ/projects/WorldActionModels/StarWAM/examples/libero/configs/recipes/starwam_libero_mot_wan22_5b.yaml')
+
+    def load_config(path: str | _Path) -> StarWAMConfig:
+        """Load a YAML recipe and return a fully-populated :class:`StarWAMConfig`.
+
+        - Unknown keys raise immediately (no silent typos).
+        - Nested sub-configs (`backbone`, `framework`, `training`, `data`,
+          `inference`, and the two `*_scheduler`s under framework) are resolved
+          recursively.
+        - Missing top-level sections fall back to dataclass defaults.
+
+        Example:
+            cfg = load_config("examples/libero/configs/recipes/starwam_libero_mot_wan22_5b.yaml")
+            model = build_framework(cfg)
+        """
+        try:
+            import yaml  # type: ignore
+        except ImportError as e:
+            raise RuntimeError(
+                "load_config requires PyYAML. Install with: pip install pyyaml"
+            ) from e
+
+        p = _Path(path)
+        if not p.is_file():
+>           raise FileNotFoundError(f"Config file not found: {p}")
+E           FileNotFoundError: Config file not found: /home/amax/SJ/projects/WorldActionModels/StarWAM/examples/libero/configs/recipes/starwam_libero_mot_wan22_5b.yaml
+
+../StarWAM/starwam/config.py:243: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_starwam_integration.py::test_thin_config_matrix_is_complete
+1 failed, 34 passed in 18.95s

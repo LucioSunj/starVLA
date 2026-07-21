@@ -1,0 +1,7 @@
+case_id	exit_code	gate_result	peak_vram	loss	gradient	checkpoint	parity
+SW-L-MW	N/A	BLOCKED	N/A	N/A	N/A	N/A	N/A
+SW-L-MC	N/A	BLOCKED	N/A	N/A	N/A	N/A	N/A
+SW-L-SW	N/A	BLOCKED	N/A	N/A	N/A	N/A	N/A
+SW-L-SC	N/A	BLOCKED	N/A	N/A	N/A	N/A	N/A
+SW-L-FW	N/A	BLOCKED	N/A	N/A	N/A	N/A	N/A
+SW-R-MW	N/A	BLOCKED	N/A	N/A	N/A	N/A	N/A

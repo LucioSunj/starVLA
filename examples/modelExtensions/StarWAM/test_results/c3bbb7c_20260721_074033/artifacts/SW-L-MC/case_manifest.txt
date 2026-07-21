@@ -1,0 +1,15 @@
+case_id=SW-L-MC
+config=examples/modelExtensions/StarWAM/train_files/libero_mot_cosmos.yaml
+world_size=2_required_not_launched
+precision=bf16_required_not_launched
+optimizer_steps=0
+exit_code=N/A
+gate_result=BLOCKED
+blockers=Thin recipe resolves to missing /home/amax/SJ/projects/WorldActionModels/StarWAM; G0 config-matrix failure; COSMOS_ROOT absent; COSMOS_ACTION_DIT_INIT absent
+peak_vram=N/A
+loss=N/A
+gradient_probe=N/A
+checkpoint=N/A
+parity=N/A
+required_artifacts=config.yaml,config.full.yaml,dataset_statistics.json,gradient_probe.json,steps_1,steps_2,final_model
+produced_artifacts=case_manifest.txt only

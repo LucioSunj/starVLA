@@ -1,0 +1,59 @@
+F841 Local variable `start_time` is assigned to but never used
+   --> examples/simBenchmarks/LIBERO/eval_files/eval_libero.py:173:17
+    |
+171 |                 }
+172 |
+173 |                 start_time = time.time()
+    |                 ^^^^^^^^^^
+174 |
+175 |                 response = client_model.step(example=example_dict, step=step)
+    |
+help: Remove assignment to unused variable `start_time`
+
+F841 Local variable `end_time` is assigned to but never used
+   --> examples/simBenchmarks/LIBERO/eval_files/eval_libero.py:177:17
+    |
+175 |                 response = client_model.step(example=example_dict, step=step)
+176 |
+177 |                 end_time = time.time()
+    |                 ^^^^^^^^
+178 |                 # print(f"time: {end_time - start_time}")
+    |
+help: Remove assignment to unused variable `end_time`
+
+RUF059 Unpacked variable `reward` is never used
+   --> examples/simBenchmarks/LIBERO/eval_files/eval_libero.py:205:22
+    |
+203 |                 # __import__("ipdb").set_trace()
+204 |                 # see ../robosuite/controllers/controller_factory.py
+205 |                 obs, reward, done, info = env.step(delta_action.tolist())
+    |                      ^^^^^^
+206 |                 if done:
+207 |                     task_successes += 1
+    |
+help: Prefix it with an underscore or any other dummy variable pattern
+
+RUF059 Unpacked variable `info` is never used
+   --> examples/simBenchmarks/LIBERO/eval_files/eval_libero.py:205:36
+    |
+203 |                 # __import__("ipdb").set_trace()
+204 |                 # see ../robosuite/controllers/controller_factory.py
+205 |                 obs, reward, done, info = env.step(delta_action.tolist())
+    |                                    ^^^^
+206 |                 if done:
+207 |                     task_successes += 1
+    |
+help: Prefix it with an underscore or any other dummy variable pattern
+
+E501 Line too long (132 > 121)
+   --> examples/simBenchmarks/LIBERO/eval_files/eval_libero.py:226:122
+    |
+225 |             full_actions = np.stack(full_actions)
+226 |             # np.save(pathlib.Path(args.video_out_path) / f"rollout_{task_segment}_episode{episode_idx}_{suffix}.npy", full_actions)
+    |                                                                                                                          ^^^^^^^^^^^
+227 |
+228 |             # print(pathlib.Path(args.video_out_path) / f"rollout_{task_segment}_episode{episode_idx}_{suffix}.mp4")
+    |
+
+Found 5 errors.
+No fixes available (4 hidden fixes can be enabled with the `--unsafe-fixes` option).

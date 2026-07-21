@@ -1,0 +1,7 @@
+starvla_revision=c3bbb7c9524cefbde4e36b5bbae5336ab7589bc9
+starvla_branch=codex/starwam-integration
+starvla_status=<clean>
+starwam_revision=a7b05c8da8f8c88bf4888aa737b938af3b67ab48
+starwam_status=<clean>
+starwam_import_path=/home/amax/SJ/projects/Embodied-World/StarWAM/starwam/__init__.py
+test_plan_revision=c3bbb7c9524cefbde4e36b5bbae5336ab7589bc9
