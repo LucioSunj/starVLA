@@ -1,0 +1,17 @@
+WARNING:root:
+============================================================
+  [TRAIN/TEST CONSISTENCY CHECK] read before trusting results
+------------------------------------------------------------
+  Make sure the EVAL observation matches TRAINING for:
+    - state    : whether proprioceptive state is fed (use_state)
+                 and its dimension / ordering
+    - img size : resize / crop resolution (e.g. 224x224)
+    - img count: how many camera views are fed to the model
+    - img order: the ordering of those camera views
+    - horizon  : action chunk size / action horizon
+  A mismatch on ANY of these silently lowers the success rate.
+  Cross-check the values below against your training config.
+  The client will NOT infer or reorder camera views for you.
+============================================================
+WARNING:root:[TRAIN/TEST CONSISTENCY CHECK] server metadata: {'env': 'starvla_policy_server', 'ckpt_path': '/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW-short-stats/checkpoints/steps_2_pytorch_model.pt', 'action_chunk_size': 32, 'available_unnorm_keys': ['starwam'], 'default_unnorm_key': 'starwam', 'training_data_mix': 'mot_wam', 'training_obs_image_size': [384, 320], 'eval_image_contract': 'Eval clients must explicitly choose image count and order. The server does not infer or reorder camera views from training config.', 'action_layout': 'native_qpos', 'camera_order': ['observation.images.cam_high', 'observation.images.cam_left_wrist', 'observation.images.cam_right_wrist'], 'camera_layout': 'robotwin', 'framework_preprocesses_images': True, 'state_required': True, 'model_family': 'mot_wam'}
+{"action_stats_dim": 13, "message": "The size of tensor a (14) must match the size of tensor b (13) at non-singleton dimension 1", "required_dim": 14, "response_status": "error", "state_stats_dim": 13, "status": "PASS"}

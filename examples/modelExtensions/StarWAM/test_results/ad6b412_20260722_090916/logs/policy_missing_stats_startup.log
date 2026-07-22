@@ -1,0 +1,8 @@
+07/22 [12:59:27] INFO     | >> [*] Loading from local         share_tools.py:370
+                          checkpoint path                                       
+                          `/home/amax/data0/SJ/test-runs/star                   
+                          wam-integration/ad6b412_20260722_09                   
+                          0916/artifacts/bundles/SW-R-MW-miss                   
+                          ing-stats/checkpoints/steps_2_pytor                   
+                          ch_model.pt`                                          
+{"exception_type": "AssertionError", "expected_startup_failure": true, "message": "Missing `dataset_statistics.json` for `run_dir = PosixPath('/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW-missing-stats')`", "status": "FAIL"}

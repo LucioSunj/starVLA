@@ -1,0 +1,439 @@
+[2026-07-22 09:23:11,240] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+W0722 09:23:13.074000 2142871 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py:792] 
+W0722 09:23:13.074000 2142871 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py:792] *****************************************
+W0722 09:23:13.074000 2142871 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py:792] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0722 09:23:13.074000 2142871 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py:792] *****************************************
+[2026-07-22 09:23:18,398] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+07/22 [09:23:18] INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat -DNDEBUG -fwrapv -O2             
+                          -Wall -fPIC -O2 -isystem                              
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -O2 -isystem                       
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -c                                 
+                          /tmp/tmp3upp385x/test.c -o                            
+                          /tmp/tmp3upp385x/test.o                               
+                 INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat                                  
+                          /tmp/tmp3upp385x/test.o -laio -o                      
+                          /tmp/tmp3upp385x/a.out                                
+[2026-07-22 09:23:18,756] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+07/22 [09:23:18] INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat -DNDEBUG -fwrapv -O2             
+                          -Wall -fPIC -O2 -isystem                              
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -O2 -isystem                       
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -c                                 
+                          /tmp/tmp_io94l_p/test.c -o                            
+                          /tmp/tmp_io94l_p/test.o                               
+                 INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat                                  
+                          /tmp/tmp_io94l_p/test.o -laio -o                      
+                          /tmp/tmp_io94l_p/a.out                                
+07/22 [09:23:19] INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat -DNDEBUG -fwrapv -O2             
+                          -Wall -fPIC -O2 -isystem                              
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -O2 -isystem                       
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -c                                 
+                          /tmp/tmpv8_3lumv/test.c -o                            
+                          /tmp/tmpv8_3lumv/test.o                               
+                 INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat                                  
+                          /tmp/tmpv8_3lumv/test.o                               
+                          -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.            
+                          4.131-0                                               
+                          -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.            
+                          4.131-0/lib64 -lcufile -o                             
+                          /tmp/tmpv8_3lumv/a.out                                
+07/22 [09:23:19] INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat -DNDEBUG -fwrapv -O2             
+                          -Wall -fPIC -O2 -isystem                              
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -O2 -isystem                       
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -c                                 
+                          /tmp/tmp8nxi1v77/test.c -o                            
+                          /tmp/tmp8nxi1v77/test.o                               
+                 INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat                                  
+                          /tmp/tmp8nxi1v77/test.o                               
+                          -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.            
+                          4.131-0                                               
+                          -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.            
+                          4.131-0/lib64 -lcufile -o                             
+                          /tmp/tmp8nxi1v77/a.out                                
+[2026-07-22 09:23:19,790] [INFO] [comm.py:669:init_distributed] cdb=None
+[W722 09:23:19.498015118 Utils.hpp:136] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function operator())
+[2026-07-22 09:23:20,217] [INFO] [comm.py:669:init_distributed] cdb=None
+[2026-07-22 09:23:20,217] [INFO] [comm.py:700:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+[W722 09:23:20.924582549 Utils.hpp:136] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function operator())
+07/22 [09:23:20] INFO     | >> VLA Training :: Warming Up   train_starvla.py:716
+Distributed environment: DistributedType.DEEPSPEED  Backend: nccl
+Num processes: 2
+Process index: 0
+Local process index: 0
+Device: cuda:0
+
+Mixed precision type: bf16
+ds_config: {'train_batch_size': 'auto', 'train_micro_batch_size_per_gpu': 'auto', 'gradient_accumulation_steps': 16, 'zero_optimization': {'stage': 2, 'offload_optimizer': {'device': 'cpu', 'nvme_path': None}, 'offload_param': {'device': 'none', 'nvme_path': None}, 'stage3_gather_16bit_weights_on_model_save': False}, 'gradient_clipping': 1.0, 'steps_per_print': inf, 'bf16': {'enabled': True}, 'fp16': {'enabled': False}}
+
+                 INFO     | >> ✅ Configuration wrapped for train_starvla.py:721
+                          access tracking                                       
+07/22 [09:23:20] INFO     | >> VLA Training :: Warming Up   train_starvla.py:716
+                 INFO     | >> ✅ Configuration wrapped for train_starvla.py:721
+                          access tracking                                       
+                 INFO     | >> loading                              wan22.py:604
+                          /home/amax/data0/SJ/models/Wan2.2-TI2V-5B             
+                          /models_t5_umt5-xxl-enc-bf16.pth                      
+[Wan22TextEncoder] Loaded UMT5-XXL from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B/models_t5_umt5-xxl-enc-bf16.pth
+07/22 [09:24:08] INFO     | >> Generating 40 missing StarWAM text builder.py:166
+                          caches in                                             
+                          /home/amax/data0/SJ/test-runs/starwam-i               
+                          ntegration/ad6b412_20260722_090916/cach               
+                          e/SW-L-SW                                             
+[rank0]:[W722 09:24:20.040985704 ProcessGroupNCCL.cpp:4561] [PG ID 0 PG GUID 0 Rank 0]  using GPU 0 to perform barrier as devices used by this process are currently unknown. This can potentially cause a hang if this rank to GPU mapping is incorrect. Specify device_ids in barrier() to force use of a particular device, or call init_process_group() with a device_id.
+[rank1]:[W722 09:24:20.041227603 ProcessGroupNCCL.cpp:4561] [PG ID 0 PG GUID 0 Rank 1]  using GPU 1 to perform barrier as devices used by this process are currently unknown. This can potentially cause a hang if this rank to GPU mapping is incorrect. Specify device_ids in barrier() to force use of a particular device, or call init_process_group() with a device_id.
+07/22 [09:24:50] INFO     | >> loading                             wan22.py:1491
+                          /home/amax/data0/SJ/models/Wan2.2-TI2V-5              
+                          B/Wan2.2_VAE.pth                                      
+[Wan22VAE] Loaded VAE from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B/Wan2.2_VAE.pth
+07/22 [09:24:52] INFO     | >> Building StarWAM shared-DiT WAM     builder.py:81
+                          with backbone=wan22_5b                                
+07/22 [09:25:00] INFO     | >> loading                             wan22.py:1491
+                          /home/amax/data0/SJ/models/Wan2.2-TI2V-5              
+                          B/Wan2.2_VAE.pth                                      
+[Wan22VAE] Loaded VAE from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B/Wan2.2_VAE.pth
+07/22 [09:25:04] INFO     | >> Building StarWAM shared-DiT WAM     builder.py:81
+                          with backbone=wan22_5b                                
+[StarWAM][rank=0/local=0] Loading shared-DiT video init from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B
+[StarWAM][rank=0/local=0] loading shard 1/3: diffusion_pytorch_model-00001-of-00003.safetensors
+[StarWAM][rank=0/local=0] loaded shard 1/3 in 9.4s (loaded_total=413, missing_now=426)
+[StarWAM][rank=0/local=0] loading shard 2/3: diffusion_pytorch_model-00002-of-00003.safetensors
+[StarWAM][rank=1/local=1] Waiting 20s before shared-DiT checkpoint load to reduce shared filesystem contention.
+[StarWAM][rank=0/local=0] loaded shard 2/3 in 13.1s (loaded_total=820, missing_now=432)
+[StarWAM][rank=0/local=0] loading shard 3/3: diffusion_pytorch_model-00003-of-00003.safetensors
+[StarWAM][rank=0/local=0] loaded shard 3/3 in 0.4s (loaded_total=825, missing_now=834)
+[StarWAM] Initialized shared-DiT directly from video DiT checkpoint (num_seen=825, num_loaded=825, missing=14, unexpected=0)
+[StarWAM][rank=1/local=1] Loading shared-DiT video init from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B
+[StarWAM][rank=1/local=1] loading shard 1/3: diffusion_pytorch_model-00001-of-00003.safetensors
+07/22 [09:26:05] INFO     | >> Creating VLA Dataset with    train_starvla.py:122
+                          Mixture                                               
+                          `shared_dit_libero_wan22_5b`                          
+[StarWAM][rank=1/local=1] loaded shard 1/3 in 13.0s (loaded_total=413, missing_now=426)
+[StarWAM][rank=1/local=1] loading shard 2/3: diffusion_pytorch_model-00002-of-00003.safetensors
+[StarWAM][rank=1/local=1] loaded shard 2/3 in 12.3s (loaded_total=820, missing_now=432)
+[StarWAM][rank=1/local=1] loading shard 3/3: diffusion_pytorch_model-00003-of-00003.safetensors
+[StarWAM][rank=1/local=1] loaded shard 3/3 in 0.3s (loaded_total=825, missing_now=834)
+[StarWAM] Initialized shared-DiT directly from video DiT checkpoint (num_seen=825, num_loaded=825, missing=14, unexpected=0)
+07/22 [09:26:44] INFO     | >> Creating VLA Dataset with    train_starvla.py:122
+                          Mixture                                               
+                          `shared_dit_libero_wan22_5b`                          
+07/22 [09:26:44] INFO     | >> LR Group starwam_trainable:  train_starvla.py:164
+                          lr=0.0001, num_params=839                             
+                 INFO     | >> No pretrained checkpoint     train_starvla.py:399
+                          provided. Starting training from                      
+                          scratch.                                              
+##############################
+
+                 INFO     | >> 📝 Full config saved at      train_starvla.py:359
+                          /home/amax/data0/SJ/test-runs/sta                     
+                          rwam-integration/ad6b412_20260722                     
+                          _090916/train/SW-L-SW_20260722_09                     
+                          2000/config.full.yaml                                 
+                 INFO     | >> 📝 Self-contained config     train_starvla.py:364
+                          saved at                                              
+                          /home/amax/data0/SJ/test-runs/sta                     
+                          rwam-integration/ad6b412_20260722                     
+                          _090916/train/SW-L-SW_20260722_09                     
+                          2000/config.yaml                                      
+                 INFO     | >> No pretrained checkpoint     train_starvla.py:399
+                          provided. Starting training from                      
+                          scratch.                                              
+##############################
+
+🔒 Frozen modules with re pattern: []
+📊 model parameter statistics:
+# Parameters (in millions): 10038.197 Total, 5038.409 Trainable
+Using /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/cache/torch_extensions as PyTorch extensions root...
+Creating extension directory /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/cache/torch_extensions/cpu_adam...
+Detected CUDA files, patching ldflags
+Emitting ninja build file /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/cache/torch_extensions/cpu_adam/build.ninja...
+/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2059: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+Building extension module cpu_adam...
+Using envvar MAX_JOBS (8) as the number of workers...
+Using /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/cache/torch_extensions as PyTorch extensions root...
+[1/3] c++ -MMD -MF cpu_adam.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/include -isystem /home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/include/TH -isystem /home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/include/THC -isystem /home/amax/miniconda3/pkgs/cuda-nvcc-12.4.131-0/include -isystem /home/amax/data0/SJ/envs/starvla-starwam-py311/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=0 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.4.131-0/lib -lcudart -lcublas -g -march=native -fopenmp -D__AVX512__ -D__ENABLE_CUDA__ -DBF16_AVAILABLE -c /home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam.cpp -o cpu_adam.o 
+[2/3] c++ -MMD -MF cpu_adam_impl.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/include -isystem /home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/include/TH -isystem /home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/include/THC -isystem /home/amax/miniconda3/pkgs/cuda-nvcc-12.4.131-0/include -isystem /home/amax/data0/SJ/envs/starvla-starwam-py311/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=0 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.4.131-0/lib -lcudart -lcublas -g -march=native -fopenmp -D__AVX512__ -D__ENABLE_CUDA__ -DBF16_AVAILABLE -c /home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam_impl.cpp -o cpu_adam_impl.o 
+[3/3] c++ cpu_adam.o cpu_adam_impl.o -shared -lcurand -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.4.131-0/lib -L/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/lib -lc10 -lc10_cuda -ltorch_cpu -ltorch_cuda -ltorch -ltorch_python -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.4.131-0/lib -lcudart -o cpu_adam.so
+Loading extension module cpu_adam...
+Time to load cpu_adam op: 59.86770534515381 seconds
+Adam Optimizer #0 is created with AVX512 arithmetic capability.
+Config: alpha=0.000100, betas=(0.900000, 0.999000), weight_decay=0.010000, adam_w=1
+[2026-07-22 09:27:46,091] [INFO] [logging.py:107:log_dist] [Rank 0] DeepSpeed info: version=0.16.9, git-hash=unknown, git-branch=unknown
+[2026-07-22 09:27:46,091] [INFO] [config.py:735:__init__] Config mesh_device None world_size = 2
+Loading extension module cpu_adam...
+Time to load cpu_adam op: 59.936089754104614 seconds
+Adam Optimizer #0 is created with AVX512 arithmetic capability.
+Config: alpha=0.000100, betas=(0.900000, 0.999000), weight_decay=0.010000, adam_w=1
+[2026-07-22 09:27:46,159] [INFO] [config.py:735:__init__] Config mesh_device None world_size = 2
+[2026-07-22 09:28:11,548] [INFO] [logging.py:107:log_dist] [Rank 0] DeepSpeed Flops Profiler Enabled: False
+[2026-07-22 09:28:11,553] [INFO] [logging.py:107:log_dist] [Rank 0] Using client Optimizer as basic optimizer
+[2026-07-22 09:28:11,553] [INFO] [logging.py:107:log_dist] [Rank 0] Removing param_group that has no 'params' in the basic Optimizer
+[2026-07-22 09:28:11,646] [INFO] [logging.py:107:log_dist] [Rank 0] DeepSpeed Basic Optimizer = DeepSpeedCPUAdam
+[2026-07-22 09:28:11,646] [INFO] [utils.py:59:is_zero_supported_optimizer] Checking ZeRO support for optimizer=DeepSpeedCPUAdam type=<class 'deepspeed.ops.adam.cpu_adam.DeepSpeedCPUAdam'>
+[2026-07-22 09:28:11,647] [INFO] [logging.py:107:log_dist] [Rank 0] Creating torch.bfloat16 ZeRO stage 2 optimizer
+[2026-07-22 09:28:11,647] [INFO] [stage_1_and_2.py:150:__init__] Reduce bucket size 500000000
+[2026-07-22 09:28:11,647] [INFO] [stage_1_and_2.py:151:__init__] Allgather bucket size 500000000
+[2026-07-22 09:28:11,647] [INFO] [stage_1_and_2.py:152:__init__] CPU Offload: True
+[2026-07-22 09:28:11,647] [INFO] [stage_1_and_2.py:153:__init__] Round robin gradient partitioning: False
+[2026-07-22 09:28:44,804] [INFO] [utils.py:781:see_memory_usage] Before initializing optimizer states
+[2026-07-22 09:28:44,804] [INFO] [utils.py:782:see_memory_usage] MA 21.44 GB         Max_MA 21.44 GB         CA 21.5 GB         Max_CA 21 GB 
+[2026-07-22 09:28:44,805] [INFO] [utils.py:789:see_memory_usage] CPU Virtual Memory:  used = 58.8 GB, percent = 23.4%
+[2026-07-22 09:28:48,882] [INFO] [utils.py:781:see_memory_usage] After initializing optimizer states
+[2026-07-22 09:28:48,883] [INFO] [utils.py:782:see_memory_usage] MA 21.44 GB         Max_MA 21.44 GB         CA 21.5 GB         Max_CA 21 GB 
+[2026-07-22 09:28:48,883] [INFO] [utils.py:789:see_memory_usage] CPU Virtual Memory:  used = 68.12 GB, percent = 27.1%
+[2026-07-22 09:28:48,883] [INFO] [stage_1_and_2.py:557:__init__] optimizer state initialized
+[2026-07-22 09:28:48,991] [INFO] [utils.py:781:see_memory_usage] After initializing ZeRO optimizer
+[2026-07-22 09:28:48,992] [INFO] [utils.py:782:see_memory_usage] MA 21.44 GB         Max_MA 21.44 GB         CA 21.5 GB         Max_CA 21 GB 
+[2026-07-22 09:28:48,992] [INFO] [utils.py:789:see_memory_usage] CPU Virtual Memory:  used = 68.24 GB, percent = 27.1%
+[2026-07-22 09:28:49,001] [INFO] [logging.py:107:log_dist] [Rank 0] DeepSpeed Final Optimizer = DeepSpeedZeroOptimizer
+[2026-07-22 09:28:49,001] [INFO] [logging.py:107:log_dist] [Rank 0] DeepSpeed using configured LR scheduler = None
+[2026-07-22 09:28:49,001] [INFO] [logging.py:107:log_dist] [Rank 0] DeepSpeed LR Scheduler = None
+[2026-07-22 09:28:49,001] [INFO] [logging.py:107:log_dist] [Rank 0] step=0, skipped=0, lr=[0.0001], mom=[(0.9, 0.95)]
+[2026-07-22 09:28:49,004] [INFO] [config.py:1003:print] DeepSpeedEngine configuration:
+[2026-07-22 09:28:49,004] [INFO] [config.py:1007:print]   activation_checkpointing_config  {
+    "partition_activations": false, 
+    "contiguous_memory_optimization": false, 
+    "cpu_checkpointing": false, 
+    "number_checkpoints": null, 
+    "synchronize_checkpoint_boundary": false, 
+    "profile": false
+}
+[2026-07-22 09:28:49,004] [INFO] [config.py:1007:print]   aio_config ................... {'block_size': 1048576, 'queue_depth': 8, 'intra_op_parallelism': 1, 'single_submit': False, 'overlap_events': True, 'use_gds': False}
+[2026-07-22 09:28:49,004] [INFO] [config.py:1007:print]   amp_enabled .................. False
+[2026-07-22 09:28:49,004] [INFO] [config.py:1007:print]   amp_params ................... False
+[2026-07-22 09:28:49,004] [INFO] [config.py:1007:print]   autotuning_config ............ {
+    "enabled": false, 
+    "start_step": null, 
+    "end_step": null, 
+    "metric_path": null, 
+    "arg_mappings": null, 
+    "metric": "throughput", 
+    "model_info": null, 
+    "results_dir": "autotuning_results", 
+    "exps_dir": "autotuning_exps", 
+    "overwrite": true, 
+    "fast": true, 
+    "start_profile_step": 3, 
+    "end_profile_step": 5, 
+    "tuner_type": "gridsearch", 
+    "tuner_early_stopping": 5, 
+    "tuner_num_trials": 50, 
+    "model_info_path": null, 
+    "mp_size": 1, 
+    "max_train_batch_size": null, 
+    "min_train_batch_size": 1, 
+    "max_train_micro_batch_size_per_gpu": 1.024000e+03, 
+    "min_train_micro_batch_size_per_gpu": 1, 
+    "num_tuning_micro_batch_sizes": 3
+}
+[2026-07-22 09:28:49,004] [INFO] [config.py:1007:print]   bfloat16_enabled ............. True
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   bfloat16_immediate_grad_update  True
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   checkpoint_parallel_write_pipeline  False
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   checkpoint_tag_validation_enabled  True
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   checkpoint_tag_validation_fail  False
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   comms_config ................. <deepspeed.comm.config.DeepSpeedCommsConfig object at 0x7f79e218ce90>
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   communication_data_type ...... None
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   compile_config ............... deepcompile=False free_activation=False offload_activation=False offload_opt_states=False double_buffer=True symmetric_memory=False debug_log=False offload_parameters=False sync_before_reduce=False sync_after_reduce=False sync_before_allgather=False sync_after_allgather=False
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   compression_config ........... {'weight_quantization': {'shared_parameters': {'enabled': False, 'quantizer_kernel': False, 'schedule_offset': 0, 'quantize_groups': 1, 'quantize_verbose': False, 'quantization_type': 'symmetric', 'quantize_weight_in_forward': False, 'rounding': 'nearest', 'fp16_mixed_quantize': False, 'quantize_change_ratio': 0.001}, 'different_groups': {}}, 'activation_quantization': {'shared_parameters': {'enabled': False, 'quantization_type': 'symmetric', 'range_calibration': 'dynamic', 'schedule_offset': 1000}, 'different_groups': {}}, 'sparse_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'row_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'head_pruning': {'shared_parameters': {'enabled': False, 'method': 'topk', 'schedule_offset': 1000}, 'different_groups': {}}, 'channel_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'layer_reduction': {'enabled': False}}
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   curriculum_enabled_legacy .... False
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   curriculum_params_legacy ..... False
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   data_efficiency_config ....... {'enabled': False, 'seed': 1234, 'data_sampling': {'enabled': False, 'num_epochs': 1000, 'num_workers': 0, 'pin_memory': False, 'curriculum_learning': {'enabled': False}, 'dynamic_batching': {'enabled': False, 'lr_scaling_method': 'linear', 'min_batch_size': 1, 'max_batch_size': None, 'sequence_picking_order': 'dataloader', 'verbose': False}}, 'data_routing': {'enabled': False, 'random_ltd': {'enabled': False, 'layer_token_lr_schedule': {'enabled': False}}}}
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   data_efficiency_enabled ...... False
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   dataloader_drop_last ......... False
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   disable_allgather ............ False
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   dump_state ................... False
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   dynamic_loss_scale_args ...... None
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   eigenvalue_enabled ........... False
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   eigenvalue_gas_boundary_resolution  1
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   eigenvalue_layer_name ........ bert.encoder.layer
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   eigenvalue_layer_num ......... 0
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   eigenvalue_max_iter .......... 100
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   eigenvalue_stability ......... 1e-06
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   eigenvalue_tol ............... 0.01
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   eigenvalue_verbose ........... False
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   elasticity_enabled ........... False
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   flops_profiler_config ........ {
+    "enabled": false, 
+    "recompute_fwd_factor": 0.0, 
+    "profile_step": 1, 
+    "module_depth": -1, 
+    "top_modules": 1, 
+    "detailed": true, 
+    "output_file": null
+}
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   fp16_auto_cast ............... None
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   fp16_enabled ................. False
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   fp16_master_weights_and_gradients  False
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   global_rank .................. 0
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   grad_accum_dtype ............. None
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   gradient_accumulation_steps .. 16
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   gradient_clipping ............ 1.0
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   gradient_predivide_factor .... 1.0
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   graph_harvesting ............. False
+[2026-07-22 09:28:49,005] [INFO] [config.py:1007:print]   hybrid_engine ................ enabled=False max_out_tokens=512 inference_tp_size=1 release_inference_cache=False pin_parameters=True tp_gather_partition_size=8
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   initial_dynamic_scale ........ 1
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   load_universal_checkpoint .... False
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   loss_scale ................... 1.0
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   memory_breakdown ............. False
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   mics_hierarchial_params_gather  False
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   mics_shard_size .............. -1
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   monitor_config ............... tensorboard=TensorBoardConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') comet=CometConfig(enabled=False, samples_log_interval=100, project=None, workspace=None, api_key=None, experiment_name=None, experiment_key=None, online=None, mode=None) wandb=WandbConfig(enabled=False, group=None, team=None, project='deepspeed') csv_monitor=CSVConfig(enabled=False, output_path='', job_name='DeepSpeedJobName')
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   nebula_config ................ {
+    "enabled": false, 
+    "persistent_storage_path": null, 
+    "persistent_time_interval": 100, 
+    "num_of_version_in_retention": 2, 
+    "enable_nebula_load": true, 
+    "load_path": null
+}
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   optimizer_legacy_fusion ...... False
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   optimizer_name ............... None
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   optimizer_params ............. None
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   pipeline ..................... {'stages': 'auto', 'partition': 'best', 'seed_layers': False, 'activation_checkpoint_interval': 0, 'pipe_partitioned': True, 'grad_partitioned': True}
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   pld_enabled .................. False
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   pld_params ................... False
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   prescale_gradients ........... False
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   scheduler_name ............... None
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   scheduler_params ............. None
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   seq_parallel_communication_data_type  torch.float32
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   sparse_attention ............. None
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   sparse_gradients_enabled ..... False
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   steps_per_print .............. inf
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   tensor_parallel_config ....... dtype=torch.float16 autotp_size=0 tp_overlap_comm=False tensor_parallel=TPConfig(tp_size=1, tp_grain_size=1, mpu=None, tp_group=None) injection_policy_tuple=None keep_module_on_host=False replace_with_kernel_inject=False
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   timers_config ................ enabled=True synchronized=True
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   train_batch_size ............. 128
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   train_micro_batch_size_per_gpu  4
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   use_data_before_expert_parallel_  False
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   use_node_local_storage ....... False
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   wall_clock_breakdown ......... False
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   weight_quantization_config ... None
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   world_size ................... 2
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   zero_allow_untested_optimizer  True
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   zero_config .................. stage=2 contiguous_gradients=True reduce_scatter=True reduce_bucket_size=500000000 use_multi_rank_bucket_allreduce=True allgather_partitions=True allgather_bucket_size=500000000 overlap_comm=False load_from_fp32_weights=True elastic_checkpoint=False offload_param=DeepSpeedZeroOffloadParamConfig(device='none', nvme_path=None, buffer_count=5, buffer_size=100000000, max_in_cpu=1000000000, pin_memory=False) offload_optimizer=DeepSpeedZeroOffloadOptimizerConfig(device='cpu', nvme_path=None, buffer_count=4, pin_memory=False, pipeline_read=False, pipeline_write=False, fast_init=False, ratio=1.0) sub_group_size=1000000000 cpu_offload_param=None cpu_offload_use_pin_memory=None cpu_offload=None prefetch_bucket_size=50000000 param_persistence_threshold=100000 model_persistence_threshold=9223372036854775807 max_live_parameters=1000000000 max_reuse_distance=1000000000 gather_16bit_weights_on_model_save=False module_granularity_threshold=0 use_all_reduce_for_fetch_params=False stage3_gather_fp16_weights_on_model_save=False ignore_unused_parameters=True legacy_stage1=False round_robin_gradients=False zero_hpz_partition_size=1 zero_quantized_weights=False zero_quantized_nontrainable_weights=False zero_quantized_gradients=False zeropp_loco_param=None mics_shard_size=-1 mics_hierarchical_params_gather=False memory_efficient_linear=True pipeline_loading_checkpoint=False override_module_apply=True log_trace_cache_warnings=False
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   zero_enabled ................. True
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   zero_force_ds_cpu_optimizer .. True
+[2026-07-22 09:28:49,006] [INFO] [config.py:1007:print]   zero_optimization_stage ...... 2
+[2026-07-22 09:28:49,007] [INFO] [config.py:993:print_user_config]   json = {
+    "train_batch_size": 128, 
+    "train_micro_batch_size_per_gpu": 4, 
+    "gradient_accumulation_steps": 16, 
+    "zero_optimization": {
+        "stage": 2, 
+        "offload_optimizer": {
+            "device": "cpu", 
+            "nvme_path": null
+        }, 
+        "offload_param": {
+            "device": "none", 
+            "nvme_path": null
+        }, 
+        "stage3_gather_16bit_weights_on_model_save": false
+    }, 
+    "gradient_clipping": 1.0, 
+    "steps_per_print": inf, 
+    "bf16": {
+        "enabled": true
+    }, 
+    "fp16": {
+        "enabled": false
+    }, 
+    "zero_allow_untested_optimizer": true
+}
+07/22 [09:29:16] INFO     | >> ***** Training Configuration train_starvla.py:580
+                          *****                                                 
+                 INFO     | >>   Total optimization steps = train_starvla.py:581
+                          2                                                     
+                 INFO     | >>   Per device batch size = 4  train_starvla.py:582
+                 INFO     | >>   Gradient accumulation      train_starvla.py:583
+                          steps = 16                                            
+                 INFO     | >>   Total batch size = 128     train_starvla.py:584
+StarWAM effective values: batch=4 accumulation=16 lr=0.0001 weight_decay=0.01 epochs=10 max_steps=2 warmup=0 precision=bf16 save_interval=1 scheduler=cosine_with_min_lr min_lr=1.0000000000000002e-06 fused_adamw=False
+  0%|          | 0/2 [00:00<?, ?it/s]  0%|          | 0/2 [00:18<?, ?it/s, data_times=5.457, model_times=12.684]  0%|          | 0/2 [00:22<?, ?it/s, data_times=0.002, model_times=4.191]   0%|          | 0/2 [00:26<?, ?it/s, data_times=0.003, model_times=3.987]  0%|          | 0/2 [00:30<?, ?it/s, data_times=0.002, model_times=4.299]  0%|          | 0/2 [00:34<?, ?it/s, data_times=0.003, model_times=4.243]  0%|          | 0/2 [00:39<?, ?it/s, data_times=0.003, model_times=4.137]  0%|          | 0/2 [00:43<?, ?it/s, data_times=0.002, model_times=4.331]  0%|          | 0/2 [00:47<?, ?it/s, data_times=0.002, model_times=3.846]  0%|          | 0/2 [00:51<?, ?it/s, data_times=0.003, model_times=4.288]  0%|          | 0/2 [00:55<?, ?it/s, data_times=0.003, model_times=4.085]  0%|          | 0/2 [00:59<?, ?it/s, data_times=0.002, model_times=4.407]  0%|          | 0/2 [01:04<?, ?it/s, data_times=0.002, model_times=4.531]  0%|          | 0/2 [01:09<?, ?it/s, data_times=0.003, model_times=4.790]  0%|          | 0/2 [01:14<?, ?it/s, data_times=0.002, model_times=4.683]  0%|          | 0/2 [01:19<?, ?it/s, data_times=0.002, model_times=5.303]07/22 [09:31:16] INFO     | >> StarWAM gradient probe saved train_starvla.py:637
+                          at                                                    
+                          /home/amax/data0/SJ/test-runs/sta                     
+                          rwam-integration/ad6b412_20260722                     
+                          _090916/train/SW-L-SW_20260722_09                     
+                          2000/gradient_probe.json                              
+ 50%|█████     | 1/2 [02:25<02:25, 145.80s/it, data_times=0.002, model_times=5.303] 50%|█████     | 1/2 [02:25<02:25, 145.80s/it, data_times=0.003, model_times=66.495]07/22 [09:31:43] INFO     | >> Step 1, Loss:                train_starvla.py:462
+                          {'loss/action_loss':                                  
+                          2.1835203170776367,                                   
+                          'loss/video_loss': 0.2255859375,                      
+                          'loss/total_loss':                                    
+                          2.4091062545776367,                                   
+                          'loss/loss_action_eef':                               
+                          2.143810987472534,                                    
+                          'loss/loss_action_gripper':                           
+                          2.831531524658203,                                    
+                          'loss/action_target_gripper_mean'                     
+                          : 0.015625,                                           
+                          'loss/action_target_gripper_open_                     
+                          rate': 0.5078125,                                     
+                          'action_dit_loss':                                    
+                          2.1835203170776367, 'action_mse':                     
+                          44.51544189453125, 'mse_score':                       
+                          44.51544189453125, 'timing/data':                     
+                          0.0025939680635929108,                                
+                          'timing/model':                                       
+                          66.49461703503039,                                    
+                          'learning_rate/starwam_trainable'                     
+                          : 5.05e-05, 'epoch': 0.0})                            
+✅ Checkpoint saved at /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/train/SW-L-SW_20260722_092000/checkpoints/steps_1
+ 50%|█████     | 1/2 [03:24<02:25, 145.80s/it, data_times=0.003, model_times=5.667]  50%|█████     | 1/2 [03:29<02:25, 145.80s/it, data_times=0.003, model_times=4.945] 50%|█████     | 1/2 [03:33<02:25, 145.80s/it, data_times=0.003, model_times=4.337] 50%|█████     | 1/2 [03:38<02:25, 145.80s/it, data_times=0.003, model_times=4.883] 50%|█████     | 1/2 [03:43<02:25, 145.80s/it, data_times=0.002, model_times=4.549] 50%|█████     | 1/2 [03:48<02:25, 145.80s/it, data_times=0.003, model_times=4.707] 50%|█████     | 1/2 [03:52<02:25, 145.80s/it, data_times=0.002, model_times=4.461] 50%|█████     | 1/2 [03:57<02:25, 145.80s/it, data_times=0.003, model_times=4.515] 50%|█████     | 1/2 [04:01<02:25, 145.80s/it, data_times=0.003, model_times=4.146] 50%|█████     | 1/2 [04:05<02:25, 145.80s/it, data_times=0.002, model_times=4.024] 50%|█████     | 1/2 [04:09<02:25, 145.80s/it, data_times=0.002, model_times=4.276] 50%|█████     | 1/2 [04:13<02:25, 145.80s/it, data_times=0.002, model_times=4.279] 50%|█████     | 1/2 [04:18<02:25, 145.80s/it, data_times=0.002, model_times=4.416] 50%|█████     | 1/2 [04:22<02:25, 145.80s/it, data_times=0.002, model_times=4.726] 50%|█████     | 1/2 [04:28<02:25, 145.80s/it, data_times=0.003, model_times=5.252]100%|██████████| 2/2 [04:51<00:00, 145.46s/it, data_times=0.003, model_times=5.252]100%|██████████| 2/2 [04:51<00:00, 145.46s/it, data_times=0.003, model_times=22.830]07/22 [09:34:08] INFO     | >> Step 2, Loss:                train_starvla.py:462
+                          {'loss/action_loss':                                  
+                          27.896472930908203,                                   
+                          'loss/video_loss': 0.474609375,                       
+                          'loss/total_loss':                                    
+                          28.371082305908203,                                   
+                          'loss/loss_action_eef':                               
+                          35.82858657836914,                                    
+                          'loss/loss_action_gripper':                           
+                          74.41343688964844,                                    
+                          'loss/action_target_gripper_mean'                     
+                          : -0.019607843831181526,                              
+                          'loss/action_target_gripper_open_                     
+                          rate': 0.4901961088180542,                            
+                          'action_dit_loss':                                    
+                          27.896472930908203, 'action_mse':                     
+                          83.94817352294922, 'mse_score':                       
+                          83.94817352294922, 'timing/data':                     
+                          0.0027785509591922164,                                
+                          'timing/model':                                       
+                          22.830033657024615,                                   
+                          'learning_rate/starwam_trainable'                     
+                          : 1.0000000000000002e-06,                             
+                          'epoch': 0.0})                                        
+✅ Checkpoint saved at /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/train/SW-L-SW_20260722_092000/checkpoints/steps_2
+07/22 [09:36:35] INFO     | >> Training complete. Final     train_starvla.py:704
+                          model saved at                                        
+                          /home/amax/data0/SJ/test-runs/sta                     
+                          rwam-integration/ad6b412_20260722                     
+                          _090916/train/SW-L-SW_20260722_09                     
+                          2000/final_model                                      
+100%|██████████| 2/2 [07:18<00:00, 219.39s/it, data_times=0.003, model_times=22.830]
+07/22 [09:36:35] INFO     | >> ... and that's all, folks!   train_starvla.py:753
+                 INFO     | >> ... and that's all, folks!   train_starvla.py:753
+[W722 09:36:35.353369993 ProcessGroupNCCL.cpp:1496] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())

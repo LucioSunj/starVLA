@@ -1,0 +1,15 @@
+07/22 [12:42:36] INFO     | >> [*] Loading from local         share_tools.py:370
+                          checkpoint path                                       
+                          `/home/amax/data0/SJ/test-runs/star                   
+                          wam-integration/ad6b412_20260722_09                   
+                          0916/artifacts/bundles/SW-R-MW/chec                   
+                          kpoints/steps_2_pytorch_model.pt`                     
+[Wan22Backbone] Loaded DiT weights from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B (num_loaded=825, missing=0, unexpected=0)
+07/22 [12:43:18] INFO     | >> loading                             wan22.py:1491
+                          /home/amax/data0/SJ/models/Wan2.2-TI2V-5              
+                          B/Wan2.2_VAE.pth                                      
+[Wan22VAE] Loaded VAE from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B/Wan2.2_VAE.pth
+07/22 [12:43:22] INFO     | >> Building StarWAM MoT WAM with       builder.py:53
+                          backbone=wan22_5b                                     
+[StarWAM] Loaded ActionDiT init from /home/amax/data0/SJ/preprocessed/starwam_action_dit_init_wan22.pt (num_loaded=820, head_init=random, missing=4, unexpected=0)
+{"action_horizon": 32, "checkpoint": "/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW/checkpoints/steps_2_pytorch_model.pt", "metadata": {"action_chunk_size": 32, "action_layout": "native_qpos", "available_unnorm_keys": ["starwam"], "camera_layout": "robotwin", "camera_order": ["observation.images.cam_high", "observation.images.cam_left_wrist", "observation.images.cam_right_wrist"], "default_unnorm_key": "starwam", "framework_preprocesses_images": true, "model_family": "mot_wam", "state_required": true, "training_obs_image_size": [384, 320]}, "missing_keys": 0, "model_family": "mot_wam", "recipe_exists": false, "recipe_path": "/definitely/missing/starwam_recipe.yaml", "state_dict_keys": 3300, "status": "PASS", "strict": true, "unexpected_keys": 0, "used_resolved_snapshot": true}

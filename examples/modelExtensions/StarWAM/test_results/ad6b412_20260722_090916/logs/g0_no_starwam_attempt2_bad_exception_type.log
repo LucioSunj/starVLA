@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/model/framework/base_framework.py", line 106, in build_framework
+    return model_class(cfg, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/model/framework/WAM/StarWAM.py", line 38, in __init__
+    require_starwam()
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/model/framework/WAM/config.py", line 22, in require_starwam
+    raise RuntimeError(
+RuntimeError: framework.name='StarWAM' requires the optional StarWAM dependency. Install it with `pip install -e '.[wam]'` or, for this workspace, `pip install --no-deps -e '../StarWAM[train]'`.
+starwam_spec=None
+legacy_framework_import=PASS
+lightweight_import=PASS
+registered_legacy=ACT

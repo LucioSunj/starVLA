@@ -1,0 +1,10 @@
+[2026-07-22 06:29:52,808] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+starwam /home/amax/SJ/projects/Embodied-World/StarWAM/starwam/__init__.py
+torch 2.6.0+cu124
+cuda_runtime 12.4
+nccl (2, 21, 5)
+accelerate 1.5.2
+deepspeed 0.16.9
+transformers 4.57.0
+opencv 4.11.0
+matplotlib 3.11.1

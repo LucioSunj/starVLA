@@ -1,0 +1,2 @@
+prior_sw_l_mw_root=/home/amax/data0/SJ/test-runs/starwam-integration/3f072c4_20260722_062824/train/SW-L-MW_20260722_063933
+reason=ad6b412 changes only TEST_EXECUTION_PLAN, test names, and runtime docstring; SW-L-MW training behavior is byte-for-byte unchanged from 3f072c4

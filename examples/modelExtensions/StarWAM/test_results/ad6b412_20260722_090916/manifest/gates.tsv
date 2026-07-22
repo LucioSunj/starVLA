@@ -1,0 +1,6 @@
+gate	decision	reason
+G0	PASS	A1 pass; targeted 41 passed; full suite 74 passed; zero skips; lazy dependency checks pass
+G1	BLOCKED	Four Wan cases pass two-step training; two mandatory Cosmos cases blocked by unavailable gated assets
+G2	FAIL	All Wan checkpoints strict-load 0/0, but restored SW-L-SW actual inference has CPU/CUDA device mismatch
+G3	PASS	Canonical PyTorch tensor-resize parity exact for real native SW-L-MW checkpoint
+G4	FAIL	LIBERO runner Path/string incompatibility; RoboTwin rollout blocked by incomplete simulator/assets

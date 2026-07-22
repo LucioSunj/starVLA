@@ -1,0 +1,168 @@
+[2026-07-22 09:21:53,550] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+W0722 09:21:56.363000 2142002 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py:792] 
+W0722 09:21:56.363000 2142002 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py:792] *****************************************
+W0722 09:21:56.363000 2142002 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py:792] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0722 09:21:56.363000 2142002 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py:792] *****************************************
+[2026-07-22 09:22:01,288] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+07/22 [09:22:01] INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat -DNDEBUG -fwrapv -O2             
+                          -Wall -fPIC -O2 -isystem                              
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -O2 -isystem                       
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -c                                 
+                          /tmp/tmp82hknit4/test.c -o                            
+                          /tmp/tmp82hknit4/test.o                               
+                 INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat                                  
+                          /tmp/tmp82hknit4/test.o -laio -o                      
+                          /tmp/tmp82hknit4/a.out                                
+[2026-07-22 09:22:01,617] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+07/22 [09:22:01] INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat -DNDEBUG -fwrapv -O2             
+                          -Wall -fPIC -O2 -isystem                              
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -O2 -isystem                       
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -c                                 
+                          /tmp/tmpzacuymt_/test.c -o                            
+                          /tmp/tmpzacuymt_/test.o                               
+                 INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat                                  
+                          /tmp/tmpzacuymt_/test.o -laio -o                      
+                          /tmp/tmpzacuymt_/a.out                                
+                 INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat -DNDEBUG -fwrapv -O2             
+                          -Wall -fPIC -O2 -isystem                              
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -O2 -isystem                       
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -c                                 
+                          /tmp/tmp5r_gbdav/test.c -o                            
+                          /tmp/tmp5r_gbdav/test.o                               
+07/22 [09:22:02] INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat                                  
+                          /tmp/tmp5r_gbdav/test.o                               
+                          -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.            
+                          4.131-0                                               
+                          -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.            
+                          4.131-0/lib64 -lcufile -o                             
+                          /tmp/tmp5r_gbdav/a.out                                
+07/22 [09:22:02] INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat -DNDEBUG -fwrapv -O2             
+                          -Wall -fPIC -O2 -isystem                              
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -O2 -isystem                       
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -c                                 
+                          /tmp/tmpdfygqllh/test.c -o                            
+                          /tmp/tmpdfygqllh/test.o                               
+                 INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat                                  
+                          /tmp/tmpdfygqllh/test.o                               
+                          -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.            
+                          4.131-0                                               
+                          -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.            
+                          4.131-0/lib64 -lcufile -o                             
+                          /tmp/tmpdfygqllh/a.out                                
+[2026-07-22 09:22:02,625] [INFO] [comm.py:669:init_distributed] cdb=None
+[2026-07-22 09:22:02,625] [INFO] [comm.py:700:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+[W722 09:22:02.333301751 Utils.hpp:136] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function operator())
+[2026-07-22 09:22:03,125] [INFO] [comm.py:669:init_distributed] cdb=None
+[W722 09:22:03.832347702 Utils.hpp:136] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function operator())
+07/22 [09:22:03] INFO     | >> VLA Training :: Warming Up   train_starvla.py:716
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/training/train_starvla.py", line 789, in <module>
+[rank0]:     main(cfg)
+[rank0]:   File "/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/training/train_starvla.py", line 718, in main
+[rank0]:     cfg = prepare_starwam_host_config(cfg, config_path=cfg.get("config_yaml", None))
+[rank0]:           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/model/framework/WAM/config.py", line 181, in prepare_starwam_host_config
+[rank0]:     starwam_cfg = apply_overrides(starwam_cfg, overrides)
+[rank0]:                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/amax/SJ/projects/Embodied-World/StarWAM/starwam/utils/config_cli.py", line 43, in apply_overrides
+[rank0]:     setattr(target, leaf, coerce_override_value(value))
+[rank0]:                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/amax/SJ/projects/Embodied-World/StarWAM/starwam/utils/config_cli.py", line 17, in coerce_override_value
+[rank0]:     parsed = ast.literal_eval(value)
+[rank0]:              ^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/ast.py", line 64, in literal_eval
+[rank0]:     node_or_string = parse(node_or_string.lstrip(" \t"), mode='eval')
+[rank0]:                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/ast.py", line 50, in parse
+[rank0]:     return compile(source, filename, mode, flags,
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "<unknown>", line 1
+[rank0]:     [/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_spatial_no_noops_lerobot,/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_object_no_noops_lerobot,/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_goal_no_noops_lerobot,/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_10_no_noops_lerobot]
+[rank0]:                          ^^
+[rank0]: SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers
+07/22 [09:22:03] INFO     | >> VLA Training :: Warming Up   train_starvla.py:716
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/training/train_starvla.py", line 789, in <module>
+[rank1]:     main(cfg)
+[rank1]:   File "/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/training/train_starvla.py", line 718, in main
+[rank1]:     cfg = prepare_starwam_host_config(cfg, config_path=cfg.get("config_yaml", None))
+[rank1]:           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/model/framework/WAM/config.py", line 181, in prepare_starwam_host_config
+[rank1]:     starwam_cfg = apply_overrides(starwam_cfg, overrides)
+[rank1]:                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/amax/SJ/projects/Embodied-World/StarWAM/starwam/utils/config_cli.py", line 43, in apply_overrides
+[rank1]:     setattr(target, leaf, coerce_override_value(value))
+[rank1]:                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/amax/SJ/projects/Embodied-World/StarWAM/starwam/utils/config_cli.py", line 17, in coerce_override_value
+[rank1]:     parsed = ast.literal_eval(value)
+[rank1]:              ^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/ast.py", line 64, in literal_eval
+[rank1]:     node_or_string = parse(node_or_string.lstrip(" \t"), mode='eval')
+[rank1]:                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/ast.py", line 50, in parse
+[rank1]:     return compile(source, filename, mode, flags,
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "<unknown>", line 1
+[rank1]:     [/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_spatial_no_noops_lerobot,/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_object_no_noops_lerobot,/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_goal_no_noops_lerobot,/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_10_no_noops_lerobot]
+[rank1]:                          ^^
+[rank1]: SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers
+[rank0]:[W722 09:22:04.885690607 ProcessGroupNCCL.cpp:1496] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+W0722 09:22:04.786000 2142002 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 2142283 closing signal SIGTERM
+E0722 09:22:04.901000 2142002 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: 1) local_rank: 1 (pid: 2142284) of binary: /home/amax/data0/SJ/envs/starvla-starwam-py311/bin/python
+Traceback (most recent call last):
+  File "/home/amax/data0/SJ/envs/starvla-starwam-py311/bin/accelerate", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/accelerate/commands/accelerate_cli.py", line 48, in main
+    args.func(args)
+  File "/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/accelerate/commands/launch.py", line 1177, in launch_command
+    deepspeed_launcher(args)
+  File "/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/accelerate/commands/launch.py", line 863, in deepspeed_launcher
+    distrib_run.run(args)
+  File "/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py", line 909, in run
+    elastic_launch(
+  File "/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 138, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 269, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+starVLA/training/train_starvla.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-07-22_09:22:04
+  host      : amax
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 2142284)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

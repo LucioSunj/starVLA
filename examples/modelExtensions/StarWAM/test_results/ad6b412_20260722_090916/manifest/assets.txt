@@ -1,0 +1,10 @@
+WAN22_ROOT=/home/amax/data0/SJ/models/Wan2.2-TI2V-5B
+WAN_ACTION_DIT_INIT=/home/amax/data0/SJ/preprocessed/starwam_action_dit_init_wan22.pt
+NATIVE_STARWAM_CHECKPOINT=/home/amax/data0/SJ/models/starwam_ckpts/starwam-libero/mot/starwam_wan225b_mot.pt
+COSMOS_ROOT=BLOCKED:gated Hugging Face repository returned 401
+COSMOS_ACTION_DIT_INIT=BLOCKED:requires unavailable Cosmos backbone
+LIBERO_SPATIAL_DATA=/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_spatial_no_noops_lerobot
+LIBERO_OBJECT_DATA=/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_object_no_noops_lerobot
+LIBERO_GOAL_DATA=/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_goal_no_noops_lerobot
+LIBERO_10_DATA=/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_10_no_noops_lerobot
+ROBOTWIN_DATA=/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/repo-runs-performance-assets/robotwin2.0-fastwam/robotwin2.0

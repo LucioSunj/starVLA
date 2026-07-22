@@ -1,0 +1,43 @@
+{
+  "ranks": [
+    {
+      "adamw_mode": true,
+      "betas": [
+        0.9,
+        0.95
+      ],
+      "boundaries": [
+        false,
+        true
+      ],
+      "eps": 1e-08,
+      "finite_gradient_ratio": 1.0,
+      "gradient_l2_norm": 2.0227907539046224,
+      "nonzero_gradient_elements": 64,
+      "optimizer": "DeepSpeedCPUAdam",
+      "rank": 0,
+      "weight_decay": 0.01,
+      "world_size": 2
+    },
+    {
+      "adamw_mode": true,
+      "betas": [
+        0.9,
+        0.95
+      ],
+      "boundaries": [
+        false,
+        true
+      ],
+      "eps": 1e-08,
+      "finite_gradient_ratio": 1.0,
+      "gradient_l2_norm": 2.0227907539046224,
+      "nonzero_gradient_elements": 64,
+      "optimizer": "DeepSpeedCPUAdam",
+      "rank": 1,
+      "weight_decay": 0.01,
+      "world_size": 2
+    }
+  ],
+  "status": "PASS"
+}

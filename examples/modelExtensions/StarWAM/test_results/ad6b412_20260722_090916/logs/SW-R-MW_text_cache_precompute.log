@@ -1,0 +1,5 @@
+[launch] shard 0/4 on GPU 0 -> /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/cache/SW-R-MW/logs/shard_0.log
+[launch] shard 1/4 on GPU 1 -> /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/cache/SW-R-MW/logs/shard_1.log
+[launch] shard 2/4 on GPU 2 -> /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/cache/SW-R-MW/logs/shard_2.log
+[launch] shard 3/4 on GPU 3 -> /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/cache/SW-R-MW/logs/shard_3.log
+ALL SHARDS DONE

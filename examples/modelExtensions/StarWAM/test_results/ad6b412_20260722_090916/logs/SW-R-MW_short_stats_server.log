@@ -1,0 +1,57 @@
+INFO:starVLA.model.framework.share_tools:[*] Loading from local checkpoint path `/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW-short-stats/checkpoints/steps_2_pytorch_model.pt`
+INFO:root:PolicyServerWrapper: loading framework from /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW-short-stats/checkpoints/steps_2_pytorch_model.pt
+INFO:starVLA.model.framework.share_tools:[*] Loading from local checkpoint path `/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW-short-stats/checkpoints/steps_2_pytorch_model.pt`
+INFO:root:loading /home/amax/data0/SJ/models/Wan2.2-TI2V-5B/Wan2.2_VAE.pth
+INFO:starwam.builder:Building StarWAM MoT WAM with backbone=wan22_5b
+INFO:root:PolicyServerWrapper ready with framework normalization: action_chunk_size=32, key=starwam
+INFO:root:Creating server (host: amax, ip: 127.0.1.1)
+WARNING:root:[TRAIN/TEST CONSISTENCY CHECK] serving ckpt=/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW-short-stats/checkpoints/steps_2_pytorch_model.pt — verify eval observations (state / image size / image count / image order / action normalization) match the training config. metadata={'env': 'starvla_policy_server', 'ckpt_path': '/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW-short-stats/checkpoints/steps_2_pytorch_model.pt', 'action_chunk_size': 32, 'available_unnorm_keys': ['starwam'], 'default_unnorm_key': 'starwam', 'training_data_mix': 'mot_wam', 'training_obs_image_size': [384, 320], 'eval_image_contract': 'Eval clients must explicitly choose image count and order. The server does not infer or reorder camera views from training config.', 'action_layout': 'native_qpos', 'camera_order': ['observation.images.cam_high', 'observation.images.cam_left_wrist', 'observation.images.cam_right_wrist'], 'camera_layout': 'robotwin', 'framework_preprocesses_images': True, 'state_required': True, 'model_family': 'mot_wam'}
+INFO:root:server running ... metadata={'env': 'starvla_policy_server', 'ckpt_path': '/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW-short-stats/checkpoints/steps_2_pytorch_model.pt', 'action_chunk_size': 32, 'available_unnorm_keys': ['starwam'], 'default_unnorm_key': 'starwam', 'training_data_mix': 'mot_wam', 'training_obs_image_size': [384, 320], 'eval_image_contract': 'Eval clients must explicitly choose image count and order. The server does not infer or reorder camera views from training config.', 'action_layout': 'native_qpos', 'camera_order': ['observation.images.cam_high', 'observation.images.cam_left_wrist', 'observation.images.cam_right_wrist'], 'camera_layout': 'robotwin', 'framework_preprocesses_images': True, 'state_required': True, 'model_family': 'mot_wam'}
+INFO:websockets.server:server listening on 0.0.0.0:10105
+INFO:websockets.server:connection open
+INFO:root:Connection from ('127.0.0.1', 39540) opened
+/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/model/framework/WAM/runtime.py:17: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:203.)
+  tensor = torch.as_tensor(np.asarray(image))
+ERROR:root:Policy inference error (request_id=default)
+Traceback (most recent call last):
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/deployment/model_server/tools/websocket_policy_server.py", line 117, in _route_message
+    output_dict = self._policy.predict_action(**payload)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/deployment/model_server/policy_wrapper.py", line 229, in predict_action
+    out = self._framework.predict_action(examples=examples, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/model/framework/WAM/StarWAM.py", line 193, in predict_action
+    proprio = self._normalized_state(example.get("state"), device, dtype)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/model/framework/WAM/StarWAM.py", line 176, in _normalized_state
+    value = normalize_vector(value, self.starwam_config.data.state_norm_mode, self._state_stats)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/model/framework/WAM/runtime.py", line 78, in normalize_vector
+    return ((values - mean) / std).clamp(-5.0, 5.0)
+             ~~~~~~~^~~~~~
+RuntimeError: The size of tensor a (14) must match the size of tensor b (13) at non-singleton dimension 1
+ERROR:root:The size of tensor a (14) must match the size of tensor b (13) at non-singleton dimension 1
+Traceback (most recent call last):
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/deployment/model_server/tools/websocket_policy_server.py", line 117, in _route_message
+    output_dict = self._policy.predict_action(**payload)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/deployment/model_server/policy_wrapper.py", line 229, in predict_action
+    out = self._framework.predict_action(examples=examples, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/model/framework/WAM/StarWAM.py", line 193, in predict_action
+    proprio = self._normalized_state(example.get("state"), device, dtype)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/model/framework/WAM/StarWAM.py", line 176, in _normalized_state
+    value = normalize_vector(value, self.starwam_config.data.state_norm_mode, self._state_stats)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/model/framework/WAM/runtime.py", line 78, in normalize_vector
+    return ((values - mean) / std).clamp(-5.0, 5.0)
+             ~~~~~~~^~~~~~
+RuntimeError: The size of tensor a (14) must match the size of tensor b (13) at non-singleton dimension 1
+INFO:root:Connection from ('127.0.0.1', 39540) closed

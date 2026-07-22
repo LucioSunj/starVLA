@@ -1,0 +1,57 @@
+{
+  "all_zero_tensor_count": 0,
+  "backbone_keys": 820,
+  "init_path": "/home/amax/data0/SJ/preprocessed/starwam_action_dit_init_wan22.pt",
+  "loads": {
+    "libero": {
+      "action_dim": 7,
+      "missing_is_expected": true,
+      "missing_keys": [
+        "action_encoder.bias",
+        "action_encoder.weight",
+        "head.bias",
+        "head.weight"
+      ],
+      "num_loaded": 820,
+      "unexpected_keys": []
+    },
+    "robotwin": {
+      "action_dim": 14,
+      "missing_is_expected": true,
+      "missing_keys": [
+        "action_encoder.bias",
+        "action_encoder.weight",
+        "head.bias",
+        "head.weight"
+      ],
+      "num_loaded": 820,
+      "unexpected_keys": []
+    }
+  },
+  "meta": {
+    "action_dim": 7,
+    "attn_head_dim": 128,
+    "eps": 1e-06,
+    "ffn_dim": 4096,
+    "freq_dim": 256,
+    "hidden_dim": 1024,
+    "num_heads": 24,
+    "num_layers": 30,
+    "source_mapping_stats": {},
+    "text_dim": 4096
+  },
+  "nonfinite_keys": [],
+  "policy": {
+    "action_backbone_skip_prefixes": [
+      "action_encoder.",
+      "head."
+    ],
+    "alpha_scaling": true,
+    "head_init": "random",
+    "interpolation": "sequential_1d_linear_align_corners_true",
+    "source": "starwam_recipe_backbone",
+    "source_backbone": "wan22"
+  },
+  "size_bytes": 2042009114,
+  "valid": true
+}

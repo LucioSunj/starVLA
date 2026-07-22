@@ -1,0 +1,104 @@
+[2026-07-22 09:51:20,108] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+W0722 09:51:23.243000 2150220 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py:792] 
+W0722 09:51:23.243000 2150220 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py:792] *****************************************
+W0722 09:51:23.243000 2150220 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py:792] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0722 09:51:23.243000 2150220 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py:792] *****************************************
+[2026-07-22 09:51:29,715] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2026-07-22 09:51:29,717] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+07/22 [09:51:29] INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat -DNDEBUG -fwrapv -O2             
+                          -Wall -fPIC -O2 -isystem                              
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -O2 -isystem                       
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -c                                 
+                          /tmp/tmpwwjcssyi/test.c -o                            
+                          /tmp/tmpwwjcssyi/test.o                               
+07/22 [09:51:29] INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat -DNDEBUG -fwrapv -O2             
+                          -Wall -fPIC -O2 -isystem                              
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -O2 -isystem                       
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -c                                 
+                          /tmp/tmpwb5j7m95/test.c -o                            
+                          /tmp/tmpwb5j7m95/test.o                               
+                 INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat                                  
+                          /tmp/tmpwwjcssyi/test.o -laio -o                      
+                          /tmp/tmpwwjcssyi/a.out                                
+                 INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat                                  
+                          /tmp/tmpwb5j7m95/test.o -laio -o                      
+                          /tmp/tmpwb5j7m95/a.out                                
+07/22 [09:51:30] INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat -DNDEBUG -fwrapv -O2             
+                          -Wall -fPIC -O2 -isystem                              
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -O2 -isystem                       
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -c                                 
+                          /tmp/tmp07j5gt78/test.c -o                            
+                          /tmp/tmp07j5gt78/test.o                               
+                 INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat                                  
+                          /tmp/tmp07j5gt78/test.o                               
+                          -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.            
+                          4.131-0                                               
+                          -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.            
+                          4.131-0/lib64 -lcufile -o                             
+                          /tmp/tmp07j5gt78/a.out                                
+07/22 [09:51:30] INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat -DNDEBUG -fwrapv -O2             
+                          -Wall -fPIC -O2 -isystem                              
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -O2 -isystem                       
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -c                                 
+                          /tmp/tmpqc_3u9y5/test.c -o                            
+                          /tmp/tmpqc_3u9y5/test.o                               
+                 INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat                                  
+                          /tmp/tmpqc_3u9y5/test.o                               
+                          -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.            
+                          4.131-0                                               
+                          -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.            
+                          4.131-0/lib64 -lcufile -o                             
+                          /tmp/tmpqc_3u9y5/a.out                                
+[2026-07-22 09:51:31,151] [INFO] [comm.py:669:init_distributed] cdb=None
+[2026-07-22 09:51:31,151] [INFO] [comm.py:700:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+[W722 09:51:31.858605776 Utils.hpp:136] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function operator())
+[2026-07-22 09:51:31,347] [INFO] [comm.py:669:init_distributed] cdb=None
+[W722 09:51:31.055091759 Utils.hpp:136] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function operator())
+07/22 [09:51:31] INFO     | >> VLA Training :: Warming Up   train_starvla.py:716
+07/22 [09:51:31] INFO     | >> VLA Training :: Warming Up   train_starvla.py:716
+Distributed environment: DistributedType.DEEPSPEED  Backend: nccl
+Num processes: 2
+Process index: 0
+Local process index: 0
+Device: cuda:0
+
+Mixed precision type: bf16
+ds_config: {'train_batch_size': 'auto', 'train_micro_batch_size_per_gpu': 'auto', 'gradient_accumulation_steps': 128, 'zero_optimization': {'stage': 2, 'offload_optimizer': {'device': 'cpu', 'nvme_path': None}, 'offload_param': {'device': 'none', 'nvme_path': None}, 'stage3_gather_16bit_weights_on_model_save': False}, 'gradient_clipping': 1.0, 'steps_per_print': inf, 'bf16': {'enabled': True}, 'fp16': {'enabled': False}}
+
+                 INFO     | >> ✅ Configuration wrapped for train_starvla.py:721
+                          access tracking                                       
+                 INFO     | >> ✅ Configuration wrapped for train_starvla.py:721
+                          access tracking                                       
+07/22 [09:51:58] INFO     | >> loading                              wan22.py:604
+                          /home/amax/data0/SJ/models/Wan2.2-TI2V-5B             
+                          /models_t5_umt5-xxl-enc-bf16.pth                      
+[Wan22TextEncoder] Loaded UMT5-XXL from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B/models_t5_umt5-xxl-enc-bf16.pth
+07/22 [09:52:51] INFO     | >> Generating 921032 missing StarWAM  builder.py:166
+                          text caches in                                        
+                          /home/amax/data0/SJ/test-runs/starwam-i               
+                          ntegration/ad6b412_20260722_090916/cach               
+                          e/SW-R-MW                                             

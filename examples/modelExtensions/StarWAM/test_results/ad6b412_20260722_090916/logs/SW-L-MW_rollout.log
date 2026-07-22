@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/examples/simBenchmarks/LIBERO/eval_files/eval_libero.py", line 11, in <module>
+    import tyro
+ModuleNotFoundError: No module named 'tyro'

@@ -1,0 +1,412 @@
+[2026-07-22 11:36:39,215] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+W0722 11:36:41.979000 2176117 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py:792] 
+W0722 11:36:41.979000 2176117 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py:792] *****************************************
+W0722 11:36:41.979000 2176117 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py:792] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0722 11:36:41.979000 2176117 /data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/distributed/run.py:792] *****************************************
+[2026-07-22 11:36:47,470] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2026-07-22 11:36:47,471] [INFO] [real_accelerator.py:254:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+07/22 [11:36:47] INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat -DNDEBUG -fwrapv -O2             
+                          -Wall -fPIC -O2 -isystem                              
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -O2 -isystem                       
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -c                                 
+                          /tmp/tmpav69z2k6/test.c -o                            
+                          /tmp/tmpav69z2k6/test.o                               
+07/22 [11:36:47] INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat -DNDEBUG -fwrapv -O2             
+                          -Wall -fPIC -O2 -isystem                              
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -O2 -isystem                       
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -c                                 
+                          /tmp/tmppy1m145_/test.c -o                            
+                          /tmp/tmppy1m145_/test.o                               
+                 INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat                                  
+                          /tmp/tmpav69z2k6/test.o -laio -o                      
+                          /tmp/tmpav69z2k6/a.out                                
+                 INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat                                  
+                          /tmp/tmppy1m145_/test.o -laio -o                      
+                          /tmp/tmppy1m145_/a.out                                
+07/22 [11:36:48] INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat -DNDEBUG -fwrapv -O2             
+                          -Wall -fPIC -O2 -isystem                              
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -O2 -isystem                       
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -c                                 
+                          /tmp/tmpeuz79_gv/test.c -o                            
+                          /tmp/tmpeuz79_gv/test.o                               
+                 INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat                                  
+                          /tmp/tmpeuz79_gv/test.o                               
+                          -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.            
+                          4.131-0                                               
+                          -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.            
+                          4.131-0/lib64 -lcufile -o                             
+                          /tmp/tmpeuz79_gv/a.out                                
+07/22 [11:36:48] INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat -DNDEBUG -fwrapv -O2             
+                          -Wall -fPIC -O2 -isystem                              
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -O2 -isystem                       
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/include -fPIC -c                                 
+                          /tmp/tmp9kchrjhl/test.c -o                            
+                          /tmp/tmp9kchrjhl/test.o                               
+                 INFO     | >> gcc -pthread -B                       spawn.py:77
+                          /home/amax/data0/SJ/envs/starvla-starwam-p            
+                          y311/compiler_compat                                  
+                          /tmp/tmp9kchrjhl/test.o                               
+                          -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.            
+                          4.131-0                                               
+                          -L/home/amax/miniconda3/pkgs/cuda-nvcc-12.            
+                          4.131-0/lib64 -lcufile -o                             
+                          /tmp/tmp9kchrjhl/a.out                                
+[2026-07-22 11:36:49,032] [INFO] [comm.py:669:init_distributed] cdb=None
+[2026-07-22 11:36:49,032] [INFO] [comm.py:700:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+[W722 11:36:49.739570832 Utils.hpp:136] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function operator())
+[2026-07-22 11:36:49,038] [INFO] [comm.py:669:init_distributed] cdb=None
+[W722 11:36:49.744539936 Utils.hpp:136] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function operator())
+07/22 [11:36:49] INFO     | >> VLA Training :: Warming Up   train_starvla.py:716
+Distributed environment: DistributedType.DEEPSPEED  Backend: nccl
+Num processes: 2
+Process index: 0
+Local process index: 0
+Device: cuda:0
+
+Mixed precision type: bf16
+ds_config: {'train_batch_size': 'auto', 'train_micro_batch_size_per_gpu': 'auto', 'gradient_accumulation_steps': 128, 'zero_optimization': {'stage': 2, 'offload_optimizer': {'device': 'cpu', 'nvme_path': None}, 'offload_param': {'device': 'none', 'nvme_path': None}, 'stage3_gather_16bit_weights_on_model_save': False}, 'gradient_clipping': 1.0, 'steps_per_print': inf, 'bf16': {'enabled': True}, 'fp16': {'enabled': False}}
+
+                 INFO     | >> ✅ Configuration wrapped for train_starvla.py:721
+                          access tracking                                       
+07/22 [11:36:49] INFO     | >> VLA Training :: Warming Up   train_starvla.py:716
+                 INFO     | >> ✅ Configuration wrapped for train_starvla.py:721
+                          access tracking                                       
+[rank0]:[W722 11:39:49.120692765 ProcessGroupNCCL.cpp:4561] [PG ID 0 PG GUID 0 Rank 0]  using GPU 0 to perform barrier as devices used by this process are currently unknown. This can potentially cause a hang if this rank to GPU mapping is incorrect. Specify device_ids in barrier() to force use of a particular device, or call init_process_group() with a device_id.
+[rank1]:[W722 11:39:49.120724663 ProcessGroupNCCL.cpp:4561] [PG ID 0 PG GUID 0 Rank 1]  using GPU 1 to perform barrier as devices used by this process are currently unknown. This can potentially cause a hang if this rank to GPU mapping is incorrect. Specify device_ids in barrier() to force use of a particular device, or call init_process_group() with a device_id.
+[Wan22Backbone] Loaded DiT weights from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B (num_loaded=825, missing=0, unexpected=0)
+07/22 [11:43:31] INFO     | >> loading                             wan22.py:1491
+                          /home/amax/data0/SJ/models/Wan2.2-TI2V-5              
+                          B/Wan2.2_VAE.pth                                      
+[Wan22Backbone] Loaded DiT weights from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B (num_loaded=825, missing=0, unexpected=0)
+07/22 [11:43:37] INFO     | >> loading                             wan22.py:1491
+                          /home/amax/data0/SJ/models/Wan2.2-TI2V-5              
+                          B/Wan2.2_VAE.pth                                      
+[Wan22VAE] Loaded VAE from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B/Wan2.2_VAE.pth
+07/22 [11:43:43] INFO     | >> Building StarWAM MoT WAM with       builder.py:53
+                          backbone=wan22_5b                                     
+[Wan22VAE] Loaded VAE from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B/Wan2.2_VAE.pth
+07/22 [11:43:43] INFO     | >> Building StarWAM MoT WAM with       builder.py:53
+                          backbone=wan22_5b                                     
+[StarWAM] Loaded ActionDiT init from /home/amax/data0/SJ/preprocessed/starwam_action_dit_init_wan22.pt (num_loaded=820, head_init=random, missing=4, unexpected=0)
+[StarWAM] Loaded ActionDiT init from /home/amax/data0/SJ/preprocessed/starwam_action_dit_init_wan22.pt (num_loaded=820, head_init=random, missing=4, unexpected=0)
+07/22 [11:44:29] INFO     | >> Creating VLA Dataset with    train_starvla.py:122
+                          Mixture `mot_wam`                                     
+07/22 [11:44:32] INFO     | >> Creating VLA Dataset with    train_starvla.py:122
+                          Mixture `mot_wam`                                     
+07/22 [11:44:55] INFO     | >> LR Group starwam_trainable:  train_starvla.py:164
+                          lr=0.0001, num_params=1651                            
+07/22 [11:44:55] INFO     | >> No pretrained checkpoint     train_starvla.py:399
+                          provided. Starting training from                      
+                          scratch.                                              
+##############################
+
+                 INFO     | >> 📝 Full config saved at      train_starvla.py:359
+                          /home/amax/data0/SJ/test-runs/sta                     
+                          rwam-integration/ad6b412_20260722                     
+                          _090916/train/SW-R-MW_20260722_09                     
+                          2000/config.full.yaml                                 
+                 INFO     | >> 📝 Self-contained config     train_starvla.py:364
+                          saved at                                              
+                          /home/amax/data0/SJ/test-runs/sta                     
+                          rwam-integration/ad6b412_20260722                     
+                          _090916/train/SW-R-MW_20260722_09                     
+                          2000/config.yaml                                      
+                 INFO     | >> No pretrained checkpoint     train_starvla.py:399
+                          provided. Starting training from                      
+                          scratch.                                              
+##############################
+
+🔒 Frozen modules with re pattern: []
+📊 model parameter statistics:
+# Parameters (in millions): 6020.750 Total, 6020.750 Trainable
+Using /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/cache/torch_extensions as PyTorch extensions root...
+Using /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/cache/torch_extensions as PyTorch extensions root...
+Detected CUDA files, patching ldflags
+Emitting ninja build file /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/cache/torch_extensions/cpu_adam/build.ninja...
+/home/amax/data0/SJ/envs/starvla-starwam-py311/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2059: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+Building extension module cpu_adam...
+Using envvar MAX_JOBS (8) as the number of workers...
+ninja: no work to do.
+Loading extension module cpu_adam...
+Time to load cpu_adam op: 2.5280070304870605 seconds
+Adam Optimizer #0 is created with AVX512 arithmetic capability.
+Config: alpha=0.000100, betas=(0.900000, 0.999000), weight_decay=0.010000, adam_w=1
+[2026-07-22 11:44:59,523] [INFO] [config.py:735:__init__] Config mesh_device None world_size = 2
+Loading extension module cpu_adam...
+Time to load cpu_adam op: 2.5953176021575928 seconds
+Adam Optimizer #0 is created with AVX512 arithmetic capability.
+Config: alpha=0.000100, betas=(0.900000, 0.999000), weight_decay=0.010000, adam_w=1
+[2026-07-22 11:44:59,587] [INFO] [logging.py:107:log_dist] [Rank 0] DeepSpeed info: version=0.16.9, git-hash=unknown, git-branch=unknown
+[2026-07-22 11:44:59,588] [INFO] [config.py:735:__init__] Config mesh_device None world_size = 2
+[2026-07-22 11:45:00,372] [INFO] [logging.py:107:log_dist] [Rank 0] DeepSpeed Flops Profiler Enabled: False
+[2026-07-22 11:45:00,377] [INFO] [logging.py:107:log_dist] [Rank 0] Using client Optimizer as basic optimizer
+[2026-07-22 11:45:00,377] [INFO] [logging.py:107:log_dist] [Rank 0] Removing param_group that has no 'params' in the basic Optimizer
+[2026-07-22 11:45:00,612] [INFO] [logging.py:107:log_dist] [Rank 0] DeepSpeed Basic Optimizer = DeepSpeedCPUAdam
+[2026-07-22 11:45:00,612] [INFO] [utils.py:59:is_zero_supported_optimizer] Checking ZeRO support for optimizer=DeepSpeedCPUAdam type=<class 'deepspeed.ops.adam.cpu_adam.DeepSpeedCPUAdam'>
+[2026-07-22 11:45:00,612] [INFO] [logging.py:107:log_dist] [Rank 0] Creating torch.bfloat16 ZeRO stage 2 optimizer
+[2026-07-22 11:45:00,612] [INFO] [stage_1_and_2.py:150:__init__] Reduce bucket size 500000000
+[2026-07-22 11:45:00,612] [INFO] [stage_1_and_2.py:151:__init__] Allgather bucket size 500000000
+[2026-07-22 11:45:00,612] [INFO] [stage_1_and_2.py:152:__init__] CPU Offload: True
+[2026-07-22 11:45:00,612] [INFO] [stage_1_and_2.py:153:__init__] Round robin gradient partitioning: False
+[2026-07-22 11:46:10,125] [INFO] [utils.py:781:see_memory_usage] Before initializing optimizer states
+[2026-07-22 11:46:10,127] [INFO] [utils.py:782:see_memory_usage] MA 13.95 GB         Max_MA 13.95 GB         CA 13.96 GB         Max_CA 14 GB 
+[2026-07-22 11:46:10,127] [INFO] [utils.py:789:see_memory_usage] CPU Virtual Memory:  used = 71.22 GB, percent = 28.3%
+[2026-07-22 11:46:21,686] [INFO] [utils.py:781:see_memory_usage] After initializing optimizer states
+[2026-07-22 11:46:21,688] [INFO] [utils.py:782:see_memory_usage] MA 13.95 GB         Max_MA 13.95 GB         CA 13.96 GB         Max_CA 14 GB 
+[2026-07-22 11:46:21,689] [INFO] [utils.py:789:see_memory_usage] CPU Virtual Memory:  used = 91.82 GB, percent = 36.5%
+[2026-07-22 11:46:21,690] [INFO] [stage_1_and_2.py:557:__init__] optimizer state initialized
+[2026-07-22 11:46:22,788] [INFO] [utils.py:781:see_memory_usage] After initializing ZeRO optimizer
+[2026-07-22 11:46:22,790] [INFO] [utils.py:782:see_memory_usage] MA 13.95 GB         Max_MA 13.95 GB         CA 13.96 GB         Max_CA 14 GB 
+[2026-07-22 11:46:22,791] [INFO] [utils.py:789:see_memory_usage] CPU Virtual Memory:  used = 91.8 GB, percent = 36.5%
+[2026-07-22 11:46:22,815] [INFO] [logging.py:107:log_dist] [Rank 0] DeepSpeed Final Optimizer = DeepSpeedZeroOptimizer
+[2026-07-22 11:46:22,815] [INFO] [logging.py:107:log_dist] [Rank 0] DeepSpeed using configured LR scheduler = None
+[2026-07-22 11:46:22,815] [INFO] [logging.py:107:log_dist] [Rank 0] DeepSpeed LR Scheduler = None
+[2026-07-22 11:46:22,815] [INFO] [logging.py:107:log_dist] [Rank 0] step=0, skipped=0, lr=[0.0001], mom=[(0.9, 0.95)]
+[2026-07-22 11:46:22,820] [INFO] [config.py:1003:print] DeepSpeedEngine configuration:
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   activation_checkpointing_config  {
+    "partition_activations": false, 
+    "contiguous_memory_optimization": false, 
+    "cpu_checkpointing": false, 
+    "number_checkpoints": null, 
+    "synchronize_checkpoint_boundary": false, 
+    "profile": false
+}
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   aio_config ................... {'block_size': 1048576, 'queue_depth': 8, 'intra_op_parallelism': 1, 'single_submit': False, 'overlap_events': True, 'use_gds': False}
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   amp_enabled .................. False
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   amp_params ................... False
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   autotuning_config ............ {
+    "enabled": false, 
+    "start_step": null, 
+    "end_step": null, 
+    "metric_path": null, 
+    "arg_mappings": null, 
+    "metric": "throughput", 
+    "model_info": null, 
+    "results_dir": "autotuning_results", 
+    "exps_dir": "autotuning_exps", 
+    "overwrite": true, 
+    "fast": true, 
+    "start_profile_step": 3, 
+    "end_profile_step": 5, 
+    "tuner_type": "gridsearch", 
+    "tuner_early_stopping": 5, 
+    "tuner_num_trials": 50, 
+    "model_info_path": null, 
+    "mp_size": 1, 
+    "max_train_batch_size": null, 
+    "min_train_batch_size": 1, 
+    "max_train_micro_batch_size_per_gpu": 1.024000e+03, 
+    "min_train_micro_batch_size_per_gpu": 1, 
+    "num_tuning_micro_batch_sizes": 3
+}
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   bfloat16_enabled ............. True
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   bfloat16_immediate_grad_update  True
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   checkpoint_parallel_write_pipeline  False
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   checkpoint_tag_validation_enabled  True
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   checkpoint_tag_validation_fail  False
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   comms_config ................. <deepspeed.comm.config.DeepSpeedCommsConfig object at 0x72b4ff522150>
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   communication_data_type ...... None
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   compile_config ............... deepcompile=False free_activation=False offload_activation=False offload_opt_states=False double_buffer=True symmetric_memory=False debug_log=False offload_parameters=False sync_before_reduce=False sync_after_reduce=False sync_before_allgather=False sync_after_allgather=False
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   compression_config ........... {'weight_quantization': {'shared_parameters': {'enabled': False, 'quantizer_kernel': False, 'schedule_offset': 0, 'quantize_groups': 1, 'quantize_verbose': False, 'quantization_type': 'symmetric', 'quantize_weight_in_forward': False, 'rounding': 'nearest', 'fp16_mixed_quantize': False, 'quantize_change_ratio': 0.001}, 'different_groups': {}}, 'activation_quantization': {'shared_parameters': {'enabled': False, 'quantization_type': 'symmetric', 'range_calibration': 'dynamic', 'schedule_offset': 1000}, 'different_groups': {}}, 'sparse_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'row_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'head_pruning': {'shared_parameters': {'enabled': False, 'method': 'topk', 'schedule_offset': 1000}, 'different_groups': {}}, 'channel_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'layer_reduction': {'enabled': False}}
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   curriculum_enabled_legacy .... False
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   curriculum_params_legacy ..... False
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   data_efficiency_config ....... {'enabled': False, 'seed': 1234, 'data_sampling': {'enabled': False, 'num_epochs': 1000, 'num_workers': 0, 'pin_memory': False, 'curriculum_learning': {'enabled': False}, 'dynamic_batching': {'enabled': False, 'lr_scaling_method': 'linear', 'min_batch_size': 1, 'max_batch_size': None, 'sequence_picking_order': 'dataloader', 'verbose': False}}, 'data_routing': {'enabled': False, 'random_ltd': {'enabled': False, 'layer_token_lr_schedule': {'enabled': False}}}}
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   data_efficiency_enabled ...... False
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   dataloader_drop_last ......... False
+[2026-07-22 11:46:22,821] [INFO] [config.py:1007:print]   disable_allgather ............ False
+[2026-07-22 11:46:22,822] [INFO] [config.py:1007:print]   dump_state ................... False
+[2026-07-22 11:46:22,822] [INFO] [config.py:1007:print]   dynamic_loss_scale_args ...... None
+[2026-07-22 11:46:22,822] [INFO] [config.py:1007:print]   eigenvalue_enabled ........... False
+[2026-07-22 11:46:22,822] [INFO] [config.py:1007:print]   eigenvalue_gas_boundary_resolution  1
+[2026-07-22 11:46:22,822] [INFO] [config.py:1007:print]   eigenvalue_layer_name ........ bert.encoder.layer
+[2026-07-22 11:46:22,822] [INFO] [config.py:1007:print]   eigenvalue_layer_num ......... 0
+[2026-07-22 11:46:22,822] [INFO] [config.py:1007:print]   eigenvalue_max_iter .......... 100
+[2026-07-22 11:46:22,822] [INFO] [config.py:1007:print]   eigenvalue_stability ......... 1e-06
+[2026-07-22 11:46:22,822] [INFO] [config.py:1007:print]   eigenvalue_tol ............... 0.01
+[2026-07-22 11:46:22,822] [INFO] [config.py:1007:print]   eigenvalue_verbose ........... False
+[2026-07-22 11:46:22,822] [INFO] [config.py:1007:print]   elasticity_enabled ........... False
+[2026-07-22 11:46:22,822] [INFO] [config.py:1007:print]   flops_profiler_config ........ {
+    "enabled": false, 
+    "recompute_fwd_factor": 0.0, 
+    "profile_step": 1, 
+    "module_depth": -1, 
+    "top_modules": 1, 
+    "detailed": true, 
+    "output_file": null
+}
+[2026-07-22 11:46:22,822] [INFO] [config.py:1007:print]   fp16_auto_cast ............... None
+[2026-07-22 11:46:22,822] [INFO] [config.py:1007:print]   fp16_enabled ................. False
+[2026-07-22 11:46:22,822] [INFO] [config.py:1007:print]   fp16_master_weights_and_gradients  False
+[2026-07-22 11:46:22,823] [INFO] [config.py:1007:print]   global_rank .................. 0
+[2026-07-22 11:46:22,823] [INFO] [config.py:1007:print]   grad_accum_dtype ............. None
+[2026-07-22 11:46:22,823] [INFO] [config.py:1007:print]   gradient_accumulation_steps .. 128
+[2026-07-22 11:46:22,823] [INFO] [config.py:1007:print]   gradient_clipping ............ 1.0
+[2026-07-22 11:46:22,823] [INFO] [config.py:1007:print]   gradient_predivide_factor .... 1.0
+[2026-07-22 11:46:22,823] [INFO] [config.py:1007:print]   graph_harvesting ............. False
+[2026-07-22 11:46:22,823] [INFO] [config.py:1007:print]   hybrid_engine ................ enabled=False max_out_tokens=512 inference_tp_size=1 release_inference_cache=False pin_parameters=True tp_gather_partition_size=8
+[2026-07-22 11:46:22,823] [INFO] [config.py:1007:print]   initial_dynamic_scale ........ 1
+[2026-07-22 11:46:22,823] [INFO] [config.py:1007:print]   load_universal_checkpoint .... False
+[2026-07-22 11:46:22,823] [INFO] [config.py:1007:print]   loss_scale ................... 1.0
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   memory_breakdown ............. False
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   mics_hierarchial_params_gather  False
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   mics_shard_size .............. -1
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   monitor_config ............... tensorboard=TensorBoardConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') comet=CometConfig(enabled=False, samples_log_interval=100, project=None, workspace=None, api_key=None, experiment_name=None, experiment_key=None, online=None, mode=None) wandb=WandbConfig(enabled=False, group=None, team=None, project='deepspeed') csv_monitor=CSVConfig(enabled=False, output_path='', job_name='DeepSpeedJobName')
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   nebula_config ................ {
+    "enabled": false, 
+    "persistent_storage_path": null, 
+    "persistent_time_interval": 100, 
+    "num_of_version_in_retention": 2, 
+    "enable_nebula_load": true, 
+    "load_path": null
+}
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   optimizer_legacy_fusion ...... False
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   optimizer_name ............... None
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   optimizer_params ............. None
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   pipeline ..................... {'stages': 'auto', 'partition': 'best', 'seed_layers': False, 'activation_checkpoint_interval': 0, 'pipe_partitioned': True, 'grad_partitioned': True}
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   pld_enabled .................. False
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   pld_params ................... False
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   prescale_gradients ........... False
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   scheduler_name ............... None
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   scheduler_params ............. None
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   seq_parallel_communication_data_type  torch.float32
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   sparse_attention ............. None
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   sparse_gradients_enabled ..... False
+[2026-07-22 11:46:22,824] [INFO] [config.py:1007:print]   steps_per_print .............. inf
+[2026-07-22 11:46:22,825] [INFO] [config.py:1007:print]   tensor_parallel_config ....... dtype=torch.float16 autotp_size=0 tp_overlap_comm=False tensor_parallel=TPConfig(tp_size=1, tp_grain_size=1, mpu=None, tp_group=None) injection_policy_tuple=None keep_module_on_host=False replace_with_kernel_inject=False
+[2026-07-22 11:46:22,825] [INFO] [config.py:1007:print]   timers_config ................ enabled=True synchronized=True
+[2026-07-22 11:46:22,825] [INFO] [config.py:1007:print]   train_batch_size ............. 1024
+[2026-07-22 11:46:22,825] [INFO] [config.py:1007:print]   train_micro_batch_size_per_gpu  4
+[2026-07-22 11:46:22,825] [INFO] [config.py:1007:print]   use_data_before_expert_parallel_  False
+[2026-07-22 11:46:22,825] [INFO] [config.py:1007:print]   use_node_local_storage ....... False
+[2026-07-22 11:46:22,825] [INFO] [config.py:1007:print]   wall_clock_breakdown ......... False
+[2026-07-22 11:46:22,825] [INFO] [config.py:1007:print]   weight_quantization_config ... None
+[2026-07-22 11:46:22,825] [INFO] [config.py:1007:print]   world_size ................... 2
+[2026-07-22 11:46:22,825] [INFO] [config.py:1007:print]   zero_allow_untested_optimizer  True
+[2026-07-22 11:46:22,825] [INFO] [config.py:1007:print]   zero_config .................. stage=2 contiguous_gradients=True reduce_scatter=True reduce_bucket_size=500000000 use_multi_rank_bucket_allreduce=True allgather_partitions=True allgather_bucket_size=500000000 overlap_comm=False load_from_fp32_weights=True elastic_checkpoint=False offload_param=DeepSpeedZeroOffloadParamConfig(device='none', nvme_path=None, buffer_count=5, buffer_size=100000000, max_in_cpu=1000000000, pin_memory=False) offload_optimizer=DeepSpeedZeroOffloadOptimizerConfig(device='cpu', nvme_path=None, buffer_count=4, pin_memory=False, pipeline_read=False, pipeline_write=False, fast_init=False, ratio=1.0) sub_group_size=1000000000 cpu_offload_param=None cpu_offload_use_pin_memory=None cpu_offload=None prefetch_bucket_size=50000000 param_persistence_threshold=100000 model_persistence_threshold=9223372036854775807 max_live_parameters=1000000000 max_reuse_distance=1000000000 gather_16bit_weights_on_model_save=False module_granularity_threshold=0 use_all_reduce_for_fetch_params=False stage3_gather_fp16_weights_on_model_save=False ignore_unused_parameters=True legacy_stage1=False round_robin_gradients=False zero_hpz_partition_size=1 zero_quantized_weights=False zero_quantized_nontrainable_weights=False zero_quantized_gradients=False zeropp_loco_param=None mics_shard_size=-1 mics_hierarchical_params_gather=False memory_efficient_linear=True pipeline_loading_checkpoint=False override_module_apply=True log_trace_cache_warnings=False
+[2026-07-22 11:46:22,825] [INFO] [config.py:1007:print]   zero_enabled ................. True
+[2026-07-22 11:46:22,825] [INFO] [config.py:1007:print]   zero_force_ds_cpu_optimizer .. True
+[2026-07-22 11:46:22,825] [INFO] [config.py:1007:print]   zero_optimization_stage ...... 2
+[2026-07-22 11:46:22,825] [INFO] [config.py:993:print_user_config]   json = {
+    "train_batch_size": 1.024000e+03, 
+    "train_micro_batch_size_per_gpu": 4, 
+    "gradient_accumulation_steps": 128, 
+    "zero_optimization": {
+        "stage": 2, 
+        "offload_optimizer": {
+            "device": "cpu", 
+            "nvme_path": null
+        }, 
+        "offload_param": {
+            "device": "none", 
+            "nvme_path": null
+        }, 
+        "stage3_gather_16bit_weights_on_model_save": false
+    }, 
+    "gradient_clipping": 1.0, 
+    "steps_per_print": inf, 
+    "bf16": {
+        "enabled": true
+    }, 
+    "fp16": {
+        "enabled": false
+    }, 
+    "zero_allow_untested_optimizer": true
+}
+07/22 [11:46:22] INFO     | >> ***** Training Configuration train_starvla.py:580
+                          *****                                                 
+                 INFO     | >>   Total optimization steps = train_starvla.py:581
+                          2                                                     
+                 INFO     | >>   Per device batch size = 4  train_starvla.py:582
+                 INFO     | >>   Gradient accumulation      train_starvla.py:583
+                          steps = 128                                           
+                 INFO     | >>   Total batch size = 1024    train_starvla.py:584
+StarWAM effective values: batch=4 accumulation=128 lr=0.0001 weight_decay=0.01 epochs=5 max_steps=2 warmup=0 precision=bf16 save_interval=1 scheduler=cosine_with_min_lr min_lr=1.0000000000000002e-06 fused_adamw=False
+  0%|          | 0/2 [00:00<?, ?it/s]  0%|          | 0/2 [00:29<?, ?it/s, data_times=12.232, model_times=17.515]  0%|          | 0/2 [00:34<?, ?it/s, data_times=0.005, model_times=4.952]    0%|          | 0/2 [00:39<?, ?it/s, data_times=0.003, model_times=4.894]  0%|          | 0/2 [00:44<?, ?it/s, data_times=0.003, model_times=5.100]  0%|          | 0/2 [00:49<?, ?it/s, data_times=0.003, model_times=5.003]  0%|          | 0/2 [00:54<?, ?it/s, data_times=0.003, model_times=4.995]  0%|          | 0/2 [01:00<?, ?it/s, data_times=0.005, model_times=5.799]  0%|          | 0/2 [01:07<?, ?it/s, data_times=0.003, model_times=7.018]  0%|          | 0/2 [01:14<?, ?it/s, data_times=0.005, model_times=6.889]  0%|          | 0/2 [01:20<?, ?it/s, data_times=0.004, model_times=5.780]  0%|          | 0/2 [01:24<?, ?it/s, data_times=0.005, model_times=4.702]  0%|          | 0/2 [01:30<?, ?it/s, data_times=0.003, model_times=5.339]  0%|          | 0/2 [01:36<?, ?it/s, data_times=0.004, model_times=5.966]  0%|          | 0/2 [01:42<?, ?it/s, data_times=0.004, model_times=5.853]  0%|          | 0/2 [01:47<?, ?it/s, data_times=0.003, model_times=4.926]  0%|          | 0/2 [01:52<?, ?it/s, data_times=0.005, model_times=5.819]  0%|          | 0/2 [01:58<?, ?it/s, data_times=0.003, model_times=6.036]  0%|          | 0/2 [02:04<?, ?it/s, data_times=0.005, model_times=5.648]  0%|          | 0/2 [02:10<?, ?it/s, data_times=0.019, model_times=6.045]  0%|          | 0/2 [02:16<?, ?it/s, data_times=0.005, model_times=5.970]  0%|          | 0/2 [02:23<?, ?it/s, data_times=0.003, model_times=6.546]  0%|          | 0/2 [02:28<?, ?it/s, data_times=0.006, model_times=5.328]  0%|          | 0/2 [02:34<?, ?it/s, data_times=0.003, model_times=6.012]  0%|          | 0/2 [02:40<?, ?it/s, data_times=0.003, model_times=6.363]  0%|          | 0/2 [02:47<?, ?it/s, data_times=0.003, model_times=6.598]  0%|          | 0/2 [02:52<?, ?it/s, data_times=0.005, model_times=5.376]  0%|          | 0/2 [02:58<?, ?it/s, data_times=0.005, model_times=5.486]  0%|          | 0/2 [03:04<?, ?it/s, data_times=0.005, model_times=5.925]  0%|          | 0/2 [03:09<?, ?it/s, data_times=0.005, model_times=5.229]  0%|          | 0/2 [03:14<?, ?it/s, data_times=0.003, model_times=5.464]  0%|          | 0/2 [03:21<?, ?it/s, data_times=0.004, model_times=6.354]  0%|          | 0/2 [03:26<?, ?it/s, data_times=0.005, model_times=5.621]  0%|          | 0/2 [03:31<?, ?it/s, data_times=0.003, model_times=4.975]  0%|          | 0/2 [03:36<?, ?it/s, data_times=0.004, model_times=4.796]  0%|          | 0/2 [03:41<?, ?it/s, data_times=0.003, model_times=5.177]  0%|          | 0/2 [03:46<?, ?it/s, data_times=0.005, model_times=4.937]  0%|          | 0/2 [03:52<?, ?it/s, data_times=0.003, model_times=5.200]  0%|          | 0/2 [03:58<?, ?it/s, data_times=0.005, model_times=5.983]  0%|          | 0/2 [04:03<?, ?it/s, data_times=0.003, model_times=5.107]  0%|          | 0/2 [04:08<?, ?it/s, data_times=0.003, model_times=5.154]  0%|          | 0/2 [04:13<?, ?it/s, data_times=0.004, model_times=5.054]  0%|          | 0/2 [04:18<?, ?it/s, data_times=0.004, model_times=5.017]  0%|          | 0/2 [04:23<?, ?it/s, data_times=0.005, model_times=4.788]  0%|          | 0/2 [04:28<?, ?it/s, data_times=0.003, model_times=5.089]  0%|          | 0/2 [04:34<?, ?it/s, data_times=0.004, model_times=5.857]  0%|          | 0/2 [04:39<?, ?it/s, data_times=0.007, model_times=4.936]  0%|          | 0/2 [04:44<?, ?it/s, data_times=0.004, model_times=5.076]  0%|          | 0/2 [04:49<?, ?it/s, data_times=0.004, model_times=5.512]  0%|          | 0/2 [04:54<?, ?it/s, data_times=0.003, model_times=4.753]  0%|          | 0/2 [04:59<?, ?it/s, data_times=0.004, model_times=5.001]  0%|          | 0/2 [05:04<?, ?it/s, data_times=0.003, model_times=5.347]  0%|          | 0/2 [05:10<?, ?it/s, data_times=0.005, model_times=5.501]  0%|          | 0/2 [05:15<?, ?it/s, data_times=0.004, model_times=5.106]  0%|          | 0/2 [05:20<?, ?it/s, data_times=0.005, model_times=5.480]  0%|          | 0/2 [05:26<?, ?it/s, data_times=0.004, model_times=5.204]  0%|          | 0/2 [05:32<?, ?it/s, data_times=0.005, model_times=5.911]  0%|          | 0/2 [05:36<?, ?it/s, data_times=0.003, model_times=4.968]  0%|          | 0/2 [05:41<?, ?it/s, data_times=0.004, model_times=4.852]  0%|          | 0/2 [05:47<?, ?it/s, data_times=0.003, model_times=5.606]  0%|          | 0/2 [05:52<?, ?it/s, data_times=0.004, model_times=5.276]  0%|          | 0/2 [05:57<?, ?it/s, data_times=0.005, model_times=4.794]  0%|          | 0/2 [06:02<?, ?it/s, data_times=0.004, model_times=5.370]  0%|          | 0/2 [06:08<?, ?it/s, data_times=0.004, model_times=5.289]  0%|          | 0/2 [06:13<?, ?it/s, data_times=0.005, model_times=5.010]  0%|          | 0/2 [06:18<?, ?it/s, data_times=0.003, model_times=5.610]  0%|          | 0/2 [06:24<?, ?it/s, data_times=0.004, model_times=5.729]  0%|          | 0/2 [06:29<?, ?it/s, data_times=0.004, model_times=4.650]  0%|          | 0/2 [06:34<?, ?it/s, data_times=0.003, model_times=5.051]  0%|          | 0/2 [06:39<?, ?it/s, data_times=0.004, model_times=5.331]  0%|          | 0/2 [06:44<?, ?it/s, data_times=0.005, model_times=5.058]  0%|          | 0/2 [06:49<?, ?it/s, data_times=0.004, model_times=5.052]  0%|          | 0/2 [06:55<?, ?it/s, data_times=0.003, model_times=5.838]  0%|          | 0/2 [07:01<?, ?it/s, data_times=0.006, model_times=5.437]  0%|          | 0/2 [07:06<?, ?it/s, data_times=0.004, model_times=5.034]  0%|          | 0/2 [07:11<?, ?it/s, data_times=0.005, model_times=5.088]  0%|          | 0/2 [07:16<?, ?it/s, data_times=0.003, model_times=5.248]  0%|          | 0/2 [07:21<?, ?it/s, data_times=0.004, model_times=5.064]  0%|          | 0/2 [07:26<?, ?it/s, data_times=0.004, model_times=5.415]  0%|          | 0/2 [07:32<?, ?it/s, data_times=0.004, model_times=6.067]  0%|          | 0/2 [07:38<?, ?it/s, data_times=0.005, model_times=5.142]  0%|          | 0/2 [07:43<?, ?it/s, data_times=0.003, model_times=4.937]  0%|          | 0/2 [07:48<?, ?it/s, data_times=0.005, model_times=5.368]  0%|          | 0/2 [07:53<?, ?it/s, data_times=0.003, model_times=4.992]  0%|          | 0/2 [07:58<?, ?it/s, data_times=0.004, model_times=4.812]  0%|          | 0/2 [08:03<?, ?it/s, data_times=0.003, model_times=5.261]  0%|          | 0/2 [08:09<?, ?it/s, data_times=0.003, model_times=5.553]  0%|          | 0/2 [08:14<?, ?it/s, data_times=0.004, model_times=5.299]  0%|          | 0/2 [08:19<?, ?it/s, data_times=0.003, model_times=5.254]  0%|          | 0/2 [08:24<?, ?it/s, data_times=0.004, model_times=4.696]  0%|          | 0/2 [08:29<?, ?it/s, data_times=0.004, model_times=5.138]  0%|          | 0/2 [08:34<?, ?it/s, data_times=0.005, model_times=5.319]  0%|          | 0/2 [08:39<?, ?it/s, data_times=0.003, model_times=4.717]  0%|          | 0/2 [08:45<?, ?it/s, data_times=0.004, model_times=5.987]  0%|          | 0/2 [08:50<?, ?it/s, data_times=0.004, model_times=5.023]  0%|          | 0/2 [08:55<?, ?it/s, data_times=0.004, model_times=5.150]  0%|          | 0/2 [09:00<?, ?it/s, data_times=0.004, model_times=5.234]  0%|          | 0/2 [09:06<?, ?it/s, data_times=0.003, model_times=5.167]  0%|          | 0/2 [09:11<?, ?it/s, data_times=0.004, model_times=4.933]  0%|          | 0/2 [09:16<?, ?it/s, data_times=0.003, model_times=5.103]  0%|          | 0/2 [09:21<?, ?it/s, data_times=0.007, model_times=5.760]  0%|          | 0/2 [09:27<?, ?it/s, data_times=0.004, model_times=5.485]  0%|          | 0/2 [09:32<?, ?it/s, data_times=0.003, model_times=5.127]  0%|          | 0/2 [09:37<?, ?it/s, data_times=0.005, model_times=5.437]  0%|          | 0/2 [09:43<?, ?it/s, data_times=0.003, model_times=5.397]  0%|          | 0/2 [09:48<?, ?it/s, data_times=0.003, model_times=5.402]  0%|          | 0/2 [09:54<?, ?it/s, data_times=0.005, model_times=5.983]  0%|          | 0/2 [10:00<?, ?it/s, data_times=0.004, model_times=5.256]  0%|          | 0/2 [10:05<?, ?it/s, data_times=0.003, model_times=5.021]  0%|          | 0/2 [10:10<?, ?it/s, data_times=0.005, model_times=5.309]  0%|          | 0/2 [10:15<?, ?it/s, data_times=0.004, model_times=5.406]  0%|          | 0/2 [10:21<?, ?it/s, data_times=0.004, model_times=5.437]  0%|          | 0/2 [10:26<?, ?it/s, data_times=0.005, model_times=5.344]  0%|          | 0/2 [10:32<?, ?it/s, data_times=0.004, model_times=5.925]  0%|          | 0/2 [10:37<?, ?it/s, data_times=0.003, model_times=5.282]  0%|          | 0/2 [10:42<?, ?it/s, data_times=0.005, model_times=5.135]  0%|          | 0/2 [10:48<?, ?it/s, data_times=0.003, model_times=5.279]  0%|          | 0/2 [10:53<?, ?it/s, data_times=0.004, model_times=5.020]  0%|          | 0/2 [10:58<?, ?it/s, data_times=0.004, model_times=5.204]  0%|          | 0/2 [11:04<?, ?it/s, data_times=0.004, model_times=5.786]  0%|          | 0/2 [11:09<?, ?it/s, data_times=0.004, model_times=4.966]  0%|          | 0/2 [11:14<?, ?it/s, data_times=0.004, model_times=5.240]  0%|          | 0/2 [11:19<?, ?it/s, data_times=0.004, model_times=5.205]  0%|          | 0/2 [11:24<?, ?it/s, data_times=0.004, model_times=4.963]  0%|          | 0/2 [11:29<?, ?it/s, data_times=0.004, model_times=5.037]  0%|          | 0/2 [11:35<?, ?it/s, data_times=0.004, model_times=5.509]  0%|          | 0/2 [11:41<?, ?it/s, data_times=0.005, model_times=5.893]  0%|          | 0/2 [11:46<?, ?it/s, data_times=0.003, model_times=5.057]07/22 [11:59:12] INFO     | >> StarWAM gradient probe saved train_starvla.py:637
+                          at                                                    
+                          /home/amax/data0/SJ/test-runs/sta                     
+                          rwam-integration/ad6b412_20260722                     
+                          _090916/train/SW-R-MW_20260722_09                     
+                          2000/gradient_probe.json                              
+ 50%|█████     | 1/2 [13:24<13:24, 804.71s/it, data_times=0.003, model_times=5.057] 50%|█████     | 1/2 [13:24<13:24, 804.71s/it, data_times=0.004, model_times=98.564]07/22 [11:59:48] INFO     | >> Step 1, Loss:                train_starvla.py:462
+                          {'loss/action_loss':                                  
+                          1.469900131225586,                                    
+                          'loss/video_loss': 0.447265625,                       
+                          'loss/total_loss':                                    
+                          1.917165756225586,                                    
+                          'loss/loss_action_eef':                               
+                          2.126897096633911,                                    
+                          'loss/loss_action_gripper':                           
+                          2.215101480484009,                                    
+                          'loss/action_target_gripper_mean'                     
+                          : 0.15909415483474731,                                
+                          'loss/action_target_gripper_open_                     
+                          rate': 0.75, 'action_dit_loss':                       
+                          1.469900131225586, 'action_mse':                      
+                          7.1529860496521, 'mse_score':                         
+                          7.1529860496521, 'timing/data':                       
+                          0.004486210993491113,                                 
+                          'timing/model':                                       
+                          98.56448374199681,                                    
+                          'learning_rate/starwam_trainable'                     
+                          : 5.05e-05, 'epoch': 0.0})                            
+✅ Checkpoint saved at /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/train/SW-R-MW_20260722_092000/checkpoints/steps_1
+ 50%|█████     | 1/2 [15:47<13:24, 804.71s/it, data_times=0.035, model_times=10.924] 50%|█████     | 1/2 [15:51<13:24, 804.71s/it, data_times=0.005, model_times=4.623]  50%|█████     | 1/2 [15:58<13:24, 804.71s/it, data_times=0.003, model_times=6.829] 50%|█████     | 1/2 [16:03<13:24, 804.71s/it, data_times=0.004, model_times=4.962] 50%|█████     | 1/2 [16:08<13:24, 804.71s/it, data_times=0.004, model_times=4.990] 50%|█████     | 1/2 [16:13<13:24, 804.71s/it, data_times=0.004, model_times=4.925] 50%|█████     | 1/2 [16:18<13:24, 804.71s/it, data_times=0.005, model_times=4.797] 50%|█████     | 1/2 [16:24<13:24, 804.71s/it, data_times=0.005, model_times=5.916] 50%|█████     | 1/2 [16:30<13:24, 804.71s/it, data_times=0.003, model_times=5.602] 50%|█████     | 1/2 [16:35<13:24, 804.71s/it, data_times=0.003, model_times=5.767] 50%|█████     | 1/2 [16:41<13:24, 804.71s/it, data_times=0.006, model_times=5.749] 50%|█████     | 1/2 [16:46<13:24, 804.71s/it, data_times=0.004, model_times=5.394] 50%|█████     | 1/2 [16:51<13:24, 804.71s/it, data_times=0.003, model_times=4.932] 50%|█████     | 1/2 [16:56<13:24, 804.71s/it, data_times=0.004, model_times=4.692] 50%|█████     | 1/2 [17:01<13:24, 804.71s/it, data_times=0.003, model_times=5.023] 50%|█████     | 1/2 [17:06<13:24, 804.71s/it, data_times=0.005, model_times=5.129] 50%|█████     | 1/2 [17:11<13:24, 804.71s/it, data_times=0.003, model_times=4.689] 50%|█████     | 1/2 [17:16<13:24, 804.71s/it, data_times=0.004, model_times=5.124] 50%|█████     | 1/2 [17:21<13:24, 804.71s/it, data_times=0.003, model_times=4.983] 50%|█████     | 1/2 [17:26<13:24, 804.71s/it, data_times=0.004, model_times=4.767] 50%|█████     | 1/2 [17:31<13:24, 804.71s/it, data_times=0.004, model_times=4.812] 50%|█████     | 1/2 [17:36<13:24, 804.71s/it, data_times=0.004, model_times=5.042] 50%|█████     | 1/2 [17:41<13:24, 804.71s/it, data_times=0.004, model_times=5.278] 50%|█████     | 1/2 [17:47<13:24, 804.71s/it, data_times=0.003, model_times=6.257] 50%|█████     | 1/2 [17:53<13:24, 804.71s/it, data_times=0.005, model_times=5.777] 50%|█████     | 1/2 [17:58<13:24, 804.71s/it, data_times=0.003, model_times=4.941] 50%|█████     | 1/2 [18:03<13:24, 804.71s/it, data_times=0.005, model_times=4.701] 50%|█████     | 1/2 [18:08<13:24, 804.71s/it, data_times=0.003, model_times=5.195] 50%|█████     | 1/2 [18:13<13:24, 804.71s/it, data_times=0.004, model_times=5.118] 50%|█████     | 1/2 [18:20<13:24, 804.71s/it, data_times=0.003, model_times=6.618] 50%|█████     | 1/2 [18:27<13:24, 804.71s/it, data_times=0.005, model_times=7.070] 50%|█████     | 1/2 [18:32<13:24, 804.71s/it, data_times=0.004, model_times=5.257] 50%|█████     | 1/2 [18:38<13:24, 804.71s/it, data_times=0.003, model_times=5.949] 50%|█████     | 1/2 [18:44<13:24, 804.71s/it, data_times=0.005, model_times=5.958] 50%|█████     | 1/2 [18:49<13:24, 804.71s/it, data_times=0.004, model_times=5.068] 50%|█████     | 1/2 [18:55<13:24, 804.71s/it, data_times=0.003, model_times=5.665] 50%|█████     | 1/2 [19:00<13:24, 804.71s/it, data_times=0.004, model_times=4.963] 50%|█████     | 1/2 [19:04<13:24, 804.71s/it, data_times=0.004, model_times=4.743] 50%|█████     | 1/2 [19:09<13:24, 804.71s/it, data_times=0.003, model_times=4.849] 50%|█████     | 1/2 [19:14<13:24, 804.71s/it, data_times=0.005, model_times=5.268] 50%|█████     | 1/2 [19:19<13:24, 804.71s/it, data_times=0.004, model_times=4.959] 50%|█████     | 1/2 [19:25<13:24, 804.71s/it, data_times=0.003, model_times=5.532] 50%|█████     | 1/2 [19:30<13:24, 804.71s/it, data_times=0.003, model_times=5.257] 50%|█████     | 1/2 [19:35<13:24, 804.71s/it, data_times=0.004, model_times=4.866] 50%|█████     | 1/2 [19:40<13:24, 804.71s/it, data_times=0.003, model_times=5.299] 50%|█████     | 1/2 [19:45<13:24, 804.71s/it, data_times=0.003, model_times=5.045] 50%|█████     | 1/2 [19:51<13:24, 804.71s/it, data_times=0.004, model_times=5.137] 50%|█████     | 1/2 [19:56<13:24, 804.71s/it, data_times=0.003, model_times=5.320] 50%|█████     | 1/2 [20:01<13:24, 804.71s/it, data_times=0.005, model_times=5.361] 50%|█████     | 1/2 [20:06<13:24, 804.71s/it, data_times=0.004, model_times=5.058] 50%|█████     | 1/2 [20:11<13:24, 804.71s/it, data_times=0.004, model_times=5.149] 50%|█████     | 1/2 [20:18<13:24, 804.71s/it, data_times=0.003, model_times=6.199] 50%|█████     | 1/2 [20:23<13:24, 804.71s/it, data_times=0.004, model_times=5.059] 50%|█████     | 1/2 [20:30<13:24, 804.71s/it, data_times=0.006, model_times=7.301] 50%|█████     | 1/2 [20:37<13:24, 804.71s/it, data_times=0.006, model_times=6.729] 50%|█████     | 1/2 [20:43<13:24, 804.71s/it, data_times=0.004, model_times=5.841] 50%|█████     | 1/2 [20:47<13:24, 804.71s/it, data_times=0.004, model_times=4.738] 50%|█████     | 1/2 [20:52<13:24, 804.71s/it, data_times=0.005, model_times=4.927] 50%|█████     | 1/2 [20:57<13:24, 804.71s/it, data_times=0.004, model_times=4.897] 50%|█████     | 1/2 [21:02<13:24, 804.71s/it, data_times=0.005, model_times=5.018] 50%|█████     | 1/2 [21:07<13:24, 804.71s/it, data_times=0.003, model_times=4.924] 50%|█████     | 1/2 [21:12<13:24, 804.71s/it, data_times=0.004, model_times=4.687] 50%|█████     | 1/2 [21:17<13:24, 804.71s/it, data_times=0.003, model_times=5.152] 50%|█████     | 1/2 [21:22<13:24, 804.71s/it, data_times=0.003, model_times=5.201] 50%|█████     | 1/2 [21:27<13:24, 804.71s/it, data_times=0.003, model_times=4.805] 50%|█████     | 1/2 [21:32<13:24, 804.71s/it, data_times=0.004, model_times=4.839] 50%|█████     | 1/2 [21:37<13:24, 804.71s/it, data_times=0.003, model_times=4.991] 50%|█████     | 1/2 [21:42<13:24, 804.71s/it, data_times=0.004, model_times=4.934] 50%|█████     | 1/2 [21:47<13:24, 804.71s/it, data_times=0.005, model_times=5.137] 50%|█████     | 1/2 [21:52<13:24, 804.71s/it, data_times=0.004, model_times=4.990] 50%|█████     | 1/2 [21:57<13:24, 804.71s/it, data_times=0.004, model_times=5.109] 50%|█████     | 1/2 [22:02<13:24, 804.71s/it, data_times=0.005, model_times=4.910] 50%|█████     | 1/2 [22:07<13:24, 804.71s/it, data_times=0.003, model_times=5.147] 50%|█████     | 1/2 [22:12<13:24, 804.71s/it, data_times=0.004, model_times=5.263] 50%|█████     | 1/2 [22:17<13:24, 804.71s/it, data_times=0.003, model_times=4.847] 50%|█████     | 1/2 [22:22<13:24, 804.71s/it, data_times=0.005, model_times=4.888] 50%|█████     | 1/2 [22:27<13:24, 804.71s/it, data_times=0.003, model_times=5.309] 50%|█████     | 1/2 [22:32<13:24, 804.71s/it, data_times=0.005, model_times=4.851] 50%|█████     | 1/2 [22:37<13:24, 804.71s/it, data_times=0.003, model_times=5.039] 50%|█████     | 1/2 [22:44<13:24, 804.71s/it, data_times=0.005, model_times=6.183] 50%|█████     | 1/2 [22:49<13:24, 804.71s/it, data_times=0.005, model_times=5.070] 50%|█████     | 1/2 [22:54<13:24, 804.71s/it, data_times=0.003, model_times=4.955] 50%|█████     | 1/2 [22:59<13:24, 804.71s/it, data_times=0.004, model_times=5.000] 50%|█████     | 1/2 [23:03<13:24, 804.71s/it, data_times=0.004, model_times=4.841] 50%|█████     | 1/2 [23:08<13:24, 804.71s/it, data_times=0.004, model_times=5.071] 50%|█████     | 1/2 [23:14<13:24, 804.71s/it, data_times=0.003, model_times=5.157] 50%|█████     | 1/2 [23:19<13:24, 804.71s/it, data_times=0.005, model_times=5.457] 50%|█████     | 1/2 [23:24<13:24, 804.71s/it, data_times=0.003, model_times=5.112] 50%|█████     | 1/2 [23:29<13:24, 804.71s/it, data_times=0.005, model_times=4.872] 50%|█████     | 1/2 [23:34<13:24, 804.71s/it, data_times=0.004, model_times=5.029] 50%|█████     | 1/2 [23:39<13:24, 804.71s/it, data_times=0.004, model_times=4.822] 50%|█████     | 1/2 [23:44<13:24, 804.71s/it, data_times=0.004, model_times=4.960] 50%|█████     | 1/2 [23:49<13:24, 804.71s/it, data_times=0.004, model_times=5.064] 50%|█████     | 1/2 [23:54<13:24, 804.71s/it, data_times=0.004, model_times=4.677] 50%|█████     | 1/2 [23:59<13:24, 804.71s/it, data_times=0.003, model_times=4.966] 50%|█████     | 1/2 [24:04<13:24, 804.71s/it, data_times=0.004, model_times=4.996] 50%|█████     | 1/2 [24:09<13:24, 804.71s/it, data_times=0.003, model_times=4.938] 50%|█████     | 1/2 [24:14<13:24, 804.71s/it, data_times=0.004, model_times=5.119] 50%|█████     | 1/2 [24:19<13:24, 804.71s/it, data_times=0.005, model_times=5.208] 50%|█████     | 1/2 [24:24<13:24, 804.71s/it, data_times=0.003, model_times=4.978] 50%|█████     | 1/2 [24:29<13:24, 804.71s/it, data_times=0.003, model_times=4.978] 50%|█████     | 1/2 [24:34<13:24, 804.71s/it, data_times=0.004, model_times=5.007] 50%|█████     | 1/2 [24:39<13:24, 804.71s/it, data_times=0.003, model_times=4.752] 50%|█████     | 1/2 [24:45<13:24, 804.71s/it, data_times=0.003, model_times=5.930] 50%|█████     | 1/2 [24:50<13:24, 804.71s/it, data_times=0.003, model_times=5.851] 50%|█████     | 1/2 [24:57<13:24, 804.71s/it, data_times=0.004, model_times=6.083] 50%|█████     | 1/2 [25:01<13:24, 804.71s/it, data_times=0.003, model_times=4.939] 50%|█████     | 1/2 [25:06<13:24, 804.71s/it, data_times=0.004, model_times=4.864] 50%|█████     | 1/2 [25:11<13:24, 804.71s/it, data_times=0.003, model_times=4.720] 50%|█████     | 1/2 [25:16<13:24, 804.71s/it, data_times=0.003, model_times=4.779] 50%|█████     | 1/2 [25:21<13:24, 804.71s/it, data_times=0.004, model_times=4.821] 50%|█████     | 1/2 [25:26<13:24, 804.71s/it, data_times=0.003, model_times=4.918] 50%|█████     | 1/2 [25:30<13:24, 804.71s/it, data_times=0.005, model_times=4.744] 50%|█████     | 1/2 [25:35<13:24, 804.71s/it, data_times=0.004, model_times=4.724] 50%|█████     | 1/2 [25:40<13:24, 804.71s/it, data_times=0.003, model_times=5.245] 50%|█████     | 1/2 [25:45<13:24, 804.71s/it, data_times=0.004, model_times=4.805] 50%|█████     | 1/2 [25:50<13:24, 804.71s/it, data_times=0.005, model_times=4.914] 50%|█████     | 1/2 [25:55<13:24, 804.71s/it, data_times=0.004, model_times=4.890] 50%|█████     | 1/2 [26:00<13:24, 804.71s/it, data_times=0.003, model_times=4.714] 50%|█████     | 1/2 [26:05<13:24, 804.71s/it, data_times=0.003, model_times=4.929] 50%|█████     | 1/2 [26:09<13:24, 804.71s/it, data_times=0.004, model_times=4.718] 50%|█████     | 1/2 [26:14<13:24, 804.71s/it, data_times=0.003, model_times=5.009] 50%|█████     | 1/2 [26:19<13:24, 804.71s/it, data_times=0.005, model_times=4.651] 50%|█████     | 1/2 [26:24<13:24, 804.71s/it, data_times=0.003, model_times=4.855] 50%|█████     | 1/2 [26:31<13:24, 804.71s/it, data_times=0.003, model_times=6.833] 50%|█████     | 1/2 [26:38<13:24, 804.71s/it, data_times=0.005, model_times=6.855] 50%|█████     | 1/2 [26:43<13:24, 804.71s/it, data_times=0.003, model_times=5.062]100%|██████████| 2/2 [27:30<00:00, 828.60s/it, data_times=0.003, model_times=5.062]100%|██████████| 2/2 [27:30<00:00, 828.60s/it, data_times=0.004, model_times=46.936]07/22 [12:13:53] INFO     | >> Step 2, Loss:                train_starvla.py:462
+                          {'loss/action_loss':                                  
+                          10.3046236038208,                                     
+                          'loss/video_loss': 1.078125,                          
+                          'loss/total_loss':                                    
+                          11.3827486038208,                                     
+                          'loss/loss_action_eef':                               
+                          7.904061317443848,                                    
+                          'loss/loss_action_gripper':                           
+                          1.160505771636963,                                    
+                          'loss/action_target_gripper_mean'                     
+                          : 0.5606533885002136,                                 
+                          'loss/action_target_gripper_open_                     
+                          rate': 0.9140625,                                     
+                          'action_dit_loss':                                    
+                          10.3046236038208, 'action_mse':                       
+                          1.9525983333587646, 'mse_score':                      
+                          1.9525983333587646,                                   
+                          'timing/data':                                        
+                          0.00386236107442528,                                  
+                          'timing/model':                                       
+                          46.93575783900451,                                    
+                          'learning_rate/starwam_trainable'                     
+                          : 1.0000000000000002e-06,                             
+                          'epoch': 0.0})                                        
+✅ Checkpoint saved at /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/train/SW-R-MW_20260722_092000/checkpoints/steps_2
+07/22 [12:17:35] INFO     | >> Training complete. Final     train_starvla.py:704
+                          model saved at                                        
+                          /home/amax/data0/SJ/test-runs/sta                     
+                          rwam-integration/ad6b412_20260722                     
+                          _090916/train/SW-R-MW_20260722_09                     
+                          2000/final_model                                      
+100%|██████████| 2/2 [31:17<00:00, 938.66s/it, data_times=0.004, model_times=46.936]
+07/22 [12:17:40] INFO     | >> ... and that's all, folks!   train_starvla.py:753
+07/22 [12:17:40] INFO     | >> ... and that's all, folks!   train_starvla.py:753
+[W722 12:17:41.747944679 ProcessGroupNCCL.cpp:1496] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
