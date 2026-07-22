@@ -67,12 +67,14 @@ class ModelClient:
         self.raw_actions = None
 
         server_meta = self.client.get_server_metadata()
+        if self.unnorm_key is None:
+            self.unnorm_key = server_meta.get("default_unnorm_key")
         self.action_chunk_size = server_meta["action_chunk_size"]
         self.action_layout = server_meta.get("action_layout", "legacy_starvla")
         self.framework_preprocesses_images = bool(server_meta.get("framework_preprocesses_images", False))
         self.state_required = bool(server_meta.get("state_required", False))
         print(
-            f"*** policy_setup: {policy_setup}, unnorm_key: {unnorm_key}, "
+            f"*** policy_setup: {policy_setup}, unnorm_key: {self.unnorm_key}, "
             f"action_mode: {action_mode}, normalization_mode: {normalization_mode}, "
             f"server_meta: {server_meta} ***"
         )

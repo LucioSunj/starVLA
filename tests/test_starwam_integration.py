@@ -684,6 +684,41 @@ def test_robotwin_client_preserves_raw_pixels_and_native_action_order() -> None:
     np.testing.assert_array_equal(action, np.arange(14, dtype=np.float32))
 
 
+@pytest.mark.skipif(importlib.util.find_spec("cv2") is None, reason="OpenCV is not installed")
+def test_robotwin_client_uses_server_default_unnorm_key() -> None:
+    model2robotwin_interface = _import_starvla_example(
+        "examples.simBenchmarks.Robotwin.eval_files.model2robotwin_interface"
+    )
+    deploy_policy = yaml.safe_load(
+        (
+            REPO_ROOT
+            / "examples"
+            / "simBenchmarks"
+            / "Robotwin"
+            / "eval_files"
+            / "deploy_policy.yml"
+        ).read_text()
+    )
+    assert deploy_policy["unnorm_key"] is None
+
+    fake = _FakePolicyClient(
+        {
+            "action_chunk_size": 2,
+            "available_unnorm_keys": ["starwam"],
+            "default_unnorm_key": "starwam",
+            "framework_preprocesses_images": True,
+            "action_layout": "native_qpos",
+            "state_required": True,
+        },
+        action_dim=14,
+    )
+    with mock.patch.object(model2robotwin_interface, "WebsocketClientPolicy", return_value=fake):
+        client = model2robotwin_interface.ModelClient(policy_ckpt_path="unused", action_ensemble=False)
+    images = [np.zeros((31, 47, 3), dtype=np.uint8) for _ in range(3)]
+    client.step({"image": images, "lang": "move", "state": np.zeros(14)}, step=0)
+    assert fake.requests[-1]["unnorm_key"] == "starwam"
+
+
 @pytest.mark.parametrize("script_name", ["run_policy_server.sh", "eval.sh"])
 def test_robotwin_launchers_resolve_starvla_repo_root(script_name: str) -> None:
     script_path = (
