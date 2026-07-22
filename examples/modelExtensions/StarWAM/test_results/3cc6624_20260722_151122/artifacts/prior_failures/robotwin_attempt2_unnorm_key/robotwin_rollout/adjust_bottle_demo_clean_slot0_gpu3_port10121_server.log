@@ -1,0 +1,36 @@
+[INFO] Starting RoboTwin policy server
+[INFO] checkpoint: /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW/checkpoints/steps_2_pytorch_model.pt
+[INFO] gpu: 3
+[INFO] port: 10121
+INFO:starVLA.model.framework.share_tools:[*] Loading from local checkpoint path `/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW/checkpoints/steps_2_pytorch_model.pt`
+INFO:root:PolicyServerWrapper: loading framework from /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW/checkpoints/steps_2_pytorch_model.pt
+INFO:starVLA.model.framework.share_tools:[*] Loading from local checkpoint path `/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW/checkpoints/steps_2_pytorch_model.pt`
+INFO:root:loading /home/amax/data0/SJ/models/Wan2.2-TI2V-5B/Wan2.2_VAE.pth
+INFO:starwam.builder:Building StarWAM MoT WAM with backbone=wan22_5b
+INFO:root:PolicyServerWrapper ready with framework normalization: action_chunk_size=32, key=starwam
+INFO:root:Creating server (host: amax, ip: 127.0.1.1)
+WARNING:root:[TRAIN/TEST CONSISTENCY CHECK] serving ckpt=/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW/checkpoints/steps_2_pytorch_model.pt — verify eval observations (state / image size / image count / image order / action normalization) match the training config. metadata={'env': 'starvla_policy_server', 'ckpt_path': '/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW/checkpoints/steps_2_pytorch_model.pt', 'action_chunk_size': 32, 'available_unnorm_keys': ['starwam'], 'default_unnorm_key': 'starwam', 'training_data_mix': 'mot_wam', 'training_obs_image_size': [384, 320], 'eval_image_contract': 'Eval clients must explicitly choose image count and order. The server does not infer or reorder camera views from training config.', 'action_layout': 'native_qpos', 'camera_order': ['observation.images.cam_high', 'observation.images.cam_left_wrist', 'observation.images.cam_right_wrist'], 'camera_layout': 'robotwin', 'framework_preprocesses_images': True, 'state_required': True, 'model_family': 'mot_wam'}
+INFO:root:server running ... metadata={'env': 'starvla_policy_server', 'ckpt_path': '/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW/checkpoints/steps_2_pytorch_model.pt', 'action_chunk_size': 32, 'available_unnorm_keys': ['starwam'], 'default_unnorm_key': 'starwam', 'training_data_mix': 'mot_wam', 'training_obs_image_size': [384, 320], 'eval_image_contract': 'Eval clients must explicitly choose image count and order. The server does not infer or reorder camera views from training config.', 'action_layout': 'native_qpos', 'camera_order': ['observation.images.cam_high', 'observation.images.cam_left_wrist', 'observation.images.cam_right_wrist'], 'camera_layout': 'robotwin', 'framework_preprocesses_images': True, 'state_required': True, 'model_family': 'mot_wam'}
+INFO:websockets.server:server listening on 0.0.0.0:10121
+INFO:websockets.server:connection open
+INFO:root:Connection from ('127.0.0.1', 56286) opened
+/home/amax/SJ/projects/Embodied-World/starVLA/starVLA/model/framework/WAM/runtime.py:17: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:203.)
+  tensor = torch.as_tensor(np.asarray(image))
+INFO:root:loading /home/amax/data0/SJ/models/Wan2.2-TI2V-5B/models_t5_umt5-xxl-enc-bf16.pth
+ERROR:root:Policy inference error (request_id=default)
+Traceback (most recent call last):
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/deployment/model_server/tools/websocket_policy_server.py", line 117, in _route_message
+    output_dict = self._policy.predict_action(**payload)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/deployment/model_server/policy_wrapper.py", line 234, in predict_action
+    raise KeyError(f"unnorm_key={effective_key!r} not in {self._available_unnorm_keys}")
+KeyError: "unnorm_key='new_embodiment' not in ['starwam']"
+ERROR:root:"unnorm_key='new_embodiment' not in ['starwam']"
+Traceback (most recent call last):
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/deployment/model_server/tools/websocket_policy_server.py", line 117, in _route_message
+    output_dict = self._policy.predict_action(**payload)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/amax/SJ/projects/Embodied-World/starVLA/deployment/model_server/policy_wrapper.py", line 234, in predict_action
+    raise KeyError(f"unnorm_key={effective_key!r} not in {self._available_unnorm_keys}")
+KeyError: "unnorm_key='new_embodiment' not in ['starwam']"
+INFO:root:Connection from ('127.0.0.1', 56286) closed

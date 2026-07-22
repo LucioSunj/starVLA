@@ -1,0 +1,1 @@
+COSMOS retry on 2026-07-22: local hf auth token invalid; official gated download remains unavailable.

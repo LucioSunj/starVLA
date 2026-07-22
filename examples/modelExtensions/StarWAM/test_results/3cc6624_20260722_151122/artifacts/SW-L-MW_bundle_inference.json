@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "case": "SW-L-MW",
+  "checkpoint": "/home/amax/data0/SJ/test-runs/starwam-integration/3f072c4_20260722_062824/artifacts/bundles/SW-L-MW/checkpoints/steps_2_pytorch_model.pt",
+  "strict_restore": true,
+  "recipe_path": "/definitely/missing/starwam_recipe.yaml",
+  "recipe_exists": false,
+  "used_resolved_snapshot": true,
+  "seed": 42,
+  "num_inference_steps": 2,
+  "action_num_inference_steps": 2,
+  "shape": [
+    1,
+    32,
+    7
+  ],
+  "finite": true,
+  "min": -1.65625,
+  "max": 2.65625,
+  "model_device": "cuda:0",
+  "model_dtype": "torch.bfloat16",
+  "peak_mib": 14518.3916015625,
+  "metadata": {
+    "action_chunk_size": 32,
+    "available_unnorm_keys": [
+      "starwam"
+    ],
+    "default_unnorm_key": "starwam",
+    "action_layout": "default",
+    "camera_order": [
+      "observation.images.image",
+      "observation.images.wrist_image"
+    ],
+    "camera_layout": "horizontal",
+    "framework_preprocesses_images": true,
+    "training_obs_image_size": [
+      224,
+      224
+    ],
+    "state_required": true,
+    "model_family": "mot_wam"
+  }
+}

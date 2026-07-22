@@ -1,0 +1,37 @@
+[33mgpu id (to use): 3[0m
+PYTHONPATH: /home/amax/SJ/projects/Embodied-World/starVLA/examples/simBenchmarks/Robotwin/eval_files:/home/amax/SJ/projects/Embodied-World/starVLA:/home/amax/data0/SJ/test-runs/starwam-integration/7d7de91_20260722_145059/artifacts/robotwin_runtime:/home/amax/data0/SJ/test-runs/starwam-integration/7d7de91_20260722_145059/artifacts/robotwin_runtime:/home/amax/data0/SJ/test-runs/starwam-integration/7d7de91_20260722_145059/artifacts/robotwin_runtime/envs/curobo/src:/home/amax/SJ/projects/Embodied-World/starVLA:/home/amax/SJ/projects/Embodied-World/StarWAM:
+task_name: adjust_bottle
+task_config: demo_clean
+ckpt_setting: starwam_integration_smoke
+policy_port: 10121
+[32mRender Well[0m
+[ROBOTWIN_EVAL_CONFIG] episode_num=None max_eval_episodes=None task=adjust_bottle ckpt=starwam_integration_smoke
+============= Config =============
+
+[95mMessy Table:[0m False
+[95mRandom Background:[0m False
+[95mRandom Light:[0m False
+[95mRandom Table Height:[0m 0
+[95mRandom Head Camera Distance:[0m 0
+[94mHead Camera Config:[0m D435, True
+[94mWrist Camera Config:[0m D435, True
+[94mEmbodiment Config:[0m aloha-agilex
+
+==================================
+missing pytorch3d
+*** policy_setup: robotwin, unnorm_key: new_embodiment, action_mode: abs, normalization_mode: min_max ***
+*** policy_setup: robotwin, unnorm_key: new_embodiment, action_mode: abs, normalization_mode: min_max, server_meta: {'env': 'starvla_policy_server', 'ckpt_path': '/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW/checkpoints/steps_2_pytorch_model.pt', 'action_chunk_size': 32, 'available_unnorm_keys': ['starwam'], 'default_unnorm_key': 'starwam', 'training_data_mix': 'mot_wam', 'training_obs_image_size': [384, 320], 'eval_image_contract': 'Eval clients must explicitly choose image count and order. The server does not infer or reorder camera views from training config.', 'action_layout': 'native_qpos', 'camera_order': ['observation.images.cam_high', 'observation.images.cam_left_wrist', 'observation.images.cam_right_wrist'], 'camera_layout': 'robotwin', 'framework_preprocesses_images': True, 'state_required': True, 'model_family': 'mot_wam'} ***
+[34mTask Name: adjust_bottle[0m
+[34mPolicy Name: model2robotwin_interface[0m
+Traceback (most recent call last):
+  File "/data0/SJ/test-runs/starwam-integration/7d7de91_20260722_145059/artifacts/robotwin_runtime/script/eval_policy.py", line 403, in <module>
+    main(usr_args)
+  File "/data0/SJ/test-runs/starwam-integration/7d7de91_20260722_145059/artifacts/robotwin_runtime/script/eval_policy.py", line 174, in main
+    st_seed, suc_num = eval_policy(task_name,
+  File "/data0/SJ/test-runs/starwam-integration/7d7de91_20260722_145059/artifacts/robotwin_runtime/script/eval_policy.py", line 289, in eval_policy
+    ffmpeg = subprocess.Popen(
+  File "/data0/CWJ/vla_3d_geometry_project/envs/starvla/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data0/CWJ/vla_3d_geometry_project/envs/starvla/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'ffmpeg'

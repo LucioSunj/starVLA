@@ -1,0 +1,6 @@
+gate	status	reason	evidence
+G0	PASS	A1, 46 targeted tests, 79 full tests, no skips, no-StarWAM regression pass	logs/g0_a1.log;logs/g0_starwam_integration.log;logs/g0_all_tests.log;logs/g0_no_starwam.log
+G1	BLOCKED	Four Wan cases pass available checks; two mandatory Cosmos cases unavailable	manifest/cosmos_blocked.txt;artifacts/reused_training
+G2	BLOCKED	Four Wan strict/relocated/inference checks pass; Cosmos checkpoints and complete six-case baseline absent	artifacts/SW-L-MW_bundle_inference.json;artifacts/SW-L-SW_bundle_inference.json;artifacts/SW-L-FW_bundle_inference.json
+G3	PASS	Exact canonical pixels/state/normalized and final action for real native SW-L-MW checkpoint	artifacts/parity/SW-L-MW/parity.json
+G4	PASS	Merge-level LIBERO and RoboTwin smoke complete; release matrix not claimed	artifacts/libero_rollout.json;artifacts/robotwin_rollout.json

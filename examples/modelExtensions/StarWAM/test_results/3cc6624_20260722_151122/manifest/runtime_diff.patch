@@ -1,0 +1,120 @@
+diff --git a/examples/simBenchmarks/Robotwin/eval_files/deploy_policy.yml b/examples/simBenchmarks/Robotwin/eval_files/deploy_policy.yml
+index a8eb9ec..feaf450 100644
+--- a/examples/simBenchmarks/Robotwin/eval_files/deploy_policy.yml
++++ b/examples/simBenchmarks/Robotwin/eval_files/deploy_policy.yml
+@@ -8,6 +8,6 @@ instruction_type: unseen
+ # StarVLA Client Parameters
+ host: "127.0.0.1"
+ port: 5694
+-unnorm_key: "new_embodiment"
++unnorm_key: null
+ action_mode: "abs"
+ normalization_mode: "min_max"  # options: min_max, q99
+diff --git a/examples/simBenchmarks/Robotwin/eval_files/eval.sh b/examples/simBenchmarks/Robotwin/eval_files/eval.sh
+index f2773f7..1712231 100755
+--- a/examples/simBenchmarks/Robotwin/eval_files/eval.sh
++++ b/examples/simBenchmarks/Robotwin/eval_files/eval.sh
+@@ -7,7 +7,7 @@ if [[ $# -lt 6 ]]; then
+ fi
+ 
+ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+-REPO_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
++REPO_ROOT="$(cd "${SCRIPT_DIR}/../../../.." && pwd)"
+ 
+ ROBOTWIN_PATH="${ROBOTWIN_PATH:-/mnt/data/gaoning/code_repos/RoboTwin}"
+ if [[ ! -d "${ROBOTWIN_PATH}" ]]; then
+diff --git a/examples/simBenchmarks/Robotwin/eval_files/model2robotwin_interface.py b/examples/simBenchmarks/Robotwin/eval_files/model2robotwin_interface.py
+index 5ecce2a..1e1c9b0 100644
+--- a/examples/simBenchmarks/Robotwin/eval_files/model2robotwin_interface.py
++++ b/examples/simBenchmarks/Robotwin/eval_files/model2robotwin_interface.py
+@@ -67,12 +67,14 @@ class ModelClient:
+         self.raw_actions = None
+ 
+         server_meta = self.client.get_server_metadata()
++        if self.unnorm_key is None:
++            self.unnorm_key = server_meta.get("default_unnorm_key")
+         self.action_chunk_size = server_meta["action_chunk_size"]
+         self.action_layout = server_meta.get("action_layout", "legacy_starvla")
+         self.framework_preprocesses_images = bool(server_meta.get("framework_preprocesses_images", False))
+         self.state_required = bool(server_meta.get("state_required", False))
+         print(
+-            f"*** policy_setup: {policy_setup}, unnorm_key: {unnorm_key}, "
++            f"*** policy_setup: {policy_setup}, unnorm_key: {self.unnorm_key}, "
+             f"action_mode: {action_mode}, normalization_mode: {normalization_mode}, "
+             f"server_meta: {server_meta} ***"
+         )
+diff --git a/examples/simBenchmarks/Robotwin/eval_files/run_policy_server.sh b/examples/simBenchmarks/Robotwin/eval_files/run_policy_server.sh
+index 06b05d2..e9aafec 100755
+--- a/examples/simBenchmarks/Robotwin/eval_files/run_policy_server.sh
++++ b/examples/simBenchmarks/Robotwin/eval_files/run_policy_server.sh
+@@ -2,7 +2,7 @@
+ set -euo pipefail
+ 
+ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+-REPO_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
++REPO_ROOT="$(cd "${SCRIPT_DIR}/../../../.." && pwd)"
+ 
+ export PYTHONPATH="${REPO_ROOT}:${PYTHONPATH:-}"
+ 
+diff --git a/tests/test_starwam_integration.py b/tests/test_starwam_integration.py
+index b078562..b0dead1 100644
+--- a/tests/test_starwam_integration.py
++++ b/tests/test_starwam_integration.py
+@@ -684,6 +684,57 @@ def test_robotwin_client_preserves_raw_pixels_and_native_action_order() -> None:
+     np.testing.assert_array_equal(action, np.arange(14, dtype=np.float32))
+ 
+ 
++@pytest.mark.skipif(importlib.util.find_spec("cv2") is None, reason="OpenCV is not installed")
++def test_robotwin_client_uses_server_default_unnorm_key() -> None:
++    model2robotwin_interface = _import_starvla_example(
++        "examples.simBenchmarks.Robotwin.eval_files.model2robotwin_interface"
++    )
++    deploy_policy = yaml.safe_load(
++        (
++            REPO_ROOT
++            / "examples"
++            / "simBenchmarks"
++            / "Robotwin"
++            / "eval_files"
++            / "deploy_policy.yml"
++        ).read_text()
++    )
++    assert deploy_policy["unnorm_key"] is None
++
++    fake = _FakePolicyClient(
++        {
++            "action_chunk_size": 2,
++            "available_unnorm_keys": ["starwam"],
++            "default_unnorm_key": "starwam",
++            "framework_preprocesses_images": True,
++            "action_layout": "native_qpos",
++            "state_required": True,
++        },
++        action_dim=14,
++    )
++    with mock.patch.object(model2robotwin_interface, "WebsocketClientPolicy", return_value=fake):
++        client = model2robotwin_interface.ModelClient(policy_ckpt_path="unused", action_ensemble=False)
++    images = [np.zeros((31, 47, 3), dtype=np.uint8) for _ in range(3)]
++    client.step({"image": images, "lang": "move", "state": np.zeros(14)}, step=0)
++    assert fake.requests[-1]["unnorm_key"] == "starwam"
++
++
++@pytest.mark.parametrize("script_name", ["run_policy_server.sh", "eval.sh"])
++def test_robotwin_launchers_resolve_starvla_repo_root(script_name: str) -> None:
++    script_path = (
++        REPO_ROOT
++        / "examples"
++        / "simBenchmarks"
++        / "Robotwin"
++        / "eval_files"
++        / script_name
++    )
++
++    source = script_path.read_text()
++    assert 'REPO_ROOT="$(cd "${SCRIPT_DIR}/../../../.." && pwd)"' in source
++    assert (script_path.parent / "../../../..").resolve() == REPO_ROOT
++
++
+ @pytest.mark.skipif(
+     importlib.util.find_spec("matplotlib") is None or importlib.util.find_spec("cv2") is None,
+     reason="client regression dependencies are not installed",

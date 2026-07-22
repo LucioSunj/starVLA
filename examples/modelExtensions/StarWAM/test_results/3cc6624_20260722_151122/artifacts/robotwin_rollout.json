@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "candidate": "3cc6624225d6efc2b18752bbaf7c66744290ffcf",
+  "benchmark": "RoboTwin",
+  "task": "adjust_bottle",
+  "mode": "demo_clean",
+  "checkpoint": "/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW/checkpoints/steps_2_pytorch_model.pt",
+  "exit_code": 0,
+  "configured_episodes": 2,
+  "completed_episodes": 2,
+  "completed_steps_per_episode": [400, 400],
+  "successes": 0,
+  "success_rate": 0.0,
+  "gpu": 3,
+  "peak_gpu_memory_mib": 44272,
+  "resource_overrides": {
+    "ROBOTWIN_TEST_NUM": 2,
+    "PATH_prepend": "/data0/CWJ/vla_3d_geometry_project/envs/starvla/bin",
+    "reason": "Bound the integration smoke to two complete episodes and expose the RoboTwin environment ffmpeg binary."
+  },
+  "metadata": {
+    "action_chunk_size": 32,
+    "available_unnorm_keys": ["starwam"],
+    "default_unnorm_key": "starwam",
+    "action_layout": "native_qpos",
+    "camera_order": [
+      "observation.images.cam_high",
+      "observation.images.cam_left_wrist",
+      "observation.images.cam_right_wrist"
+    ],
+    "camera_layout": "robotwin",
+    "framework_preprocesses_images": true,
+    "state_required": true,
+    "model_family": "mot_wam"
+  },
+  "client_resolved_unnorm_key": "starwam",
+  "legacy_joint_reorder_used": false,
+  "actions_submitted_in_native_qpos_order": true,
+  "critical_error_scan_matches": 0,
+  "result_file": "/home/amax/data0/SJ/test-runs/starwam-integration/3cc6624_20260722_151122/artifacts/robotwin_runtime/eval_result/adjust_bottle/model2robotwin_interface/demo_clean/starwam_integration_bounded/2026-07-22 15:46:25/_result.txt",
+  "video_files": [
+    "/home/amax/data0/SJ/test-runs/starwam-integration/3cc6624_20260722_151122/artifacts/robotwin_runtime/eval_result/adjust_bottle/model2robotwin_interface/demo_clean/starwam_integration_bounded/2026-07-22 15:46:25/episode0.mp4",
+    "/home/amax/data0/SJ/test-runs/starwam-integration/3cc6624_20260722_151122/artifacts/robotwin_runtime/eval_result/adjust_bottle/model2robotwin_interface/demo_clean/starwam_integration_bounded/2026-07-22 15:46:25/episode1.mp4"
+  ],
+  "logs": {
+    "launcher": "/home/amax/data0/SJ/test-runs/starwam-integration/3cc6624_20260722_151122/logs/robotwin_launcher_bounded.log",
+    "server": "/home/amax/data0/SJ/test-runs/starwam-integration/3cc6624_20260722_151122/logs/robotwin_rollout_bounded/adjust_bottle_demo_clean_slot0_gpu3_port10122_server.log",
+    "client": "/home/amax/data0/SJ/test-runs/starwam-integration/3cc6624_20260722_151122/logs/robotwin_rollout_bounded/adjust_bottle_demo_clean_slot0_gpu3_port10122_eval.log",
+    "gpu_stats": "/home/amax/data0/SJ/test-runs/starwam-integration/3cc6624_20260722_151122/stats/robotwin_bounded_nvidia_smi.csv"
+  },
+  "non_counted_attempt": {
+    "status": "INTERRUPTED_NOT_COUNTED",
+    "reason": "The first command omitted ROBOTWIN_TEST_NUM and fell back to the upstream default of 100; it was stopped after seven complete episodes, preserved, and not used as PASS evidence.",
+    "completed_episodes": 7,
+    "artifact_dir": "/home/amax/data0/SJ/test-runs/starwam-integration/3cc6624_20260722_151122/artifacts/robotwin_attempt_default_100_interrupted"
+  }
+}

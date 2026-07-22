@@ -1,0 +1,18 @@
+
+Copy-and-paste the text below in your GitHub issue
+
+- `Accelerate` version: 1.5.2
+- Platform: Linux-6.8.0-53-generic-x86_64-with-glibc2.39
+- `accelerate` bash location: /home/amax/data0/SJ/envs/starvla-starwam-py311/bin/accelerate
+- Python version: 3.11.15
+- Numpy version: 1.26.4
+- PyTorch version (GPU?): 2.6.0+cu124 (True)
+- PyTorch XPU available: False
+- PyTorch NPU available: False
+- PyTorch MLU available: False
+- PyTorch SDAA available: False
+- PyTorch MUSA available: False
+- System RAM: 251.52 GB
+- GPU type: NVIDIA GeForce RTX 4090
+- `Accelerate` default config:
+	Not found

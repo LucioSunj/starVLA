@@ -1,0 +1,130 @@
+{
+  "status": "PASS",
+  "case": "SW-L-MW",
+  "canonical_contract": "StarVLA compose_camera_views == StarWAM training _resize_frames",
+  "checkpoint": "/home/amax/data0/SJ/models/starwam_ckpts/starwam-libero/mot/starwam_wan225b_mot.pt",
+  "checkpoint_sha256": "d24edea01579880327cfd9dc84d24adab82e420dca9652e614ad697bc8cc5378",
+  "golden_input": "/home/amax/SJ/projects/Embodied-World/starVLA/examples/modelExtensions/StarWAM/test_results/3f072c4_20260722_062824/artifacts/SW-L-MW/golden_input_libero.npz",
+  "golden_input_sha256": "551858ae5806a52ba636e370f040d0e3366e60a3475c3c9ce3965bbb208eb0f6",
+  "golden_array_sha256": {
+    "primary": "76e0c7bec1e89772c13a16c2c228948c3318fab98deffacf43e79af0255d9313",
+    "wrist": "074211476bd5fcc9d2a9fd00d2d147f2907ddbb204e2b780f85c0caccbe9a560",
+    "state": "e4f136c0d78090e509c049cd63d80032be18ac23d619a78ea0b9668267817db7"
+  },
+  "instruction": "pick up the black bowl between the plate and the ramekin and place it on the plate",
+  "seed": 42,
+  "num_inference_steps": 2,
+  "action_num_inference_steps": 2,
+  "pixels": {
+    "status": "PASS",
+    "shape": [
+      1,
+      3,
+      224,
+      448
+    ],
+    "torch_equal": true,
+    "max_abs_diff": 0.0,
+    "failed_elements": 0
+  },
+  "pil_rollout_diagnostic": {
+    "status": "DIAGNOSTIC_ONLY",
+    "torch_equal": false,
+    "max_abs_diff": 0.5139676928520203,
+    "mean_abs_diff": 0.010353229008615017,
+    "failed_elements": 230030
+  },
+  "text": {
+    "status": "PASS",
+    "context_equal": true,
+    "mask_equal": true,
+    "context_shape": [
+      1,
+      128,
+      4096
+    ]
+  },
+  "state": {
+    "status": "PASS",
+    "shape_equal": true,
+    "actual_shape": [
+      1,
+      8
+    ],
+    "expected_shape": [
+      1,
+      8
+    ],
+    "allclose": true,
+    "max_abs_diff": 0.0,
+    "max_rel_diff": 0.0,
+    "failed_elements": 0,
+    "total_elements": 8,
+    "atol": 1e-06,
+    "rtol": 1e-06
+  },
+  "normalized_action": {
+    "status": "PASS",
+    "shape_equal": true,
+    "actual_shape": [
+      1,
+      32,
+      7
+    ],
+    "expected_shape": [
+      1,
+      32,
+      7
+    ],
+    "allclose": true,
+    "max_abs_diff": 0.0,
+    "max_rel_diff": 0.0,
+    "failed_elements": 0,
+    "total_elements": 224,
+    "atol": 0.0001,
+    "rtol": 0.001
+  },
+  "final_action": {
+    "status": "PASS",
+    "shape_equal": true,
+    "actual_shape": [
+      1,
+      32,
+      7
+    ],
+    "expected_shape": [
+      1,
+      32,
+      7
+    ],
+    "allclose": true,
+    "max_abs_diff": 0.0,
+    "max_rel_diff": 0.0,
+    "failed_elements": 0,
+    "total_elements": 224,
+    "atol": 0.0001,
+    "rtol": 0.001
+  },
+  "metadata": {
+    "action_chunk_size": 32,
+    "available_unnorm_keys": [
+      "starwam"
+    ],
+    "default_unnorm_key": "starwam",
+    "action_layout": "default",
+    "camera_order": [
+      "observation.images.image",
+      "observation.images.wrist_image"
+    ],
+    "camera_layout": "horizontal",
+    "framework_preprocesses_images": true,
+    "training_obs_image_size": [
+      224,
+      224
+    ],
+    "state_required": true,
+    "model_family": "mot_wam"
+  },
+  "action_horizon": 32,
+  "num_video_frames": 9
+}

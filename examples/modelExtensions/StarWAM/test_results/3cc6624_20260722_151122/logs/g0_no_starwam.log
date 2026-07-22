@@ -1,0 +1,6 @@
+starwam_spec=None
+legacy_framework_import=PASS
+lightweight_import=PASS
+registered_legacy=ACT
+framework.name='StarWAM' requires the optional StarWAM dependency. Install it with `pip install -e '.[wam]'` or, for this workspace, `pip install --no-deps -e '../StarWAM[train]'`.
+starwam_actionable_error=PASS

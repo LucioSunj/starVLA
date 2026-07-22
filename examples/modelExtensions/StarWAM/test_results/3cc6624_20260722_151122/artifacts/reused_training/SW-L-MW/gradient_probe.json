@@ -1,0 +1,45 @@
+{
+  "groups": {
+    "action_expert": {
+      "finite_gradient_elements": 1020886023,
+      "finite_gradient_ratio": 1.0,
+      "gradient_elements": 1020886023,
+      "gradient_l2_norm": 1.1351812517653546,
+      "gradient_tensors": 824,
+      "nonzero_gradient_elements": 1020318055,
+      "nonzero_gradient_ratio": 0.9994436518992287,
+      "parameter_elements": 1020886023,
+      "parameter_tensors": 824,
+      "trainable_parameter_elements": 1020886023,
+      "trainable_parameter_tensors": 824
+    },
+    "backbone.dit": {
+      "finite_gradient_elements": 4999787712,
+      "finite_gradient_ratio": 1.0,
+      "gradient_elements": 4999787712,
+      "gradient_l2_norm": 0.5536025836831365,
+      "gradient_tensors": 825,
+      "nonzero_gradient_elements": 4996758898,
+      "nonzero_gradient_ratio": 0.9993942114796733,
+      "parameter_elements": 4999787712,
+      "parameter_tensors": 825,
+      "trainable_parameter_elements": 4999787712,
+      "trainable_parameter_tensors": 825
+    },
+    "proprio_encoder": {
+      "finite_gradient_elements": 36864,
+      "finite_gradient_ratio": 1.0,
+      "gradient_elements": 36864,
+      "gradient_l2_norm": 0.023536178237244732,
+      "gradient_tensors": 2,
+      "nonzero_gradient_elements": 36829,
+      "nonzero_gradient_ratio": 0.9990505642361112,
+      "parameter_elements": 36864,
+      "parameter_tensors": 2,
+      "trainable_parameter_elements": 36864,
+      "trainable_parameter_tensors": 2
+    }
+  },
+  "model_family": "mot_wam",
+  "optimizer_step": 1
+}

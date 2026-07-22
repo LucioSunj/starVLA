@@ -1,0 +1,5 @@
+[INFO] Starting RoboTwin policy server
+[INFO] checkpoint: /home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW/checkpoints/steps_2_pytorch_model.pt
+[INFO] gpu: 3
+[INFO] port: 10121
+/home/amax/data0/SJ/envs/starvla-starwam-py311/bin/python: can't open file '/home/amax/SJ/projects/Embodied-World/starVLA/examples/deployment/model_server/server_policy.py': [Errno 2] No such file or directory

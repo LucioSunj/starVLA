@@ -1,0 +1,21 @@
+07/22 [14:10:38] INFO     | >> [*] Loading from local         share_tools.py:370
+                          checkpoint path                                       
+                          `/home/amax/data0/SJ/test-runs/star                   
+                          wam-integration/ad6b412_20260722_09                   
+                          0916/artifacts/bundles/SW-L-SW/chec                   
+                          kpoints/steps_2_pytorch_model.pt`                     
+07/22 [14:11:16] INFO     | >> loading                             wan22.py:1491
+                          /home/amax/data0/SJ/models/Wan2.2-TI2V-5              
+                          B/Wan2.2_VAE.pth                                      
+[Wan22VAE] Loaded VAE from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B/Wan2.2_VAE.pth
+07/22 [14:11:20] INFO     | >> Building StarWAM shared-DiT WAM     builder.py:81
+                          with backbone=wan22_5b                                
+[StarWAM][rank=0/local=0] Loading shared-DiT video init from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B
+[StarWAM][rank=0/local=0] loading shard 1/3: diffusion_pytorch_model-00001-of-00003.safetensors
+[StarWAM][rank=0/local=0] loaded shard 1/3 in 2.0s (loaded_total=413, missing_now=426)
+[StarWAM][rank=0/local=0] loading shard 2/3: diffusion_pytorch_model-00002-of-00003.safetensors
+[StarWAM][rank=0/local=0] loaded shard 2/3 in 1.9s (loaded_total=820, missing_now=432)
+[StarWAM][rank=0/local=0] loading shard 3/3: diffusion_pytorch_model-00003-of-00003.safetensors
+[StarWAM][rank=0/local=0] loaded shard 3/3 in 0.3s (loaded_total=825, missing_now=834)
+[StarWAM] Initialized shared-DiT directly from video DiT checkpoint (num_seen=825, num_loaded=825, missing=14, unexpected=0)
+RESULT_JSON={"candidate": "d187bb1dbf863c2f57039736c9cf002a9342270e", "checkpoint": "/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-L-SW/checkpoints/steps_2_pytorch_model.pt", "finite": true, "max": 10.5625, "min": -18.875, "missing_keys": 0, "model_device": "cuda:0", "model_dtype": "torch.bfloat16", "peak_mib": 13809.77734375, "shape": [1, 32, 7], "state_dict_keys": 1664, "status": "PASS", "strict_restore": true, "unexpected_keys": 0}

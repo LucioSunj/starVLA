@@ -1,0 +1,6 @@
+ .../Robotwin/eval_files/deploy_policy.yml          |  2 +-
+ examples/simBenchmarks/Robotwin/eval_files/eval.sh |  2 +-
+ .../eval_files/model2robotwin_interface.py         |  4 +-
+ .../Robotwin/eval_files/run_policy_server.sh       |  2 +-
+ tests/test_starwam_integration.py                  | 51 ++++++++++++++++++++++
+ 5 files changed, 57 insertions(+), 4 deletions(-)

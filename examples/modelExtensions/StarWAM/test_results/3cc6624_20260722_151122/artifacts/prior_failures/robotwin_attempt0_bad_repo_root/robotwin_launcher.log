@@ -1,0 +1,10 @@
+[INFO] starvla python: /home/amax/data0/SJ/envs/starvla-starwam-py311/bin/python
+[INFO] robotwin python: /data0/CWJ/vla_3d_geometry_project/envs/starvla/bin/python
+[INFO] mode=demo_clean  name=starwam_integration_smoke  seed=0
+[INFO] ckpt=/home/amax/data0/SJ/test-runs/starwam-integration/ad6b412_20260722_090916/artifacts/bundles/SW-R-MW/checkpoints/steps_2_pytorch_model.pt
+[INFO] logs=/home/amax/data0/SJ/test-runs/starwam-integration/d187bb1_20260722_140418/logs/robotwin_rollout
+[INFO] gpus=3  jobs_per_gpu=1  slots=1
+[INFO] tasks (1): adjust_bottle
+[INFO] Launching task=adjust_bottle mode=demo_clean gpu=3 port=10121
+[INFO] Cleaning up all child processes...
+Terminated

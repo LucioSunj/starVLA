@@ -1,0 +1,32 @@
+{
+  "groups": {
+    "backbone.dit": {
+      "finite_gradient_elements": 0,
+      "finite_gradient_ratio": null,
+      "gradient_elements": 0,
+      "gradient_l2_norm": 0.0,
+      "gradient_tensors": 0,
+      "nonzero_gradient_elements": 0,
+      "nonzero_gradient_ratio": null,
+      "parameter_elements": 4999787712,
+      "parameter_tensors": 825,
+      "trainable_parameter_elements": 0,
+      "trainable_parameter_tensors": 0
+    },
+    "shared_dit": {
+      "finite_gradient_elements": 5038408903,
+      "finite_gradient_ratio": 1.0,
+      "gradient_elements": 5038408903,
+      "gradient_l2_norm": 5.000910405851823,
+      "gradient_tensors": 839,
+      "nonzero_gradient_elements": 5034427161,
+      "nonzero_gradient_ratio": 0.9992097223396003,
+      "parameter_elements": 5038408903,
+      "parameter_tensors": 839,
+      "trainable_parameter_elements": 5038408903,
+      "trainable_parameter_tensors": 839
+    }
+  },
+  "model_family": "shared_dit_wam",
+  "optimizer_step": 1
+}

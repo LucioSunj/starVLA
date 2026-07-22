@@ -1,0 +1,5 @@
+benchmark_root: /home/amax/SJ/libero-plus/libero/libero
+bddl_files: /home/amax/SJ/libero-plus/libero/libero/bddl_files
+init_states: /home/amax/SJ/libero-plus/libero/libero/init_files
+datasets: /data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/libero
+assets: /home/amax/SJ/libero-plus/libero/libero/assets

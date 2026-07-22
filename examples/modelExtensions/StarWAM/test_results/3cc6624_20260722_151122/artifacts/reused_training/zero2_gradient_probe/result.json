@@ -1,0 +1,105 @@
+{
+  "ranks": [
+    {
+      "boundary_pattern": [
+        false,
+        true
+      ],
+      "rank": 0,
+      "raw_gradient_elements": 0,
+      "world_size": 2,
+      "zero_groups": {
+        "action_expert": {
+          "finite_gradient_elements": 64,
+          "finite_gradient_ratio": 1.0,
+          "gradient_elements": 64,
+          "gradient_l2_norm": 4.181742695859331,
+          "gradient_tensors": 1,
+          "nonzero_gradient_elements": 64,
+          "nonzero_gradient_ratio": 1.0,
+          "parameter_elements": 64,
+          "parameter_tensors": 1,
+          "trainable_parameter_elements": 64,
+          "trainable_parameter_tensors": 1
+        },
+        "backbone.dit": {
+          "finite_gradient_elements": 64,
+          "finite_gradient_ratio": 1.0,
+          "gradient_elements": 64,
+          "gradient_l2_norm": 5.056759440594249,
+          "gradient_tensors": 1,
+          "nonzero_gradient_elements": 64,
+          "nonzero_gradient_ratio": 1.0,
+          "parameter_elements": 64,
+          "parameter_tensors": 1,
+          "trainable_parameter_elements": 64,
+          "trainable_parameter_tensors": 1
+        },
+        "backbone.vae": {
+          "finite_gradient_elements": 0,
+          "finite_gradient_ratio": null,
+          "gradient_elements": 0,
+          "gradient_l2_norm": 0.0,
+          "gradient_tensors": 0,
+          "nonzero_gradient_elements": 0,
+          "nonzero_gradient_ratio": null,
+          "parameter_elements": 64,
+          "parameter_tensors": 1,
+          "trainable_parameter_elements": 0,
+          "trainable_parameter_tensors": 0
+        }
+      }
+    },
+    {
+      "boundary_pattern": [
+        false,
+        true
+      ],
+      "rank": 1,
+      "raw_gradient_elements": 0,
+      "world_size": 2,
+      "zero_groups": {
+        "action_expert": {
+          "finite_gradient_elements": 64,
+          "finite_gradient_ratio": 1.0,
+          "gradient_elements": 64,
+          "gradient_l2_norm": 4.181742695859331,
+          "gradient_tensors": 1,
+          "nonzero_gradient_elements": 64,
+          "nonzero_gradient_ratio": 1.0,
+          "parameter_elements": 64,
+          "parameter_tensors": 1,
+          "trainable_parameter_elements": 64,
+          "trainable_parameter_tensors": 1
+        },
+        "backbone.dit": {
+          "finite_gradient_elements": 64,
+          "finite_gradient_ratio": 1.0,
+          "gradient_elements": 64,
+          "gradient_l2_norm": 5.056759440594249,
+          "gradient_tensors": 1,
+          "nonzero_gradient_elements": 64,
+          "nonzero_gradient_ratio": 1.0,
+          "parameter_elements": 64,
+          "parameter_tensors": 1,
+          "trainable_parameter_elements": 64,
+          "trainable_parameter_tensors": 1
+        },
+        "backbone.vae": {
+          "finite_gradient_elements": 0,
+          "finite_gradient_ratio": null,
+          "gradient_elements": 0,
+          "gradient_l2_norm": 0.0,
+          "gradient_tensors": 0,
+          "nonzero_gradient_elements": 0,
+          "nonzero_gradient_ratio": null,
+          "parameter_elements": 64,
+          "parameter_tensors": 1,
+          "trainable_parameter_elements": 0,
+          "trainable_parameter_tensors": 0
+        }
+      }
+    }
+  ],
+  "status": "PASS"
+}

@@ -1,0 +1,4 @@
+source_candidate=d187bb1dbf863c2f57039736c9cf002a9342270e
+target_candidate=3cc6624225d6efc2b18752bbaf7c66744290ffcf
+reason=target additionally fixes only RoboTwin launcher roots, deploy normalization selection, client metadata selection, and regression tests; training, checkpoint restore, parity, and LIBERO code are unchanged
+scope=reuse four Wan training runs plus target G2/G3/LIBERO evidence; rerun G0 and RoboTwin G4 on target
