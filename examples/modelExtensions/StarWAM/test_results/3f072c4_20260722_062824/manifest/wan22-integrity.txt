@@ -1,0 +1,11 @@
+sha256 PASS diffusion_pytorch_model-00001-of-00003.safetensors 720b06c4ade5e87c1246bba8ac95b664c638749cd9b102cf84d823bb44c026a1 9825014472
+sha256 PASS diffusion_pytorch_model-00002-of-00003.safetensors 09ec5ef720d8396f6cfa51fbdcbdb2327e37722afd6e89fd38f1e7e5e782c283 9995661736
+sha256 PASS diffusion_pytorch_model-00003-of-00003.safetensors 6306f7894c345de9093ad588771c2abfaeb668a81f7a6d9a918bd26ba3568e49 178558176
+sha256 PASS Wan2.2_VAE.pth 20eb789667fa5e60e7516bf509512f6cb61f01b0aa0695eadaea930c13892b36 2818839170
+sha256 PASS models_t5_umt5-xxl-enc-bf16.pth 7cace0da2b446bbbbc57d031ab6cf163a3d59b366da94e5afe36745b746fd81d 11361920418
+safetensors PASS diffusion_pytorch_model-00001-of-00003.safetensors keys=413
+safetensors PASS diffusion_pytorch_model-00002-of-00003.safetensors keys=407
+safetensors PASS diffusion_pytorch_model-00003-of-00003.safetensors keys=5
+file_count=23
+incomplete_count=0
+WAN22_INTEGRITY=PASS

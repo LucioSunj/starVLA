@@ -1,0 +1,4 @@
+artifact	absolute_path	bytes	status
+steps_1	/home/amax/data0/SJ/test-runs/starwam-integration/3f072c4_20260722_062824/train/SW-L-MW_20260722_063933/checkpoints/steps_1_pytorch_model.pt	24083916506	PRESENT
+steps_2	/home/amax/data0/SJ/test-runs/starwam-integration/3f072c4_20260722_062824/train/SW-L-MW_20260722_063933/checkpoints/steps_2_pytorch_model.pt	24083916506	PRESENT
+final_model	/home/amax/data0/SJ/test-runs/starwam-integration/3f072c4_20260722_062824/train/SW-L-MW_20260722_063933/final_model/pytorch_model.pt	24083890074	PRESENT

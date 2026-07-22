@@ -1,0 +1,13 @@
+command	exit_code	result
+g0_a1	0	PASS
+tests/test_starwam_integration.py	0	PASS:41 passed,0 skipped
+full_tests	0	PASS:74 passed,0 skipped
+no_starwam_environment	0	PASS
+infinite_dataloader_harness	0	PASS
+zero2_gradient_probe_harness	0	PASS
+zero2_cpu_offload_harness	0	PASS
+SW-L-MW_train	0	PASS
+SW-L-MW_strict_restore	0	PASS
+SW-L-MW_bundle_restore	0	PASS
+SW-L-MW_native_checkpoint_import	0	PASS
+SW-L-MW_pixel_parity	2	FAIL

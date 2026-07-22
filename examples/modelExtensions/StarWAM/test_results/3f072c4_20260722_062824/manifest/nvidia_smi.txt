@@ -1,0 +1,64 @@
+Wed Jul 22 06:30:04 2026
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.159.03             Driver Version: 580.159.03     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 4090        Off |   00000000:16:00.0 Off |                  Off |
+| 30%   27C    P8             15W /  450W |      35MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA GeForce RTX 4090        Off |   00000000:27:00.0 Off |                  Off |
+| 30%   28C    P8             21W /  450W |      19MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA GeForce RTX 4090        Off |   00000000:38:00.0 Off |                  Off |
+| 30%   42C    P0             67W /  450W |   11651MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   3  NVIDIA GeForce RTX 4090        Off |   00000000:5A:00.0 Off |                  Off |
+| 30%   46C    P0            160W /  450W |   15367MiB /  49140MiB |     60%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   4  NVIDIA GeForce RTX 4090        Off |   00000000:98:00.0 Off |                  Off |
+| 30%   51C    P0            166W /  450W |   48182MiB /  49140MiB |    100%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   5  NVIDIA GeForce RTX 4090        Off |   00000000:A8:00.0 Off |                  Off |
+| 30%   53C    P0            166W /  450W |   48200MiB /  49140MiB |    100%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   6  NVIDIA GeForce RTX 4090        Off |   00000000:B8:00.0 Off |                  Off |
+| 30%   48C    P0            168W /  450W |   48240MiB /  49140MiB |     99%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   7  NVIDIA GeForce RTX 4090        Off |   00000000:D8:00.0 Off |                  Off |
+| 30%   50C    P0            157W /  450W |   48384MiB /  49140MiB |    100%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A         1758888      G   /usr/lib/xorg/Xorg                        4MiB |
+|    0   N/A  N/A         1956308      G   ...oject/envs/starvla/bin/python          6MiB |
+|    1   N/A  N/A         1758888      G   /usr/lib/xorg/Xorg                        4MiB |
+|    2   N/A  N/A         1758888      G   /usr/lib/xorg/Xorg                        4MiB |
+|    2   N/A  N/A         1952699      C   ...oject/envs/starvla/bin/python       9504MiB |
+|    2   N/A  N/A         1956310      C   ...oject/envs/starvla/bin/python       2118MiB |
+|    3   N/A  N/A         1758888      G   /usr/lib/xorg/Xorg                        4MiB |
+|    3   N/A  N/A         1952695      C   ...oject/envs/starvla/bin/python       9604MiB |
+|    3   N/A  N/A         1956308    C+G   ...oject/envs/starvla/bin/python       5723MiB |
+|    4   N/A  N/A         1722292      C   ...oject/envs/starvla/bin/python      48158MiB |
+|    4   N/A  N/A         1758888      G   /usr/lib/xorg/Xorg                        4MiB |
+|    5   N/A  N/A         1722293      C   ...oject/envs/starvla/bin/python      48176MiB |
+|    5   N/A  N/A         1758888      G   /usr/lib/xorg/Xorg                        4MiB |
+|    6   N/A  N/A         1722294      C   ...oject/envs/starvla/bin/python      48216MiB |
+|    6   N/A  N/A         1758888      G   /usr/lib/xorg/Xorg                        4MiB |
+|    7   N/A  N/A         1722295      C   ...oject/envs/starvla/bin/python      48360MiB |
+|    7   N/A  N/A         1758888      G   /usr/lib/xorg/Xorg                        4MiB |
++-----------------------------------------------------------------------------------------+

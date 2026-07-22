@@ -1,0 +1,7 @@
+case_id	exit_code	world_size	peak_vram_mib	loss	gradient	checkpoint	parity	result	artifact
+SW-L-MW	0	2	gpu0=36936;gpu1=36882	step1=1.610933542251587;step2=7.863213539123535	required_groups_finite_nonzero;frozen_groups_not_emitted	steps_1+steps_2+final_model	FAIL:pixels	FAIL	artifacts/SW-L-MW
+SW-L-MC	N/A	N/A	N/A	N/A	N/A	N/A	N/A	BLOCKED:Cosmos_assets	N/A
+SW-L-SW	N/A	N/A	N/A	N/A	N/A	N/A	N/A	NOT_RUN:G3_hard_stop	N/A
+SW-L-SC	N/A	N/A	N/A	N/A	N/A	N/A	N/A	BLOCKED:Cosmos_assets	N/A
+SW-L-FW	N/A	N/A	N/A	N/A	N/A	N/A	N/A	NOT_RUN:G3_hard_stop	N/A
+SW-R-MW	N/A	N/A	N/A	N/A	N/A	N/A	N/A	NOT_RUN:G3_hard_stop	N/A

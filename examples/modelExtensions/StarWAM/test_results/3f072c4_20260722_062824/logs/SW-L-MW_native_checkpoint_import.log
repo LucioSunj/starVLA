@@ -1,0 +1,9 @@
+[Wan22Backbone] Loaded DiT weights from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B (num_loaded=825, missing=0, unexpected=0)
+07/22 [07:19:29] INFO     | >> loading                             wan22.py:1491
+                          /home/amax/data0/SJ/models/Wan2.2-TI2V-5
+                          B/Wan2.2_VAE.pth
+[Wan22VAE] Loaded VAE from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B/Wan2.2_VAE.pth
+07/22 [07:19:31] INFO     | >> Building StarWAM MoT WAM with       builder.py:53
+                          backbone=wan22_5b
+[StarWAM] Loaded ActionDiT init from /home/amax/data0/SJ/preprocessed/starwam_action_dit_init_wan22.pt (num_loaded=820, head_init=random, missing=4, unexpected=0)
+{"checkpoint": "/home/amax/data0/SJ/models/starwam_ckpts/starwam-libero/mot/starwam_wan225b_mot.pt", "imported_checkpoint": "/home/amax/data0/SJ/models/starwam_ckpts/starwam-libero/mot/starwam_wan225b_mot.pt", "init_checkpoint_after_import": null, "missing_keys": 0, "model_family": "mot_wam", "state_dict_keys": 3300, "status": "PASS", "strict_init": true, "unexpected_keys": 0}

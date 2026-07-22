@@ -1,0 +1,8 @@
+Asset content hashes and structural validation were produced in the immediately preceding frozen candidate run; this candidate changes only checkpoint rank materialization.
+/home/amax/data0/SJ/preprocessed/starwam_action_dit_init_wan22.pt|size=2042009114|mtime=2026-07-21 10:41:32.071201051 +0000
+/home/amax/data0/SJ/models/starwam_ckpts/starwam-libero/mot/starwam_wan225b_mot.pt|size=12042005132|mtime=2026-07-21 10:27:49.543082135 +0000
+/home/amax/data0/SJ/models/Wan2.2-TI2V-5B/diffusion_pytorch_model-00001-of-00003.safetensors|size=9825014472|mtime=2026-07-21 10:28:28.726433895 +0000
+/home/amax/data0/SJ/models/Wan2.2-TI2V-5B/diffusion_pytorch_model-00002-of-00003.safetensors|size=9995661736|mtime=2026-07-21 10:28:03.202856285 +0000
+/home/amax/data0/SJ/models/Wan2.2-TI2V-5B/diffusion_pytorch_model-00003-of-00003.safetensors|size=178558176|mtime=2026-07-21 09:41:18.260095037 +0000
+/home/amax/data0/SJ/models/Wan2.2-TI2V-5B/Wan2.2_VAE.pth|size=2818839170|mtime=2026-07-21 09:44:50.613843150 +0000
+/home/amax/data0/SJ/models/Wan2.2-TI2V-5B/models_t5_umt5-xxl-enc-bf16.pth|size=11361920418|mtime=2026-07-21 10:31:00.393499880 +0000

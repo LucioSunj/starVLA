@@ -1,0 +1,6 @@
+gate	result	reason
+G0	PASS	A1 exit 0; integration 41 passed; full tests 74 passed; zero skips; no-StarWAM and three 2-GPU harnesses passed
+G1	BLOCKED	SW-L-MW trained; two Cosmos cases lack gated assets; three Wan cases stopped after G3 pixel hard failure
+G2	BLOCKED	SW-L-MW strict/bundle/native import passed; other five steps_2 checkpoints unavailable
+G3	FAIL	real LIBERO pixel parity failed: max_abs_diff=0.5139676928520203, 230030/301056 elements differ
+G4	BLOCKED	metadata/client contracts passed; real server action and rollouts stopped after G3 hard failure

@@ -1,0 +1,26 @@
+{
+  "benchmark": "LIBERO",
+  "dataset_root": "/data0/FastWAM-PERF-002-storage/root-migration-20260716T0311Z/Datasets/fastwam/libero_mujoco3.3.2/libero_spatial_no_noops_lerobot",
+  "episode": 15,
+  "task_index": 0,
+  "instruction": "pick up the black bowl between the plate and the ramekin and place it on the plate",
+  "environment_seed": null,
+  "environment_seed_status": "not present in archived LeRobot episode metadata",
+  "observation_timestep": 0,
+  "raw_primary_shape": [
+    512,
+    512,
+    3
+  ],
+  "raw_wrist_shape": [
+    512,
+    512,
+    3
+  ],
+  "raw_primary_dtype": "uint8",
+  "raw_wrist_dtype": "uint8",
+  "state_dim": 8,
+  "raw_primary_sha256": "76e0c7bec1e89772c13a16c2c228948c3318fab98deffacf43e79af0255d9313",
+  "raw_wrist_sha256": "074211476bd5fcc9d2a9fd00d2d147f2907ddbb204e2b780f85c0caccbe9a560",
+  "state_sha256": "e4f136c0d78090e509c049cd63d80032be18ac23d619a78ea0b9668267817db7"
+}

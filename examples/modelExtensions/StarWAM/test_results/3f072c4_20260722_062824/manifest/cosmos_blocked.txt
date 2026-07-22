@@ -1,0 +1,1 @@
+BLOCKED: official nvidia/Cosmos-Predict2-2B-Video2World is gated; authenticated model download returned HTTP 401 during asset preparation. COSMOS_ROOT and COSMOS_ACTION_DIT_INIT are unavailable and were not guessed.

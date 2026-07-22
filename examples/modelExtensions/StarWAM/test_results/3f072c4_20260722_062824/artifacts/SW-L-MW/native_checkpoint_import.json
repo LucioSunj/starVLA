@@ -1,0 +1,1 @@
+{"checkpoint": "/home/amax/data0/SJ/models/starwam_ckpts/starwam-libero/mot/starwam_wan225b_mot.pt", "imported_checkpoint": "/home/amax/data0/SJ/models/starwam_ckpts/starwam-libero/mot/starwam_wan225b_mot.pt", "init_checkpoint_after_import": null, "missing_keys": 0, "model_family": "mot_wam", "state_dict_keys": 3300, "status": "PASS", "strict_init": true, "unexpected_keys": 0}

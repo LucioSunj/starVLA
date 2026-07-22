@@ -1,0 +1,1 @@
+{"dtypes": {"torch.bfloat16": 3300}, "elements": 12041384334, "keys": 3300, "path": "/home/amax/data0/SJ/test-runs/starwam-integration/3f072c4_20260722_062824/train/SW-L-MW_20260722_063933/checkpoints/steps_2_pytorch_model.pt", "prefixes": {"wam": 3300}}

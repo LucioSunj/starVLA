@@ -1,0 +1,16 @@
+07/22 [07:06:01] INFO     | >> [*] Loading from local         share_tools.py:370
+                          checkpoint path
+                          `/home/amax/data0/SJ/test-runs/star
+                          wam-integration/3f072c4_20260722_06
+                          2824/train/SW-L-MW_20260722_063933/
+                          checkpoints/steps_2_pytorch_model.p
+                          t`
+[Wan22Backbone] Loaded DiT weights from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B (num_loaded=825, missing=0, unexpected=0)
+07/22 [07:09:47] INFO     | >> loading                             wan22.py:1491
+                          /home/amax/data0/SJ/models/Wan2.2-TI2V-5
+                          B/Wan2.2_VAE.pth
+[Wan22VAE] Loaded VAE from /home/amax/data0/SJ/models/Wan2.2-TI2V-5B/Wan2.2_VAE.pth
+07/22 [07:10:00] INFO     | >> Building StarWAM MoT WAM with       builder.py:53
+                          backbone=wan22_5b
+[StarWAM] Loaded ActionDiT init from /home/amax/data0/SJ/preprocessed/starwam_action_dit_init_wan22.pt (num_loaded=820, head_init=random, missing=4, unexpected=0)
+{"action_horizon": 32, "checkpoint": "/home/amax/data0/SJ/test-runs/starwam-integration/3f072c4_20260722_062824/train/SW-L-MW_20260722_063933/checkpoints/steps_2_pytorch_model.pt", "device": "cuda:0", "dtype": "torch.bfloat16", "metadata": {"action_chunk_size": 32, "action_layout": "default", "available_unnorm_keys": ["starwam"], "camera_layout": "horizontal", "camera_order": ["observation.images.image", "observation.images.wrist_image"], "default_unnorm_key": "starwam", "framework_preprocesses_images": true, "model_family": "mot_wam", "state_required": true, "training_obs_image_size": [224, 224]}, "missing_keys": 0, "model_family": "mot_wam", "state_dict_keys": 3300, "status": "PASS", "strict": true, "unexpected_keys": 0}
