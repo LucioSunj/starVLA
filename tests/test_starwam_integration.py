@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import ast
 import importlib
 import importlib.util
 import subprocess
@@ -498,6 +499,62 @@ def test_init_checkpoint_rejects_zero_match_and_missing_critical_groups(tmp_path
     )
     with pytest.raises(RuntimeError, match="action_expert"):
         framework._load_init_checkpoint(missing_action_expert, strict=False)
+
+
+@pytest.mark.skipif(not _FRAMEWORK_DEPS_AVAILABLE, reason="transformers is not installed")
+def test_shared_dit_inference_uses_compute_core_device_and_dtype() -> None:
+    from starVLA.model.framework.WAM.StarWAM import StarWAMFramework
+
+    class FakeSharedWAM(torch.nn.Module):
+        def __init__(self) -> None:
+            super().__init__()
+            self.backbone = torch.nn.Linear(2, 2, dtype=torch.float32)
+            self.shared_dit = torch.nn.Linear(2, 2, dtype=torch.bfloat16)
+
+    framework = object.__new__(StarWAMFramework)
+    torch.nn.Module.__init__(framework)
+    framework.wam = FakeSharedWAM()
+    framework.model_family = "shared_dit_wam"
+
+    device, dtype = framework._model_device_dtype()
+    shared_parameter = next(framework.wam.shared_dit.parameters())
+    assert device == shared_parameter.device
+    assert dtype == torch.bfloat16
+
+
+def test_libero_env_passes_string_bddl_path() -> None:
+    source_path = REPO_ROOT / "examples" / "simBenchmarks" / "LIBERO" / "eval_files" / "eval_libero.py"
+    tree = ast.parse(source_path.read_text(encoding="utf-8"))
+    function = next(
+        node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == "_get_libero_env"
+    )
+    module = ast.fix_missing_locations(ast.Module(body=[function], type_ignores=[]))
+    captured: dict[str, object] = {}
+
+    class FakeEnv:
+        def __init__(self, **kwargs) -> None:
+            captured.update(kwargs)
+
+        def seed(self, value: int) -> None:
+            captured["seed"] = value
+
+    namespace = {
+        "pathlib": __import__("pathlib"),
+        "get_libero_path": lambda _: "/tmp/libero",
+        "OffScreenRenderEnv": FakeEnv,
+    }
+    exec(compile(module, source_path, "exec"), namespace)
+    task = SimpleNamespace(language="pick", problem_folder="goal", bddl_file="task.bddl")
+    _, description = namespace["_get_libero_env"](task, 256, 7)
+
+    assert captured == {
+        "bddl_file_name": "/tmp/libero/goal/task.bddl",
+        "camera_heights": 256,
+        "camera_widths": 256,
+        "seed": 7,
+    }
+    assert isinstance(captured["bddl_file_name"], str)
+    assert description == "pick"
 
 
 @pytest.mark.skipif(not _starwam_available(), reason="StarWAM optional dependency is not installed")

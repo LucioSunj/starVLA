@@ -152,7 +152,8 @@ class StarWAMFramework(baseframework):
         return {"total_loss": total_loss, "loss_metrics": loss_metrics}
 
     def _model_device_dtype(self) -> tuple[torch.device, torch.dtype]:
-        parameter = next(self.wam.parameters())
+        compute_module = self.wam.shared_dit if self.model_family == "shared_dit_wam" else self.wam
+        parameter = next(compute_module.parameters())
         return parameter.device, parameter.dtype
 
     def _sampled_video_frames(self) -> int:
