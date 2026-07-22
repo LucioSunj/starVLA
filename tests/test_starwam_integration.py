@@ -684,6 +684,22 @@ def test_robotwin_client_preserves_raw_pixels_and_native_action_order() -> None:
     np.testing.assert_array_equal(action, np.arange(14, dtype=np.float32))
 
 
+@pytest.mark.parametrize("script_name", ["run_policy_server.sh", "eval.sh"])
+def test_robotwin_launchers_resolve_starvla_repo_root(script_name: str) -> None:
+    script_path = (
+        REPO_ROOT
+        / "examples"
+        / "simBenchmarks"
+        / "Robotwin"
+        / "eval_files"
+        / script_name
+    )
+
+    source = script_path.read_text()
+    assert 'REPO_ROOT="$(cd "${SCRIPT_DIR}/../../../.." && pwd)"' in source
+    assert (script_path.parent / "../../../..").resolve() == REPO_ROOT
+
+
 @pytest.mark.skipif(
     importlib.util.find_spec("matplotlib") is None or importlib.util.find_spec("cv2") is None,
     reason="client regression dependencies are not installed",
