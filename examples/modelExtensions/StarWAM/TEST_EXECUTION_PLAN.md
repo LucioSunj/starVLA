@@ -489,18 +489,24 @@ Feature-conditioned 不应要求该指标。
 
 按以下顺序比较，第一层不一致时停止，不继续解释后续 action 差异：
 
-1. **像素层**：比较 StarVLA `compose_camera_views` 与原生 StarWAM benchmark adapter 的模型
-   输入。要求 shape 相同且 `torch.equal`，即 `max_abs_diff=0`。
-2. **文本层**：比较 prompt、encoder ID、cache key、context 和 mask。固定 cache 时要求 tensor
+1. **像素层（训练合同）**：比较 StarVLA `compose_camera_views` 与 StarWAM 训练 dataset 的
+   tensor resize/相机拼接路径。当前集成固定沿用 StarVLA/StarWAM 的 PyTorch tensor resize，
+   要求 shape 相同且 `torch.equal`，即 `max_abs_diff=0`。两条模型推理路径随后必须复用这份
+   canonical tensor，不能再次各自 resize。
+2. **原生 rollout resize 诊断**：额外比较 FastWAM/StarWAM benchmark adapter 的 PIL
+   bilinear 输入并记录差异，但该差异不作为本集成的像素门禁。FastWAM 发布实现的训练路径
+   使用 torchvision tensor resize，而 LIBERO rollout 使用 PIL resize；不能反过来要求
+   StarVLA 放弃训练时数据合同来匹配 PIL 量化结果。
+3. **文本层**：比较 prompt、encoder ID、cache key、context 和 mask。固定 cache 时要求 tensor
    一致；重新编码时至少要求 prompt、mask 和数值 tolerance 一致。
-3. **state 层**：比较裁剪维度、顺序和 normalization 后的 proprio，要求
+4. **state 层**：比较裁剪维度、顺序和 normalization 后的 proprio，要求
    `atol=1e-6, rtol=1e-6`。
-4. **模型层**：同一原生 checkpoint、bf16、inference step、action step 和 seed，比较
+5. **模型层**：同一原生 checkpoint、bf16、inference step、action step 和 seed，比较
    `infer_action` 的 normalized chunk。
-5. **动作层**：比较 min-max/z-score 反归一化后的 chunk。
-6. **服务层**：比较 policy server 返回的 action 与直接 framework 调用。
+6. **动作层**：比较 min-max/z-score 反归一化后的 chunk。
+7. **服务层**：比较 policy server 返回的 action 与直接 framework 调用。
 
-第 4 至 6 层统一门槛为 `atol=1e-4, rtol=1e-3`，同时要求最大绝对误差、最大相对误差和
+第 5 至 7 层统一门槛为 `atol=1e-4, rtol=1e-3`，同时要求最大绝对误差、最大相对误差和
 失败元素数量写入 `parity.json`。
 
 原生 `starwam.eval.policy.StarwamPolicy.predict_chunk` 返回已经反归一化的动作，而 StarVLA
@@ -724,7 +730,8 @@ RoboTwin 配置明确限制为相同的前 50 个 initial states，并在两端�
 | scheduler 过快 | micro-step 与 sync-gradients 次数 | accumulation lifecycle | G1 失败 |
 | 只有一个 rank 前进 | cache barrier、worker timeout、NCCL log | distributed data/train | G1 失败 |
 | strict restore missing key | wrapper 前缀、保存范围、config family | checkpoint | G2 失败 |
-| pixel mismatch | resize 插值、相机顺序、旋转、值域 | runtime adapter | G3 失败 |
+| canonical pixel mismatch | PyTorch resize、相机顺序、旋转、值域 | runtime/training adapter | G3 失败 |
+| PIL rollout 与 canonical tensor 不同 | PIL uint8 量化、antialias、插值实现 | benchmark adapter | 记录诊断，不阻断 G3 |
 | normalized action mismatch | seed、steps、text/state、checkpoint 层级 | inference adapter | G3 失败 |
 | direct 一致但 server 不一致 | stats key、反归一化、dtype | policy wrapper | G3 失败 |
 | offline 一致但 rollout 分歧 | replan/wait/max-step/gripper/seed | benchmark adapter | 先对齐控制 |

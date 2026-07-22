@@ -321,7 +321,7 @@ def _reference_resize(frame: np.ndarray, size: tuple[int, int]) -> torch.Tensor:
 
 
 @pytest.mark.skipif(not _starwam_available(), reason="StarWAM optional dependency is not installed")
-def test_libero_camera_composition_matches_starwam_pixels() -> None:
+def test_libero_camera_composition_matches_starwam_training_pixels() -> None:
     rng = np.random.default_rng(7)
     primary = rng.integers(0, 256, (19, 23, 3), dtype=np.uint8)
     wrist = rng.integers(0, 256, (17, 29, 3), dtype=np.uint8)
@@ -341,7 +341,7 @@ def test_libero_camera_composition_matches_starwam_pixels() -> None:
 
 
 @pytest.mark.skipif(not _starwam_available(), reason="StarWAM optional dependency is not installed")
-def test_robotwin_camera_composition_matches_starwam_pixels() -> None:
+def test_robotwin_camera_composition_matches_starwam_training_pixels() -> None:
     rng = np.random.default_rng(11)
     head = rng.integers(0, 256, (31, 47, 3), dtype=np.uint8)
     left = rng.integers(0, 256, (23, 37, 3), dtype=np.uint8)

@@ -40,7 +40,7 @@ def _resize(frame: torch.Tensor, size: tuple[int, int]) -> torch.Tensor:
 
 
 def compose_camera_views(images: Any, data_config: Any) -> torch.Tensor:
-    """Build StarWAM's exact camera tensor ``[1, 3, H, W]`` in ``[-1, 1]``."""
+    """Build StarWAM's training-contract camera tensor ``[1, 3, H, W]`` in ``[-1, 1]``."""
     views = list(images) if isinstance(images, (list, tuple)) else [images]
     layout = str(getattr(data_config, "concat_multi_camera", "horizontal"))
     expected = list(getattr(data_config, "video_keys", None) or [getattr(data_config, "video_key", "image")])
