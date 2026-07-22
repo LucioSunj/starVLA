@@ -1157,3 +1157,41 @@ def test_starwam_schedule_and_optimizer_use_effective_batch_and_trainable_set() 
     legacy_cfg = OmegaConf.create({"framework": {"name": "Legacy"}, "trainer": {"max_train_steps": None}})
     resolve_training_schedule(legacy_cfg, SimpleNamespace(), accelerator)
     assert legacy_cfg.trainer.max_train_steps is None
+
+
+@pytest.mark.skipif(not _TRAINER_DEPS_AVAILABLE, reason="full StarVLA trainer dependencies are not installed")
+@pytest.mark.parametrize(
+    ("distributed_type", "zero_stage", "is_main_process", "expected_calls"),
+    [
+        ("DEEPSPEED", 2, False, 0),
+        ("DEEPSPEED", 2, True, 1),
+        ("DEEPSPEED", 3, False, 1),
+        ("FSDP", None, False, 1),
+        ("MULTI_GPU", None, False, 0),
+    ],
+)
+def test_checkpoint_state_dict_materializes_only_on_required_ranks(
+    distributed_type: str,
+    zero_stage: int | None,
+    is_main_process: bool,
+    expected_calls: int,
+) -> None:
+    from starVLA.training import train_starvla
+
+    class FakeAccelerator:
+        def __init__(self) -> None:
+            self.distributed_type = getattr(train_starvla.DistributedType, distributed_type)
+            self.is_main_process = is_main_process
+            self.deepspeed_config = {"zero_optimization": {"stage": zero_stage}}
+            self.calls = 0
+
+        def get_state_dict(self, model):
+            self.calls += 1
+            return {"weight": model.weight}
+
+    accelerator = FakeAccelerator()
+    model = torch.nn.Linear(1, 1, bias=False)
+    state_dict = train_starvla._get_state_dict_for_save(accelerator, model)
+
+    assert accelerator.calls == expected_calls
+    assert (state_dict is not None) is bool(expected_calls)

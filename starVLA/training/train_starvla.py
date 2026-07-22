@@ -36,7 +36,7 @@ except ImportError:
 
 import wandb
 from accelerate import Accelerator, DeepSpeedPlugin
-from accelerate.utils import set_seed
+from accelerate.utils import DistributedType, set_seed
 from omegaconf import OmegaConf
 from torch.utils.data import DataLoader
 from tqdm import tqdm
@@ -62,6 +62,18 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # Initialize logger
 logger = logging.getLogger(__name__)
+
+
+def _get_state_dict_for_save(accelerator: Accelerator, model: torch.nn.Module):
+    """Materialize full weights only on ranks required by the backend."""
+    deepspeed_config = getattr(accelerator, "deepspeed_config", None) or {}
+    zero_stage = deepspeed_config.get("zero_optimization", {}).get("stage")
+    requires_all_processes = accelerator.distributed_type == DistributedType.FSDP or (
+        accelerator.distributed_type == DistributedType.DEEPSPEED and str(zero_stage) == "3"
+    )
+    if not accelerator.is_main_process and not requires_all_processes:
+        return None
+    return accelerator.get_state_dict(model)
 
 
 def create_accelerator(cfg) -> Accelerator:
@@ -404,8 +416,9 @@ class VLATrainer(TrainerUtils):
 
     def _save_checkpoint(self):
         """Save current training state."""
-        state_dict = self.accelerator.get_state_dict(self.model)
+        state_dict = _get_state_dict_for_save(self.accelerator, self.model)
         if self.accelerator.is_main_process:
+            assert state_dict is not None
             save_format = getattr(self.config.trainer, "save_format", "pt")
             checkpoint_path = os.path.join(self.checkpoint_dir, f"steps_{self.completed_steps}")
 
@@ -674,8 +687,9 @@ class VLATrainer(TrainerUtils):
 
     def _finalize_training(self):
         """Training end processing."""
-        state_dict = self.accelerator.get_state_dict(self.model)
+        state_dict = _get_state_dict_for_save(self.accelerator, self.model)
         if self.accelerator.is_main_process:
+            assert state_dict is not None
             save_format = getattr(self.config.trainer, "save_format", "pt")
             final_checkpoint = os.path.join(self.config.output_dir, "final_model")
             os.makedirs(final_checkpoint, exist_ok=True)
